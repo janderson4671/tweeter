@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), user, authToken);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        ViewPager viewPager = findViewById(R.id.view_pager_main);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs_main);
         tabs.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = findViewById(R.id.fab);

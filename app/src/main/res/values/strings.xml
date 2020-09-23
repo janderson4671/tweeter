@@ -10,6 +10,11 @@
     <string name="storyTabTitle">Story</string>
     <string name="followingTabTitle">Following</string>
     <string name="followersTabTitle">Followers</string>
+    <string name="loginTabTitle">Login</string>
+    <string name="registerTabTitle">Register</string>
+    <string name="loginUsernameHint">username</string>
+    <string name="loginPasswordHint">password</string>
+    <string name="loginButtonText">Login</string>
 
     <string name="sampleAlias">"@UserAlias"</string>
     <string name="sampleUserName">The User</string>
