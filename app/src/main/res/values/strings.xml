@@ -14,7 +14,10 @@
     <string name="registerTabTitle">Register</string>
     <string name="loginUsernameHint">username</string>
     <string name="loginPasswordHint">password</string>
+    <string name="registerFirstNameHint">first name</string>
+    <string name="registerLastNameHint">last name</string>
     <string name="loginButtonText">Login</string>
+    <string name="registerButtonText">Register</string>
 
     <string name="sampleAlias">"@UserAlias"</string>
     <string name="sampleUserName">The User</string>

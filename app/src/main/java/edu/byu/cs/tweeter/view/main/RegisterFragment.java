@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import edu.byu.cs.tweeter.R;
 
-public class LoginFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
-    public static LoginFragment newInstance() {
+    public static RegisterFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        LoginFragment fragment = new LoginFragment();
+        RegisterFragment fragment = new RegisterFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -27,7 +27,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_register, container, false);
 
         //TODO:: Wire widgets and set listeners here!
 

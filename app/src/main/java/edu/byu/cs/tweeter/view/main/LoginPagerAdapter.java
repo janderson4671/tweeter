@@ -13,7 +13,6 @@ public class LoginPagerAdapter extends FragmentPagerAdapter {
 
     private static final int[] TAB_TITLES = new int[] {R.string.loginTabTitle, R.string.registerTabTitle};
     private final int LOGIN_FRAGMENT = 0;
-    private final int REGISTER_FRAGMENT = 1;
     private final Context mContext;
 
     public LoginPagerAdapter(Context context, FragmentManager fm) {
@@ -28,7 +27,7 @@ public class LoginPagerAdapter extends FragmentPagerAdapter {
             return LoginFragment.newInstance();
         }
         else {
-            return PlaceholderFragment.newInstance(position +10);
+            return RegisterFragment.newInstance();
         }
     }
 
