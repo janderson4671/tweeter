@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import edu.byu.cs.tweeter.R;
+import edu.byu.cs.tweeter.view.main.login.LoginFragment;
+import edu.byu.cs.tweeter.view.main.login.RegisterFragment;
 
 public class LoginPagerAdapter extends FragmentPagerAdapter {
 
