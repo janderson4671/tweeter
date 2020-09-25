@@ -63,9 +63,9 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
     }
 
     private void wireWidgets(View v) {
-        editTextUsername = v.findViewById(R.id.loginUsername);
-        editTextPassword = v.findViewById(R.id.loginPassword);
-        loginButton = v.findViewById(R.id.loginButton);
+        editTextUsername = (EditText) v.findViewById(R.id.loginUsername);
+        editTextPassword = (EditText) v.findViewById(R.id.loginPassword);
+        loginButton = (Button) v.findViewById(R.id.loginButton);
     }
 
     private void setListeners() {
@@ -110,7 +110,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
                 loginInToast.show();
 
                 // It doesn't matter what values we put here. We will be logged in with a hard-coded dummy user.
-                LoginRequest loginRequest = new LoginRequest("dummyUserName", "dummyPassword");
+                LoginRequest loginRequest = new LoginRequest(mUsername, mPassword);
                 LoginTask loginTask = new LoginTask(presenter, LoginFragment.this);
                 loginTask.execute(loginRequest);
             }
