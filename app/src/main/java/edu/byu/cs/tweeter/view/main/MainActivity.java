@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
 
         TextView followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText("Following: " + "-42");
+        followeeCount.setText(getString(R.string.followeeCount, 42));
 
         TextView followerCount = findViewById(R.id.followerCount);
-        followerCount.setText("Followers: " + "-42");
+        followerCount.setText(getString(R.string.followerCount, 27));
     }
 }
