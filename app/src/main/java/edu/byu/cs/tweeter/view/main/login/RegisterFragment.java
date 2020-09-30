@@ -1,6 +1,9 @@
 package edu.byu.cs.tweeter.view.main.login;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,15 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import edu.byu.cs.tweeter.R;
+import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import edu.byu.cs.tweeter.presenter.LoginPresenter;
+import edu.byu.cs.tweeter.presenter.RegisterPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
+import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
+import edu.byu.cs.tweeter.view.main.MainActivity;
+
+import static android.app.Activity.RESULT_OK;
 
 //TODO: Have this class implement the presenter and observer classes
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements RegisterPresenter.View, RegisterTask.Observer {
+
+    //Final vars
+    final int REQUEST_IMAGE_CAPTURE = 1;
 
     //data members
     private String firstName;
@@ -30,6 +47,12 @@ public class RegisterFragment extends Fragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Button registerButton;
+    private Button pictureButton;
+
+    //other
+    private RegisterPresenter presenter;
+    private Toast imageToast;
+    private Toast registerToast;
 
 
     public static RegisterFragment newInstance() {
@@ -48,7 +71,7 @@ public class RegisterFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
-        //TODO: Presenter goes here
+        presenter = new RegisterPresenter(this);
 
         wireWidgets(v);
         setListenters();
@@ -62,6 +85,7 @@ public class RegisterFragment extends Fragment {
         editTextUsername = (EditText) v.findViewById(R.id.registerUsername);
         editTextPassword = (EditText) v.findViewById(R.id.registerPassword);
         registerButton = (Button) v.findViewById(R.id.registerButton);
+        pictureButton = (Button) v.findViewById(R.id.pictureButton);
     }
 
     private void setListenters() {
@@ -129,12 +153,64 @@ public class RegisterFragment extends Fragment {
                 //verify and enable
             }
         });
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Start a camera activity
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                try {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                } catch (ActivityNotFoundException e) {
+                    imageToast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG);
+                    imageToast.show();
+                }
+            }
+        });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:: Do the async Register stuff
+                registerToast = Toast.makeText(getActivity(), "Logging In", Toast.LENGTH_LONG);
+                registerToast.show();
+
+                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, password);
+                RegisterTask registerTask = new RegisterTask(presenter, RegisterFragment.this);
+                registerTask.execute(registerRequest);
             }
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+        }
+    }
+
+    @Override
+    public void registerSuccessful(RegisterResponse registerResponse) {
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+
+        intent.putExtra(MainActivity.CURRENT_USER_KEY, registerResponse.getUser());
+        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, registerResponse.getAuthToken());
+
+        registerToast.cancel();
+        startActivity(intent);
+    }
+
+    @Override
+    public void registerUnsuccessful(RegisterResponse registerResponse) {
+        registerToast = Toast.makeText(getActivity(), "Register Unsuccessful", Toast.LENGTH_LONG);
+        registerToast.show();
+    }
+
+    @Override
+    public void handleException(Exception ex) {
+        registerToast = Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG);
+        registerToast.show();
+    }
 }

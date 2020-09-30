@@ -18,6 +18,7 @@
     <string name="registerLastNameHint">last name</string>
     <string name="loginButtonText">Login</string>
     <string name="registerButtonText">Register</string>
+    <string name="takeProfilePicture">Take Profile Picture</string>
 
     <string name="sampleAlias">"@UserAlias"</string>
     <string name="sampleUserName">The User</string>
