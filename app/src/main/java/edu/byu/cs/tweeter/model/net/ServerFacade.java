@@ -10,7 +10,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
@@ -75,7 +75,7 @@ public class ServerFacade {
      *                other information required to satisfy the request.
      * @return the following response.
      */
-    public FollowingResponse getFollowees(FollowRequest request) {
+    public FollowResponse getFollowees(FollowRequest request) {
 
         // Used in place of assert statements because Android does not support them
         if(BuildConfig.DEBUG) {
@@ -83,7 +83,7 @@ public class ServerFacade {
                 throw new AssertionError();
             }
 
-            if(request.getFollower() == null) {
+            if(request.getUser() == null) {
                 throw new AssertionError();
             }
         }
@@ -102,7 +102,7 @@ public class ServerFacade {
             hasMorePages = followeesIndex < allFollowees.size();
         }
 
-        return new FollowingResponse(responseFollowees, hasMorePages);
+        return new FollowResponse(responseFollowees, hasMorePages);
     }
 
     /**
@@ -133,6 +133,8 @@ public class ServerFacade {
 
         return followeesIndex;
     }
+
+
 
     /**
      * Returns the list of dummy followee data. This is written as a separate method to allow

@@ -6,12 +6,12 @@ public class DataRetrievalRequest {
 
     private final User user;
     private final int limit;
-    private final int fragmentType;
+    private final int fragmentCode;
 
-    public DataRetrievalRequest(User user, int limit, int fragmentType) {
+    public DataRetrievalRequest(User user, int limit, int fragmentCode) {
         this.user = user;
         this.limit = limit;
-        this.fragmentType = fragmentType;
+        this.fragmentCode = fragmentCode;
     }
 
     public User getUser() {
@@ -22,8 +22,8 @@ public class DataRetrievalRequest {
         return limit;
     }
 
-    public int getFragmentType() {
-        return fragmentType;
+    public int getFragmentCode() {
+        return fragmentCode;
     }
 
 

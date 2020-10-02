@@ -11,12 +11,12 @@ import java.util.Arrays;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.FollowingService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 
 public class FollowingPresenterTest {
 
     private FollowRequest request;
-    private FollowingResponse response;
+    private FollowResponse response;
     private FollowingService mockFollowingService;
     private FollowingPresenter presenter;
 
@@ -32,7 +32,7 @@ public class FollowingPresenterTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         request = new FollowRequest(currentUser, 3, null);
-        response = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
+        response = new FollowResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
         // Create a mock FollowingService
         mockFollowingService = Mockito.mock(FollowingService.class);

@@ -5,13 +5,13 @@ import android.os.AsyncTask;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 
 /**
  * An {@link AsyncTask} for retrieving followees for a user.
  */
-public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowingResponse> {
+public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
 
     private final FollowingPresenter presenter;
     private final Observer observer;
@@ -22,7 +22,7 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowingRe
      * completes.
      */
     public interface Observer {
-        void followeesRetrieved(FollowingResponse followingResponse);
+        void followeesRetrieved(FollowResponse followResponse);
         void handleException(Exception exception);
     }
 
@@ -49,9 +49,9 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowingRe
      * @return the response.
      */
     @Override
-    protected FollowingResponse doInBackground(FollowRequest... followRequests) {
+    protected FollowResponse doInBackground(FollowRequest... followRequests) {
 
-        FollowingResponse response = null;
+        FollowResponse response = null;
 
         try {
             response = presenter.getFollowing(followRequests[0]);
@@ -65,14 +65,14 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowingRe
     /**
      * Notifies the observer (on the UI thread) when the task completes.
      *
-     * @param followingResponse the response that was received by the task.
+     * @param followResponse the response that was received by the task.
      */
     @Override
-    protected void onPostExecute(FollowingResponse followingResponse) {
+    protected void onPostExecute(FollowResponse followResponse) {
         if(exception != null) {
             observer.handleException(exception);
         } else {
-            observer.followeesRetrieved(followingResponse);
+            observer.followeesRetrieved(followResponse);
         }
     }
 }

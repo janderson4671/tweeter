@@ -5,7 +5,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 /**
@@ -22,8 +22,8 @@ public class FollowingService {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowingResponse getFollowees(FollowRequest request) throws IOException {
-        FollowingResponse response = getServerFacade().getFollowees(request);
+    public FollowResponse getFollowees(FollowRequest request) throws IOException {
+        FollowResponse response = getServerFacade().getFollowees(request);
 
         if(response.isSuccess()) {
             loadImages(response);
@@ -37,7 +37,7 @@ public class FollowingService {
      *
      * @param response the response from the followee request.
      */
-    private void loadImages(FollowingResponse response) throws IOException {
+    private void loadImages(FollowResponse response) throws IOException {
         for(User user : response.getFollowees()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
             user.setImageBytes(bytes);

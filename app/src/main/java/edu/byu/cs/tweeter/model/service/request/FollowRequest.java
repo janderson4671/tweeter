@@ -6,10 +6,8 @@ import edu.byu.cs.tweeter.model.domain.User;
  * Contains all the information needed to make a request to have the server return the next page of
  * followees for a specified follower.
  */
-public class FollowRequest {
+public class FollowRequest extends DataRetrievalRequest{
 
-    private final User follower;
-    private final int limit;
     private final User lastFollowee;
 
     /**
@@ -21,28 +19,10 @@ public class FollowRequest {
      *                     there was no previous request or if no followees were returned in the
      *                     previous request).
      */
-    public FollowRequest(User follower, int limit, User lastFollowee) {
-        this.follower = follower;
-        this.limit = limit;
+    public FollowRequest(User follower, int limit, User lastFollowee, int fragmentCode) {
+        super(follower, limit, fragmentCode);
+
         this.lastFollowee = lastFollowee;
-    }
-
-    /**
-     * Returns the follower whose followees are to be returned by this request.
-     *
-     * @return the follower.
-     */
-    public User getFollower() {
-        return follower;
-    }
-
-    /**
-     * Returns the number representing the maximum number of followees to be returned by this request.
-     *
-     * @return the limit.
-     */
-    public int getLimit() {
-        return limit;
     }
 
     /**

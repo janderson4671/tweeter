@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.FollowingService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 
 /**
  * The presenter for the "following" functionality of the application.
@@ -37,7 +37,7 @@ public class FollowingPresenter {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowingResponse getFollowing(FollowRequest request) throws IOException {
+    public FollowResponse getFollowing(FollowRequest request) throws IOException {
         FollowingService followingService = getFollowingService();
         return followingService.getFollowees(request);
     }
