@@ -10,13 +10,13 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
 public class FollowingServiceTest {
 
-    private FollowingRequest validRequest;
-    private FollowingRequest invalidRequest;
+    private FollowRequest validRequest;
+    private FollowRequest invalidRequest;
 
     private FollowingResponse successResponse;
     private FollowingResponse failureResponse;
@@ -39,8 +39,8 @@ public class FollowingServiceTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowingRequest(currentUser, 3, null);
-        invalidRequest = new FollowingRequest(null, 0, null);
+        validRequest = new FollowRequest(currentUser, 3, null);
+        invalidRequest = new FollowRequest(null, 0, null);
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
@@ -56,7 +56,7 @@ public class FollowingServiceTest {
     }
 
     /**
-     * Verify that for successful requests the {@link FollowingService#getFollowees(FollowingRequest)}
+     * Verify that for successful requests the {@link FollowingService#getFollowees(FollowRequest)}
      * method returns the same result as the {@link ServerFacade}.
      * .
      *
@@ -69,7 +69,7 @@ public class FollowingServiceTest {
     }
 
     /**
-     * Verify that the {@link FollowingService#getFollowees(FollowingRequest)} method loads the
+     * Verify that the {@link FollowingService#getFollowees(FollowRequest)} method loads the
      * profile image of each user included in the result.
      *
      * @throws IOException if an IO error occurs.
@@ -84,7 +84,7 @@ public class FollowingServiceTest {
     }
 
     /**
-     * Verify that for failed requests the {@link FollowingService#getFollowees(FollowingRequest)}
+     * Verify that for failed requests the {@link FollowingService#getFollowees(FollowRequest)}
      * method returns the same result as the {@link ServerFacade}.
      *
      * @throws IOException if an IO error occurs.

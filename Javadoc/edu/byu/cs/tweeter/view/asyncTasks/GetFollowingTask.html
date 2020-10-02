@@ -200,7 +200,7 @@ extends android.os.AsyncTask&lt;<a href="../../../../../../edu/byu/cs/tweeter/mo
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../edu/byu/cs/tweeter/model/service/response/FollowingResponse.html" title="class in edu.byu.cs.tweeter.model.service.response">FollowingResponse</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/view/asyncTasks/GetFollowingTask.html#doInBackground-edu.byu.cs.tweeter.model.service.request.FollowingRequest...-">doInBackground</a></span>(<a href="../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" title="class in edu.byu.cs.tweeter.model.service.request">FollowingRequest</a>...&nbsp;followingRequests)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/view/asyncTasks/GetFollowingTask.html#doInBackground-edu.byu.cs.tweeter.model.service.request.FollowRequest...-">doInBackground</a></span>(<a href="../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" title="class in edu.byu.cs.tweeter.model.service.request">FollowingRequest</a>...&nbsp;followRequests)</code>
 <div class="block">The method that is invoked on the background thread to retrieve followees.</div>
 </td>
 </tr>
@@ -263,20 +263,20 @@ extends android.os.AsyncTask&lt;<a href="../../../../../../edu/byu/cs/tweeter/mo
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="doInBackground-edu.byu.cs.tweeter.model.service.request.FollowingRequest...-">
+<a name="doInBackground-edu.byu.cs.tweeter.model.service.request.FollowRequest...-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>doInBackground</h4>
-<pre>protected&nbsp;<a href="../../../../../../edu/byu/cs/tweeter/model/service/response/FollowingResponse.html" title="class in edu.byu.cs.tweeter.model.service.response">FollowingResponse</a>&nbsp;doInBackground(<a href="../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" title="class in edu.byu.cs.tweeter.model.service.request">FollowingRequest</a>...&nbsp;followingRequests)</pre>
+<pre>protected&nbsp;<a href="../../../../../../edu/byu/cs/tweeter/model/service/response/FollowingResponse.html" title="class in edu.byu.cs.tweeter.model.service.response">FollowingResponse</a>&nbsp;doInBackground(<a href="../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" title="class in edu.byu.cs.tweeter.model.service.request">FollowingRequest</a>...&nbsp;followRequests)</pre>
 <div class="block">The method that is invoked on the background thread to retrieve followees. This method is
  invoked indirectly by calling <code>#execute(FollowingRequest...)</code>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>doInBackground</code>&nbsp;in class&nbsp;<code>android.os.AsyncTask&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" title="class in edu.byu.cs.tweeter.model.service.request">FollowingRequest</a>,java.lang.Void,<a href="../../../../../../edu/byu/cs/tweeter/model/service/response/FollowingResponse.html" title="class in edu.byu.cs.tweeter.model.service.response">FollowingResponse</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>followingRequests</code> - the request object (there will only be one).</dd>
+<dd><code>followRequests</code> - the request object (there will only be one).</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the response.</dd>
 </dl>

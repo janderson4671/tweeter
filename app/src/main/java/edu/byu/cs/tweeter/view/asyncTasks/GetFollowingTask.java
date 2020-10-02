@@ -4,14 +4,14 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 
 /**
  * An {@link AsyncTask} for retrieving followees for a user.
  */
-public class GetFollowingTask extends AsyncTask<FollowingRequest, Void, FollowingResponse> {
+public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowingResponse> {
 
     private final FollowingPresenter presenter;
     private final Observer observer;
@@ -43,18 +43,18 @@ public class GetFollowingTask extends AsyncTask<FollowingRequest, Void, Followin
 
     /**
      * The method that is invoked on the background thread to retrieve followees. This method is
-     * invoked indirectly by calling {@link #execute(FollowingRequest...)}.
+     * invoked indirectly by calling {@link #execute(FollowRequest...)}.
      *
-     * @param followingRequests the request object (there will only be one).
+     * @param followRequests the request object (there will only be one).
      * @return the response.
      */
     @Override
-    protected FollowingResponse doInBackground(FollowingRequest... followingRequests) {
+    protected FollowingResponse doInBackground(FollowRequest... followRequests) {
 
         FollowingResponse response = null;
 
         try {
-            response = presenter.getFollowing(followingRequests[0]);
+            response = presenter.getFollowing(followRequests[0]);
         } catch (IOException ex) {
             exception = ex;
         }

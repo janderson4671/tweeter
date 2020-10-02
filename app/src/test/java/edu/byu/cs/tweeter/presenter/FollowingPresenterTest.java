@@ -10,12 +10,12 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.FollowingService;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
 public class FollowingPresenterTest {
 
-    private FollowingRequest request;
+    private FollowRequest request;
     private FollowingResponse response;
     private FollowingService mockFollowingService;
     private FollowingPresenter presenter;
@@ -31,7 +31,7 @@ public class FollowingPresenterTest {
         User resultUser3 = new User("FirstName3", "LastName3",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
-        request = new FollowingRequest(currentUser, 3, null);
+        request = new FollowRequest(currentUser, 3, null);
         response = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
         // Create a mock FollowingService

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
@@ -22,7 +22,7 @@ public class FollowingService {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowingResponse getFollowees(FollowingRequest request) throws IOException {
+    public FollowingResponse getFollowees(FollowRequest request) throws IOException {
         FollowingResponse response = getServerFacade().getFollowees(request);
 
         if(response.isSuccess()) {
