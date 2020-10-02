@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +24,20 @@ import java.util.List;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.request.DataRetrievalRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.response.DataRetrievalResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.presenter.DataRetrievalPresenter;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.DataRetrievalTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
  * The fragment that displays on the 'Following' tab.
  */
-public class FollowingFragment extends Fragment implements FollowingPresenter.View {
+public class FollowingFragment extends Fragment implements DataRetrievalPresenter.View {
 
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
@@ -45,7 +50,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
     private User user;
     private AuthToken authToken;
-    private FollowingPresenter presenter;
+    private DataRetrievalPresenter presenter;
 
     private FollowingRecyclerViewAdapter followingRecyclerViewAdapter;
 
@@ -77,7 +82,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
         user = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
-        presenter = new FollowingPresenter(this);
+        presenter = new DataRetrievalPresenter(this);
 
         RecyclerView followingRecyclerView = view.findViewById(R.id.followingRecyclerView);
 
@@ -136,7 +141,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
     /**
      * The adapter for the RecyclerView that displays the Following data.
      */
-    private class FollowingRecyclerViewAdapter extends RecyclerView.Adapter<FollowingHolder> implements GetFollowingTask.Observer {
+    private class FollowingRecyclerViewAdapter extends RecyclerView.Adapter<FollowingHolder> implements DataRetrievalTask.Observer {
 
         private final List<User> users = new ArrayList<>();
 
@@ -255,23 +260,23 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             isLoading = true;
             addLoadingFooter();
 
-            GetFollowingTask getFollowingTask = new GetFollowingTask(presenter, this);
-            FollowRequest request = new FollowRequest(user, PAGE_SIZE, lastFollowee, 3);
-            getFollowingTask.execute(request);
+            DataRetrievalTask dataRetrievalTask = new DataRetrievalTask(presenter, this);
+            DataRetrievalRequest request = new DataRetrievalRequest(user, PAGE_SIZE, 3, lastFollowee);
+            dataRetrievalTask.execute(request);
         }
 
         /**
          * A callback indicating more following data has been received. Loads the new followees
          * and removes the loading footer.
          *
-         * @param followResponse the asynchronous response to the request to load more items.
+         * @param response the asynchronous response to the request to load more items.
          */
         @Override
-        public void followeesRetrieved(FollowResponse followResponse) {
-            List<User> followees = followResponse.getFollowees();
+        public void dataRetrieved(DataRetrievalResponse response) {
+            List<User> followees = response.getData();
 
             lastFollowee = (followees.size() > 0) ? followees.get(followees.size() -1) : null;
-            hasMorePages = followResponse.getHasMorePages();
+            hasMorePages = response.getHasMorePages();
 
             isLoading = false;
             removeLoadingFooter();

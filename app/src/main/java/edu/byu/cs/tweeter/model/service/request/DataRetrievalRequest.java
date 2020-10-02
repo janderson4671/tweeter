@@ -8,10 +8,13 @@ public class DataRetrievalRequest {
     private final int limit;
     private final int fragmentCode;
 
-    public DataRetrievalRequest(User user, int limit, int fragmentCode) {
+    private final Object lastElement;
+
+    public DataRetrievalRequest(User user, int limit, int fragmentCode, Object lastElement) {
         this.user = user;
         this.limit = limit;
         this.fragmentCode = fragmentCode;
+        this.lastElement = lastElement;
     }
 
     public User getUser() {
@@ -26,5 +29,8 @@ public class DataRetrievalRequest {
         return fragmentCode;
     }
 
+    public Object getLastElement() {
+        return lastElement;
+    }
 
 }

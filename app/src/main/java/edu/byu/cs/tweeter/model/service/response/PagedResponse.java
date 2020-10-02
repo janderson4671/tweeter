@@ -3,7 +3,7 @@ package edu.byu.cs.tweeter.model.service.response;
 /**
  * A response that can indicate whether there is more data available from the server.
  */
-public class PagedResponse extends DataRetrievalResponse {
+public class PagedResponse extends Response {
 
     private final boolean hasMorePages;
 
