@@ -22,7 +22,7 @@ public class UserHolder extends RecyclerView.ViewHolder {
      *
      * @param itemView the view on which the user will be displayed.
      */
-    UserHolder(@NonNull View itemView) {
+    public UserHolder(@NonNull View itemView) {
         super(itemView);
 
         userImage = itemView.findViewById(R.id.userImage);
@@ -42,7 +42,7 @@ public class UserHolder extends RecyclerView.ViewHolder {
      *
      * @param user the user.
      */
-    void bindUser(User user) {
+    public void bindUser(User user) {
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
