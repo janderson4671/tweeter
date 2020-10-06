@@ -105,6 +105,36 @@ public class ServerFacade {
         return new FollowResponse(responseFollowees, hasMorePages);
     }
 
+    public FollowResponse getFollowers(FollowRequest request) {
+
+        //used in place of assert statements becasue Android does not support them
+        if (BuildConfig.DEBUG) {
+            if (request.getLimit() < 0) {
+                throw new AssertionError();
+            }
+
+            if (request.getUser() == null) {
+                throw new AssertionError();
+            }
+        }
+
+        List<User> allFollowers = getDummyFollowees();
+        List<User> responseFollowers = new ArrayList<>(request.getLimit());
+
+        boolean hasMorePages = false;
+
+        if (request.getLimit() > 0) {
+            int followeesIndex = getFolloweesStartingIndex(request.getLastFollowee(), allFollowers);
+
+            for(int limitCounter = 0; followeesIndex < allFollowers.size() && limitCounter < request.getLimit(); followeesIndex++, limitCounter++) {
+                responseFollowers.add(allFollowers.get(followeesIndex));
+            }
+            hasMorePages = followeesIndex < allFollowers.size();
+        }
+
+        return new FollowResponse(responseFollowers, hasMorePages);
+    }
+
     /**
      * Determines the index for the first followee in the specified 'allFollowees' list that should
      * be returned in the current request. This will be the index of the next followee after the

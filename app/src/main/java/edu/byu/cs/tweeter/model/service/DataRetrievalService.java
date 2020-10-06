@@ -12,10 +12,15 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class DataRetrievalService {
 
+    private final int FOLLOWING_FRAG = 2;
+    private final int FOLLOWER_FRAG = 3;
+
     public DataRetrievalResponse getData(DataRetrievalRequest request) throws IOException {
 
-        if (request.getFragmentCode() == 3) {
+        if (request.getFragmentCode() == FOLLOWING_FRAG) {
             return getFolloweesService(request);
+        } else if (request.getFragmentCode() == FOLLOWER_FRAG) {
+            return getFollowersService(request);
         }
 
         return null;
@@ -28,6 +33,19 @@ public class DataRetrievalService {
         FollowResponse response = getServerFacade().getFollowees(request);
 
         if(response.isSuccess()) {
+            loadImages(response);
+        }
+
+        return new DataRetrievalResponse(response.getFollowees(), response.getHasMorePages());
+    }
+
+    private DataRetrievalResponse getFollowersService(DataRetrievalRequest dataRequest) throws IOException {
+        FollowRequest request = new FollowRequest(dataRequest.getUser(), dataRequest.getLimit(),
+                (User) dataRequest.getLastElement());
+
+        FollowResponse response = getServerFacade().getFollowers(request);
+
+        if (response.isSuccess()) {
             loadImages(response);
         }
 

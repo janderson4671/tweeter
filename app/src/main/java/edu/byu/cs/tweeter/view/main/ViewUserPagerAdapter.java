@@ -14,31 +14,33 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowerFragment;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowingFragment;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to one of the sections/tabs/pages
- * of the Main Activity.
- */
-class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class ViewUserPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int FOLLOWING_FRAGMENT_POSITION = 2;
-    private static final int FOLLOWER_FRAGMENT_POSITION = 3;
+    private static final int STORY_FRAGMENT_POSOTION = 0;
+    private static final int FOLLOWING_FRAGMENT_POSITION = 1;
+    private static final int FOLLOWER_FRAGMENT_POSITION = 2;
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.feedTabTitle, R.string.storyTabTitle, R.string.followingTabTitle, R.string.followersTabTitle};
+    private static final int[] TAB_TITLES = new int[]{R.string.storyTabTitle, R.string.followingTabTitle, R.string.followersTabTitle};
     private final Context mContext;
     private final User user;
+    private final User userBeingViewed;
     private final AuthToken authToken;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, User user, AuthToken authToken) {
+    public ViewUserPagerAdapter(Context context, FragmentManager fm, User user, User userBeingViewed, AuthToken authToken) {
         super(fm);
         mContext = context;
         this.user = user;
         this.authToken = authToken;
+        this.userBeingViewed = userBeingViewed;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == FOLLOWING_FRAGMENT_POSITION) {
+        if (position == STORY_FRAGMENT_POSOTION) {
+            //TODO::Make Story Fragment
+            return PlaceholderFragment.newInstance(position + 1);
+        } else if (position == FOLLOWING_FRAGMENT_POSITION) {
             return FollowingFragment.newInstance(user, authToken);
         } else if (position == FOLLOWER_FRAGMENT_POSITION) {
             return FollowerFragment.newInstance(user, authToken);
@@ -50,12 +52,12 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        return mContext.getResources().getString((TAB_TITLES[position]));
     }
 
     @Override
     public int getCount() {
-        // Show 4 total pages.
-        return 4;
+        //show 3 pages
+        return 3;
     }
 }

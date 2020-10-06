@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,12 @@ public class UserHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO:: Call the UserActivity Here
+                Intent intent = new Intent(view.getContext(), ViewUserActivity.class);
+                User tempUser = new User("Jason", "Anderson",
+                        "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
+                intent.putExtra(MainActivity.CURRENT_USER_KEY, tempUser);
+
+                view.getContext().startActivity(intent);
             }
         });
     }
