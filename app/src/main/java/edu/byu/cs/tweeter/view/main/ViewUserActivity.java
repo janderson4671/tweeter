@@ -16,18 +16,19 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class ViewUserActivity extends AppCompatActivity {
 
-    public static final String CURRENT_USER_KEY = "CurrentUser";
-    public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
     public static final String VIEWED_USER_KEY = "ViewedUser";
+
+    private ViewData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_user);
 
-        //Validate User
-        User superUser = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
-        AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
+        data = ViewData.getData();
+
+        User user = data.getLoggedInUser();
+        AuthToken authToken = data.getAuthToken();
 
         User viewedUser = (User) getIntent().getSerializableExtra(VIEWED_USER_KEY);
 

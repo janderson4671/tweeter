@@ -26,6 +26,7 @@ import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;
+import edu.byu.cs.tweeter.view.main.ViewData;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -195,8 +196,8 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
 
         Intent intent = new Intent(getActivity(), MainActivity.class);
 
-        intent.putExtra(MainActivity.CURRENT_USER_KEY, registerResponse.getUser());
-        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, registerResponse.getAuthToken());
+        ViewData.getData();
+        ViewData.setLoggedInUser(registerResponse.getUser(), registerResponse.getAuthToken());
 
         registerToast.cancel();
         startActivity(intent);

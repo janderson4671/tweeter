@@ -39,7 +39,6 @@ public class UserHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ViewUserActivity.class);
                 intent.putExtra(ViewUserActivity.VIEWED_USER_KEY, user);
-                //TODO:: add the super user here!
 
                 view.getContext().startActivity(intent);
             }

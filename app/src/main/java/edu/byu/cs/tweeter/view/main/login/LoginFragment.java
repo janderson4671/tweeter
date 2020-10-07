@@ -22,6 +22,7 @@ import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;
+import edu.byu.cs.tweeter.view.main.ViewData;
 
 public class LoginFragment extends Fragment implements LoginPresenter.View, LoginTask.Observer{
 
@@ -126,8 +127,8 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
     public void loginSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(getActivity(), MainActivity.class);
 
-        intent.putExtra(MainActivity.CURRENT_USER_KEY, loginResponse.getUser());
-        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken());
+        ViewData.getData();
+        ViewData.setLoggedInUser(loginResponse.getUser(), loginResponse.getAuthToken());
 
         loginInToast.cancel();
         startActivity(intent);

@@ -19,6 +19,7 @@ import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.main.LoginPagerAdapter;
 import edu.byu.cs.tweeter.view.main.MainActivity;
+import edu.byu.cs.tweeter.view.main.ViewData;
 
 /**
  * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all
