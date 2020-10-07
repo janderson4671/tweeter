@@ -2,16 +2,15 @@ package edu.byu.cs.tweeter.view.main.mainFragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -23,21 +22,16 @@ import edu.byu.cs.tweeter.model.service.response.DataRetrievalResponse;
 import edu.byu.cs.tweeter.presenter.DataRetrievalPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.DataRetrievalTask;
 import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
+import edu.byu.cs.tweeter.view.main.StatusHolder;
 import edu.byu.cs.tweeter.view.main.UserHolder;
 import edu.byu.cs.tweeter.view.main.ViewData;
 
-/**
- * The fragment that displays on the 'Following' tab.
- */
-public class FollowingFragment extends Fragment implements DataRetrievalPresenter.View {
+public class FeedFragment extends Fragment implements DataRetrievalPresenter.View{
 
-    private static final String LOG_TAG = "FollowingFragment";
-    private static final String USER_KEY = "UserKey";
-    private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
-    private static final int FRAGMENT_CODE = 2;
+    private static final String LOG_TAG = "FeedFragment";
+    private static final int FRAGMENT_CODE = 0;
 
     private static final int LOADING_DATA_VIEW = 0;
-
     private static final int PAGE_SIZE = 12;
 
     private User user;
@@ -46,28 +40,17 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
 
     private ViewData data;
 
-    /**
-     * Creates an instance of the fragment and places the user and auth token in an arguments
-     * bundle assigned to the fragment.
-     *
-     * @param user      the logged in user.
-     * @param authToken the auth token for this user's session.
-     * @return the fragment.
-     */
-    public static FollowingFragment newInstance(User user, AuthToken authToken) {
-        FollowingFragment fragment = new FollowingFragment();
+    public static FeedFragment newInstance(User user, AuthToken authToken) {
+        FeedFragment fragment = new FeedFragment();
 
         Bundle args = new Bundle(2);
-        args.putSerializable(USER_KEY, user);
-        args.putSerializable(AUTH_TOKEN_KEY, authToken);
 
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_following, container, false);
 
         data = ViewData.getData();
@@ -79,23 +62,21 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
-        FollowingView followingView = new FollowingView(getContext(), recyclerView);
-
         return view;
     }
 
-    private class FollowingView extends PagedRecyclerView<UserHolder, User> {
+    private class FeedView extends PagedRecyclerView<UserHolder, User> {
 
-        public FollowingView(Context context, RecyclerView recyclerView) {
+        public FeedView(Context context, RecyclerView recyclerView) {
             super(context, recyclerView);
 
             //Set the Adapter
-            pagedRecyclerViewAdapter = new FollowingViewAdapter();
+            pagedRecyclerViewAdapter = new FeedViewAdapter();
             recyclerView.setAdapter(pagedRecyclerViewAdapter);
 
         }
 
-        class FollowingViewAdapter extends PagedRecyclerViewAdapter implements DataRetrievalTask.Observer {
+        class FeedViewAdapter extends PagedRecyclerViewAdapter implements DataRetrievalTask.Observer {
 
             @Override
             protected void loadMoreItems() {
@@ -156,4 +137,5 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
         }
 
     }
+
 }

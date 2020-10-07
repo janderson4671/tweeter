@@ -73,7 +73,7 @@ public class FollowerFragment extends Fragment implements DataRetrievalPresenter
 
         presenter = new DataRetrievalPresenter(this);
 
-        RecyclerView recyclerView = view.findViewById(R.id.followingRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         FollowerView followingView = new FollowerView(getContext(), recyclerView);
 

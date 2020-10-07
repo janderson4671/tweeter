@@ -30,7 +30,6 @@ import edu.byu.cs.tweeter.view.main.ViewData;
 
 import static android.app.Activity.RESULT_OK;
 
-//TODO: Have this class implement the presenter and observer classes
 public class RegisterFragment extends Fragment implements RegisterPresenter.View, RegisterTask.Observer {
 
     //Final vars

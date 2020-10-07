@@ -13,6 +13,8 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class StatusHolder extends RecyclerView.ViewHolder {
 
+    private User user;
+
     private final ImageView userImage;
     private final TextView userAlias;
     private final TextView userName;
@@ -43,6 +45,9 @@ public class StatusHolder extends RecyclerView.ViewHolder {
      * @param user the user.
      */
     public void bindUser(User user) {
+
+        this.user = user;
+
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
