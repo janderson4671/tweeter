@@ -37,6 +37,10 @@ abstract public class PagedRecyclerView<HolderType extends RecyclerView.ViewHold
         recyclerView.addOnScrollListener(new PagedRecyclerViewPaginationScrollListener(layoutManager));
     }
 
+    public List<DataType> getList() {
+        return itemList;
+    }
+
     abstract protected class PagedRecyclerViewAdapter extends RecyclerView.Adapter<HolderType> {
 
         public PagedRecyclerViewAdapter() {

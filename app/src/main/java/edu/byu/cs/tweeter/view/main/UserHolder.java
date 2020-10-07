@@ -14,6 +14,8 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class UserHolder extends RecyclerView.ViewHolder {
 
+    private User user;
+
     private final ImageView userImage;
     private final TextView userAlias;
     private final TextView userName;
@@ -30,13 +32,14 @@ public class UserHolder extends RecyclerView.ViewHolder {
         userAlias = itemView.findViewById(R.id.userAlias);
         userName = itemView.findViewById(R.id.userName);
 
+        user = null;
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ViewUserActivity.class);
-                User tempUser = new User("Jason", "Anderson",
-                        "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-                intent.putExtra(MainActivity.CURRENT_USER_KEY, tempUser);
+                intent.putExtra(ViewUserActivity.VIEWED_USER_KEY, user);
+                //TODO:: add the super user here!
 
                 view.getContext().startActivity(intent);
             }
@@ -49,6 +52,7 @@ public class UserHolder extends RecyclerView.ViewHolder {
      * @param user the user.
      */
     public void bindUser(User user) {
+        this.user = user;
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
