@@ -19,9 +19,11 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.DataRetrievalRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.DataRetrievalResponse;
-import edu.byu.cs.tweeter.presenter.DataRetrievalPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.DataRetrievalTask;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.presenter.FollowingPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
 import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.UserHolder;
 import edu.byu.cs.tweeter.view.main.ViewData;
@@ -29,7 +31,7 @@ import edu.byu.cs.tweeter.view.main.ViewData;
 /**
  * The fragment that displays on the 'Following' tab.
  */
-public class FollowingFragment extends Fragment implements DataRetrievalPresenter.View {
+public class FollowingFragment extends Fragment implements FollowingPresenter.View {
 
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
@@ -42,7 +44,7 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
 
     private User user;
     private AuthToken authToken;
-    private DataRetrievalPresenter presenter;
+    private FollowingPresenter presenter;
 
     private ViewData data;
 
@@ -75,7 +77,7 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
         user = data.getLoggedInUser();
         authToken = data.getAuthToken();
 
-        presenter = new DataRetrievalPresenter(this);
+        presenter = new FollowingPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -95,16 +97,16 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
 
         }
 
-        class FollowingViewAdapter extends PagedRecyclerViewAdapter implements DataRetrievalTask.Observer {
+        class FollowingViewAdapter extends PagedRecyclerViewAdapter implements FollowTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                DataRetrievalTask dataRetrievalTask = new DataRetrievalTask(presenter, this);
-                DataRetrievalRequest request = new DataRetrievalRequest(user, PAGE_SIZE, FRAGMENT_CODE, lastItem);
-                dataRetrievalTask.execute(request);
+                FollowTask followTask = new FollowTask(presenter, this);
+                FollowRequest request = new FollowRequest(user, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                followTask.execute(request);
             }
 
             @Override
@@ -136,8 +138,8 @@ public class FollowingFragment extends Fragment implements DataRetrievalPresente
             }
 
             @Override
-            public void dataRetrieved(DataRetrievalResponse response) {
-                List<User> followees = response.getData();
+            public void dataRetrieved(FollowResponse response) {
+                List<User> followees = response.getFollowees();
 
                 lastItem = (followees.size() > 0) ? followees.get(followees.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();

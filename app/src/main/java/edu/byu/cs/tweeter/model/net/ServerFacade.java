@@ -1,18 +1,23 @@
 package edu.byu.cs.tweeter.model.net;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.request.StatusRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import edu.byu.cs.tweeter.model.service.response.StatusResponse;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through
@@ -24,6 +29,8 @@ public class ServerFacade {
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
     private static final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
 
+
+    //Dummy Users
     private final User user1 = new User("Allen", "Anderson", MALE_IMAGE_URL);
     private final User user2 = new User("Amy", "Ames", FEMALE_IMAGE_URL);
     private final User user3 = new User("Bob", "Bobson", MALE_IMAGE_URL);
@@ -44,6 +51,29 @@ public class ServerFacade {
     private final User user18 = new User("Isabel", "Isaacson", FEMALE_IMAGE_URL);
     private final User user19 = new User("Justin", "Jones", MALE_IMAGE_URL);
     private final User user20 = new User("Jill", "Johnson", FEMALE_IMAGE_URL);
+
+    //Dummy Statuses
+    private final Status stat1 = new Status(user1, "test", new Date(System.currentTimeMillis()));
+    private final Status stat2 = new Status(user2, "test", new Date(System.currentTimeMillis()));
+    private final Status stat3 = new Status(user3, "test", new Date(System.currentTimeMillis()));
+    private final Status stat4 = new Status(user4, "test", new Date(System.currentTimeMillis()));
+    private final Status stat5 = new Status(user5, "test", new Date(System.currentTimeMillis()));
+    private final Status stat6 = new Status(user6, "test", new Date(System.currentTimeMillis()));
+    private final Status stat7 = new Status(user7, "test", new Date(System.currentTimeMillis()));
+    private final Status stat8 = new Status(user8, "test", new Date(System.currentTimeMillis()));
+    private final Status stat9 = new Status(user9, "test", new Date(System.currentTimeMillis()));
+    private final Status stat10 = new Status(user10, "test", new Date(System.currentTimeMillis()));
+    private final Status stat11 = new Status(user11, "test", new Date(System.currentTimeMillis()));
+    private final Status stat12 = new Status(user12, "test", new Date(System.currentTimeMillis()));
+    private final Status stat13 = new Status(user13, "test", new Date(System.currentTimeMillis()));
+    private final Status stat14 = new Status(user14, "test", new Date(System.currentTimeMillis()));
+    private final Status stat15 = new Status(user15, "test", new Date(System.currentTimeMillis()));
+    private final Status stat16 = new Status(user16, "test", new Date(System.currentTimeMillis()));
+    private final Status stat17 = new Status(user17, "test", new Date(System.currentTimeMillis()));
+    private final Status stat18 = new Status(user18, "test", new Date(System.currentTimeMillis()));
+    private final Status stat19 = new Status(user19, "test", new Date(System.currentTimeMillis()));
+    private final Status stat20 = new Status(user20, "test", new Date(System.currentTimeMillis()));
+
 
     /**
      * Performs a login and if successful, returns the logged in user and an auth token. The current
@@ -135,6 +165,39 @@ public class ServerFacade {
         return new FollowResponse(responseFollowers, hasMorePages);
     }
 
+    public StatusResponse getFeed(StatusRequest request) {
+        //used in place of assert statements becasue Android does not support them
+        if (BuildConfig.DEBUG) {
+            if (request.getLimit() < 0) {
+                throw new AssertionError();
+            }
+
+            if (request.getUser() == null) {
+                throw new AssertionError();
+            }
+        }
+
+        List<Status> allStatuses = getDummyStatuses();
+        List<Status> responseStatuses = new ArrayList<>(request.getLimit());
+
+        boolean hasMorePages = false;
+
+        if (request.getLimit() > 0) {
+            int statusIndex = getStatusStartingIndex(request.getLastStatus(), allStatuses);
+
+            for (int limitCounter = 0; statusIndex < allStatuses.size() && limitCounter < request.getLimit(); statusIndex++, limitCounter++) {
+                responseStatuses.add(allStatuses.get(statusIndex));
+            }
+            hasMorePages = statusIndex < allStatuses.size();
+        }
+
+        return new StatusResponse(responseStatuses, hasMorePages);
+    }
+
+//    public StatusResponse getStory(StatusRequest request) {
+//
+//    }
+
     /**
      * Determines the index for the first followee in the specified 'allFollowees' list that should
      * be returned in the current request. This will be the index of the next followee after the
@@ -164,6 +227,25 @@ public class ServerFacade {
         return followeesIndex;
     }
 
+    private int getStatusStartingIndex(Status lastStatus, List<Status> allStatuses) {
+
+        int statusIndex = 0;
+
+        if(lastStatus != null) {
+            // This is a paged request for something after the first page. Find the first item
+            // we should return
+            for (int i = 0; i < allStatuses.size(); i++) {
+                if(lastStatus.equals(allStatuses.get(i))) {
+                    // We found the index of the last item returned last time. Increment to get
+                    // to the first one we should return
+                    statusIndex = i + 1;
+                }
+            }
+        }
+
+        return statusIndex;
+    }
+
 
 
     /**
@@ -176,5 +258,10 @@ public class ServerFacade {
         return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
                 user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,
                 user19, user20);
+    }
+
+    List<Status> getDummyStatuses() {
+        return Arrays.asList(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9,
+                stat10, stat11, stat12, stat13, stat14, stat15, stat16, stat17, stat18, stat19, stat20);
     }
 }

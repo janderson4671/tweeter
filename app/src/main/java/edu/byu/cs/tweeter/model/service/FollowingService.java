@@ -51,7 +51,7 @@ public class FollowingService {
      *
      * @return the instance.
      */
-    ServerFacade getServerFacade() {
+    private ServerFacade getServerFacade() {
         return new ServerFacade();
     }
 }

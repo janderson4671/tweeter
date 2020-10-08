@@ -12,21 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.DataRetrievalRequest;
+import edu.byu.cs.tweeter.model.service.request.StatusRequest;
 import edu.byu.cs.tweeter.model.service.response.DataRetrievalResponse;
-import edu.byu.cs.tweeter.presenter.DataRetrievalPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.DataRetrievalTask;
+import edu.byu.cs.tweeter.model.service.response.StatusResponse;
+import edu.byu.cs.tweeter.presenter.StatusPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
 import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.StatusHolder;
 import edu.byu.cs.tweeter.view.main.UserHolder;
 import edu.byu.cs.tweeter.view.main.ViewData;
 
-public class FeedFragment extends Fragment implements DataRetrievalPresenter.View{
+public class FeedFragment extends Fragment implements StatusPresenter.View{
 
     private static final String LOG_TAG = "FeedFragment";
     private static final int FRAGMENT_CODE = 0;
@@ -36,7 +40,7 @@ public class FeedFragment extends Fragment implements DataRetrievalPresenter.Vie
 
     private User user;
     private AuthToken authToken;
-    private DataRetrievalPresenter presenter;
+    private StatusPresenter presenter;
 
     private ViewData data;
 
@@ -58,14 +62,14 @@ public class FeedFragment extends Fragment implements DataRetrievalPresenter.Vie
         user = data.getLoggedInUser();
         authToken = data.getAuthToken();
 
-        presenter = new DataRetrievalPresenter(this);
+        presenter = new StatusPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         return view;
     }
 
-    private class FeedView extends PagedRecyclerView<UserHolder, User> {
+    private class FeedView extends PagedRecyclerView<StatusHolder, Status> {
 
         public FeedView(Context context, RecyclerView recyclerView) {
             super(context, recyclerView);
@@ -76,26 +80,26 @@ public class FeedFragment extends Fragment implements DataRetrievalPresenter.Vie
 
         }
 
-        class FeedViewAdapter extends PagedRecyclerViewAdapter implements DataRetrievalTask.Observer {
+        class FeedViewAdapter extends PagedRecyclerViewAdapter implements StatusTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                DataRetrievalTask dataRetrievalTask = new DataRetrievalTask(presenter, this);
-                DataRetrievalRequest request = new DataRetrievalRequest(user, PAGE_SIZE, FRAGMENT_CODE, lastItem);
+                StatusTask dataRetrievalTask = new StatusTask(presenter, this);
+                StatusRequest request = new StatusRequest(user, PAGE_SIZE, lastItem, FRAGMENT_CODE);
                 dataRetrievalTask.execute(request);
             }
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new User("Dummy", "User", ""));
+                addItem(new Status(new User("Dummy", "User", ""), "Hello", new Date(System.currentTimeMillis())));
             }
 
             @NonNull
             @Override
-            public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public StatusHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 View view;
 
@@ -106,26 +110,25 @@ public class FeedFragment extends Fragment implements DataRetrievalPresenter.Vie
                     view = layoutInflater.inflate(R.layout.user_row, parent, false);
                 }
 
-                return new UserHolder(view);
+                return new StatusHolder(view);
             }
 
             @Override
-            public void onBindViewHolder(@NonNull UserHolder holder, int position) {
+            public void onBindViewHolder(@NonNull StatusHolder holder, int position) {
                 if (!isLoading) {
                     holder.bindUser(itemList.get(position));
                 }
             }
 
             @Override
-            public void dataRetrieved(DataRetrievalResponse response) {
-                List<User> followees = response.getData();
-
-                lastItem = (followees.size() > 0) ? followees.get(followees.size() - 1) : null;
+            public void dataRetrieved(StatusResponse response) {
+                List<Status> statuses = response.getStatuses();
+                lastItem = (statuses.size() > 0) ? statuses.get(statuses.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(followees);
+                addItems(statuses);
             }
 
             @Override

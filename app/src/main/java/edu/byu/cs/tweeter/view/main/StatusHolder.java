@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.byu.cs.tweeter.R;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
@@ -39,14 +40,9 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    /**
-     * Binds the user's data to the view.
-     *
-     * @param user the user.
-     */
-    public void bindUser(User user) {
+    public void bindUser(Status status) {
 
-        this.user = user;
+        this.user = status.getUser();
 
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());

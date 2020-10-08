@@ -11,7 +11,7 @@ import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 /**
  * An {@link AsyncTask} for retrieving followees for a user.
  */
-public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
+public class FollowTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
 
     private final FollowingPresenter presenter;
     private final Observer observer;
@@ -22,7 +22,7 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowRespo
      * completes.
      */
     public interface Observer {
-        void followeesRetrieved(FollowResponse followResponse);
+        void dataRetrieved(FollowResponse followResponse);
         void handleException(Exception exception);
     }
 
@@ -32,7 +32,7 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowRespo
      * @param presenter the presenter from whom this task should retrieve followees.
      * @param observer the observer who wants to be notified when this task completes.
      */
-    public GetFollowingTask(FollowingPresenter presenter, Observer observer) {
+    public FollowTask(FollowingPresenter presenter, Observer observer) {
         if(observer == null) {
             throw new NullPointerException();
         }
@@ -72,7 +72,7 @@ public class GetFollowingTask extends AsyncTask<FollowRequest, Void, FollowRespo
         if(exception != null) {
             observer.handleException(exception);
         } else {
-            observer.followeesRetrieved(followResponse);
+            observer.dataRetrieved(followResponse);
         }
     }
 }
