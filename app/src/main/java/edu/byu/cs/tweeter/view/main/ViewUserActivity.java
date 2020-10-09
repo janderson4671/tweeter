@@ -1,6 +1,8 @@
 package edu.byu.cs.tweeter.view.main;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,19 @@ public class ViewUserActivity extends AppCompatActivity {
 
     public static final String VIEWED_USER_KEY = "ViewedUser";
 
+    TextView userName;
+    TextView userAlias;
+    ImageView userImageView;
+    TextView followeeCount;
+    TextView followerCount;
+
+    private Button followButton;
+
     private ViewData data;
+
+    User viewedUser;
+    User loggedInUser;
+    AuthToken authToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +41,10 @@ public class ViewUserActivity extends AppCompatActivity {
 
         data = ViewData.getData();
 
-        User user = data.getLoggedInUser();
-        AuthToken authToken = data.getAuthToken();
+        loggedInUser = data.getLoggedInUser();
+        authToken = data.getAuthToken();
 
-        User viewedUser = (User) getIntent().getSerializableExtra(VIEWED_USER_KEY);
+        viewedUser = (User) getIntent().getSerializableExtra(VIEWED_USER_KEY);
 
         ViewUserPagerAdapter viewUserPagerAdapter = new ViewUserPagerAdapter(this, getSupportFragmentManager(),
                 viewedUser, null, authToken);
@@ -39,22 +53,52 @@ public class ViewUserActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs_view_user);
         tabs.setupWithViewPager(viewPager);
 
-
-        TextView userName = findViewById(R.id.userName_view_user);
-        userName.setText(viewedUser.getName());
-
-        TextView userAlias = findViewById(R.id.userAlias_view_user);
-        userAlias.setText(viewedUser.getAlias());
-
-        ImageView userImageView = findViewById(R.id.userImage_view_user);
-        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(viewedUser.getImageBytes()));
-
-        TextView followeeCount = findViewById(R.id.followeeCount_view_user);
-        followeeCount.setText(getString(R.string.followeeCount, 42));
-
-        TextView followerCount = findViewById(R.id.followerCount_view_user);
-        followerCount.setText(getString(R.string.followerCount, 27));
+        wireWidgets();
+        setListeners();
     }
 
+    private void wireWidgets() {
+        userName = findViewById(R.id.userName_view_user);
+        userName.setText(viewedUser.getName());
+
+        userAlias = findViewById(R.id.userAlias_view_user);
+        userAlias.setText(viewedUser.getAlias());
+
+        userImageView = findViewById(R.id.userImage_view_user);
+        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(viewedUser.getImageBytes()));
+
+        followeeCount = findViewById(R.id.followeeCount_view_user);
+        followeeCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
+
+        followerCount = findViewById(R.id.followerCount_view_user);
+        followerCount.setText("Following: " + String.valueOf(viewedUser.getFollowerCount()));
+
+        followButton = findViewById(R.id.follow_button_view_user);
+    }
+
+    public void updateView() {
+        followeeCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
+        followerCount.setText("Following: " + String.valueOf(viewedUser.getFollowerCount()));
+    }
+
+    private void setListeners() {
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followButton.getText().equals("Follow")) {
+                    followButton.setText("Unfollow");
+                    viewedUser.addFollowee(viewedUser);
+                    loggedInUser.addFollower(viewedUser);
+                    updateView();
+                }
+                else {
+                    followButton.setText("Follow");
+                    viewedUser.removeFollowee(viewedUser);
+                    loggedInUser.removeFollower(viewedUser);
+                    updateView();
+                }
+            }
+        });
+    }
 
 }

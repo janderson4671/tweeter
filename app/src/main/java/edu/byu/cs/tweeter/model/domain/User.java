@@ -1,6 +1,8 @@
 package edu.byu.cs.tweeter.model.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,8 +14,14 @@ public class User implements Comparable<User>, Serializable {
     private final String lastName;
     private final String alias;
     private final String imageUrl;
+
     private byte [] imageBytes;
 
+
+    private List<User> followers;
+    private List<User> followees;
+
+    //Constructors
     public User(String firstName, String lastName, String imageURL) {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
     }
@@ -23,6 +31,17 @@ public class User implements Comparable<User>, Serializable {
         this.lastName = lastName;
         this.alias = alias;
         this.imageUrl = imageURL;
+
+        followers = new ArrayList<>();
+        followees = new ArrayList<>();
+    }
+
+    public int getFollowerCount() {
+        return followers.size();
+    }
+
+    public int getFolloweeCount() {
+        return followees.size();
     }
 
     public String getFirstName() {
@@ -51,6 +70,22 @@ public class User implements Comparable<User>, Serializable {
 
     public void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
+    }
+
+    public void addFollower(User user) {
+        followers.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+    }
+
+    public void removeFollower(User user) {
+        followers.remove(followers.size() - 1);
+    }
+
+    public void addFollowee(User user) {
+        followees.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+    }
+
+    public void removeFollowee(User user) {
+        followees.remove(followees.size() - 1);
     }
 
     @Override

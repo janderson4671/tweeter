@@ -1,7 +1,5 @@
 package edu.byu.cs.tweeter.view.main;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +26,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 
+    TextView userName;
+    TextView userAlias;
+    ImageView userImageView;
+    TextView followeeCount;
+    TextView followerCount;
+
+    User loggedInUser;
+    AuthToken authToken;
+
     ViewData data;
 
     @Override
@@ -37,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
         data = ViewData.getData();
 
-        User user = data.getLoggedInUser();
-        AuthToken authToken = data.getAuthToken();
+        loggedInUser = data.getLoggedInUser();
+        authToken = data.getAuthToken();
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), user, authToken);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), loggedInUser, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager_main);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs_main);
@@ -58,20 +65,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView userName = findViewById(R.id.userName);
-        userName.setText(user.getName());
+        userName = findViewById(R.id.userName);
+        userName.setText(loggedInUser.getName());
 
-        TextView userAlias = findViewById(R.id.userAlias);
-        userAlias.setText(user.getAlias());
+        userAlias = findViewById(R.id.userAlias);
+        userAlias.setText(loggedInUser.getAlias());
 
-        ImageView userImageView = findViewById(R.id.userImage);
-        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
+        userImageView = findViewById(R.id.userImage);
+        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(loggedInUser.getImageBytes()));
 
-        TextView followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText(getString(R.string.followeeCount, 42));
+        followeeCount = findViewById(R.id.followeeCount);
+        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getFolloweeCount()));
 
-        TextView followerCount = findViewById(R.id.followerCount);
-        followerCount.setText(getString(R.string.followerCount, 27));
+        followerCount = findViewById(R.id.followerCount);
+        followerCount.setText("Following: " + String.valueOf(loggedInUser.getFollowerCount()));
+    }
+
+    private void updateView() {
+        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getFolloweeCount()));
+        followerCount.setText("Following: " + String.valueOf(loggedInUser.getFollowerCount()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
     }
 
 
