@@ -23,6 +23,8 @@
     <string name="follow_button">Follow</string>
 
     <string name="sampleAlias">"@UserAlias"</string>
+    <string name="sampleMessage">This is a simple message</string>
+    <string name="sampleTime">12:00pm March 15th</string>
     <string name="sampleUserName">The User</string>
     <string name="title_activity_login">Sign in</string>
     <string name="followeeCount">Following: %d</string>

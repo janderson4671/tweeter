@@ -19,6 +19,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     private final ImageView userImage;
     private final TextView userAlias;
     private final TextView userName;
+    private final TextView userMessage;
+    private final TextView userTimeStamp;
 
     /**
      * Creates an instance and sets an OnClickListener for the user's row.
@@ -31,6 +33,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         userImage = itemView.findViewById(R.id.userImage);
         userAlias = itemView.findViewById(R.id.userAlias);
         userName = itemView.findViewById(R.id.userName);
+        userMessage = itemView.findViewById(R.id.statusMessage);
+        userTimeStamp = itemView.findViewById(R.id.timeStamp);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
+        userMessage.setText(status.getMessage());
+        userTimeStamp.setText(status.getTimeStamp().toString());
     }
 
 }

@@ -13,6 +13,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowerFragment;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowingFragment;
+import edu.byu.cs.tweeter.view.main.mainFragments.StoryFragment;
 
 public class ViewUserPagerAdapter extends FragmentPagerAdapter {
 
@@ -38,8 +39,7 @@ public class ViewUserPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == STORY_FRAGMENT_POSOTION) {
-            //TODO::Make Story Fragment
-            return PlaceholderFragment.newInstance(position + 1);
+            return StoryFragment.newInstance(user, authToken);
         } else if (position == FOLLOWING_FRAGMENT_POSITION) {
             return FollowingFragment.newInstance(user, authToken);
         } else if (position == FOLLOWER_FRAGMENT_POSITION) {

@@ -19,21 +19,18 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.DataRetrievalRequest;
 import edu.byu.cs.tweeter.model.service.request.StatusRequest;
-import edu.byu.cs.tweeter.model.service.response.DataRetrievalResponse;
 import edu.byu.cs.tweeter.model.service.response.StatusResponse;
 import edu.byu.cs.tweeter.presenter.StatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
 import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.StatusHolder;
-import edu.byu.cs.tweeter.view.main.UserHolder;
 import edu.byu.cs.tweeter.view.main.ViewData;
 
-public class FeedFragment extends Fragment implements StatusPresenter.View{
+public class StoryFragment extends Fragment implements StatusPresenter.View {
 
-    private static final String LOG_TAG = "FeedFragment";
-    private static final int FRAGMENT_CODE = 0;
+    private static final String LOG_TAG = "StoryFragment";
+    private static final int FRAGMENT_CODE = 1;
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int PAGE_SIZE = 12;
@@ -44,8 +41,8 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
 
     private ViewData data;
 
-    public static FeedFragment newInstance(User user, AuthToken authToken) {
-        FeedFragment fragment = new FeedFragment();
+    public static StoryFragment newInstance(User user, AuthToken authToken) {
+        StoryFragment fragment = new StoryFragment();
 
         Bundle args = new Bundle(2);
 
@@ -66,23 +63,22 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
-        FeedView feedView = new FeedView(getContext(), recyclerView);
+        StoryView storyView = new StoryView(getContext(), recyclerView);
 
         return view;
     }
 
-    private class FeedView extends PagedRecyclerView<StatusHolder, Status> {
+    private class StoryView extends PagedRecyclerView<StatusHolder, Status> {
 
-        public FeedView(Context context, RecyclerView recyclerView) {
+        public StoryView(Context context, RecyclerView recyclerView) {
             super(context, recyclerView);
 
-            //Set the Adapter
-            pagedRecyclerViewAdapter = new FeedViewAdapter();
+            //set the adapter
+            pagedRecyclerViewAdapter = new StoryViewAdapter();
             recyclerView.setAdapter(pagedRecyclerViewAdapter);
-
         }
 
-        class FeedViewAdapter extends PagedRecyclerViewAdapter implements StatusTask.Observer {
+        class StoryViewAdapter extends PagedRecyclerViewAdapter implements StatusTask.Observer {
 
             @Override
             protected void loadMoreItems() {
@@ -107,7 +103,6 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
 
                 if (viewType == LOADING_DATA_VIEW) {
                     view = layoutInflater.inflate(R.layout.loading_row, parent, false);
-
                 } else {
                     view = layoutInflater.inflate(R.layout.status_row, parent, false);
                 }
@@ -140,7 +135,5 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
-
     }
-
 }
