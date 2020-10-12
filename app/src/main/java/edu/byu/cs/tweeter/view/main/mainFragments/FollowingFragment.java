@@ -105,7 +105,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
                 addLoadingFooter();
 
                 FollowTask followTask = new FollowTask(presenter, this);
-                FollowRequest request = new FollowRequest(user, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                FollowRequest request = new FollowRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
                 followTask.execute(request);
             }
 

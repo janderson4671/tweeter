@@ -40,6 +40,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
     private String lastName;
     private String username;
     private String password;
+    private byte [] profile;
 
     //Widgets
     private EditText editTextFirstName;
@@ -174,7 +175,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
                 registerToast = Toast.makeText(getActivity(), "Logging In", Toast.LENGTH_LONG);
                 registerToast.show();
 
-                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, password);
+                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, password, profile);
                 RegisterTask registerTask = new RegisterTask(presenter, RegisterFragment.this);
                 registerTask.execute(registerRequest);
             }
@@ -186,7 +187,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            profile = (byte []) extras.get("data");
         }
     }
 

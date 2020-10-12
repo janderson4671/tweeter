@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
 /**
@@ -19,8 +20,8 @@ public class FollowRequest extends DataRetrievalRequest{
      *                     there was no previous request or if no followees were returned in the
      *                     previous request).
      */
-    public FollowRequest(User user, int limit, User lastFollowee, int fragmentCode) {
-        super(user, limit, fragmentCode);
+    public FollowRequest(User user, AuthToken authToken, int limit, User lastFollowee, int fragmentCode) {
+        super(user, authToken, limit, fragmentCode);
 
         this.lastFollowee = lastFollowee;
     }

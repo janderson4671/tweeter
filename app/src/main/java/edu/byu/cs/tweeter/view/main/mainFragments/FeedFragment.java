@@ -90,7 +90,7 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
                 addLoadingFooter();
 
                 StatusTask dataRetrievalTask = new StatusTask(presenter, this);
-                StatusRequest request = new StatusRequest(user, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                StatusRequest request = new StatusRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
                 dataRetrievalTask.execute(request);
             }
 
