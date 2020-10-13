@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Arrays;
 
+import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
@@ -39,8 +40,8 @@ public class FollowingServiceTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowRequest(currentUser, 3, null);
-        invalidRequest = new FollowRequest(null, 0, null);
+        validRequest = new FollowRequest(currentUser, new AuthToken(), 3, null,2);
+        invalidRequest = new FollowRequest(null, new AuthToken(), 0, null,2);
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
@@ -55,25 +56,12 @@ public class FollowingServiceTest {
         Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
-    /**
-     * Verify that for successful requests the {@link FollowingService#getFollowees(FollowRequest)}
-     * method returns the same result as the {@link ServerFacade}.
-     * .
-     *
-     * @throws IOException if an IO error occurs.
-     */
     @Test
     public void testGetFollowees_validRequest_correctResponse() throws IOException {
         FollowResponse response = followingServiceSpy.getFollowees(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
 
-    /**
-     * Verify that the {@link FollowingService#getFollowees(FollowRequest)} method loads the
-     * profile image of each user included in the result.
-     *
-     * @throws IOException if an IO error occurs.
-     */
     @Test
     public void testGetFollowees_validRequest_loadsProfileImages() throws IOException {
         FollowResponse response = followingServiceSpy.getFollowees(validRequest);
@@ -83,12 +71,6 @@ public class FollowingServiceTest {
         }
     }
 
-    /**
-     * Verify that for failed requests the {@link FollowingService#getFollowees(FollowRequest)}
-     * method returns the same result as the {@link ServerFacade}.
-     *
-     * @throws IOException if an IO error occurs.
-     */
     @Test
     public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
         FollowResponse response = followingServiceSpy.getFollowees(invalidRequest);

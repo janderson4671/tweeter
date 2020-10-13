@@ -22,7 +22,11 @@ public class LoginPresenter {
     }
 
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
-        LoginService loginService = new LoginService();
+        LoginService loginService = getLoginService();
         return loginService.login(loginRequest);
+    }
+
+    public LoginService getLoginService() {
+        return new LoginService();
     }
 }

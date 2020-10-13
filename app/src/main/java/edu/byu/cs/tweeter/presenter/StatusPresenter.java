@@ -23,7 +23,7 @@ public class StatusPresenter {
         return statusService.getStatuses(request);
     }
 
-    private StatusService getStatusService() {
+    public StatusService getStatusService() {
         return new StatusService();
     }
 }

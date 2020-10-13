@@ -23,7 +23,7 @@ public class AddFollowerPresenter {
         return service.addFollower(request);
     }
 
-    private AddFollowerService getAddFollowerService() {
+    public AddFollowerService getAddFollowerService() {
         return new AddFollowerService();
     }
 

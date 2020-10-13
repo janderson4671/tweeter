@@ -28,7 +28,7 @@ public class StatusService {
         }
     }
 
-    private ServerFacade getServerFacade() {
+    public ServerFacade getServerFacade() {
         return new ServerFacade();
     }
 
