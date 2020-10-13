@@ -14,9 +14,13 @@ import com.google.android.material.tabs.TabLayout;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
+import edu.byu.cs.tweeter.model.service.response.Response;
+import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-public class ViewUserActivity extends AppCompatActivity {
+public class ViewUserActivity extends AppCompatActivity implements AddFollowerPresenter.View, AddFollowerTask.Observer {
 
     public static final String VIEWED_USER_KEY = "ViewedUser";
 
@@ -30,6 +34,8 @@ public class ViewUserActivity extends AppCompatActivity {
 
     private ViewData data;
 
+    private AddFollowerPresenter presenter;
+
     User viewedUser;
     User loggedInUser;
     AuthToken authToken;
@@ -38,6 +44,8 @@ public class ViewUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_user);
+
+        presenter = new AddFollowerPresenter(this);
 
         data = ViewData.getData();
 
@@ -86,19 +94,42 @@ public class ViewUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (followButton.getText().equals("Follow")) {
-                    followButton.setText("Unfollow");
-                    viewedUser.addFollowee(viewedUser);
-                    loggedInUser.addFollower(viewedUser);
-                    updateView();
+                    addFollower(true);
                 }
                 else {
-                    followButton.setText("Follow");
-                    viewedUser.removeFollowee(viewedUser);
-                    loggedInUser.removeFollower(viewedUser);
-                    updateView();
+                    addFollower(false);
                 }
             }
         });
     }
 
+    private void addFollower(boolean follow) {
+
+        if (follow) {
+            followButton.setText("Unfollow");
+        } else {
+            followButton.setText("Follow");
+        }
+
+        AddFollowerRequest request = new AddFollowerRequest(data.getLoggedInUser(), authToken, viewedUser, follow);
+        AddFollowerTask task = new AddFollowerTask(presenter, this);
+        task.execute(request);
+    }
+
+    @Override
+    public void addFollowerComplete(Response response) {
+        if (followButton.getText().equals("Unfollow")) {
+            viewedUser.addFollower(null);
+            followerCount.setText("Following: " + viewedUser.getFollowerCount());
+        }
+        else {
+            viewedUser.removeFollower(null);
+            followerCount.setText("Following: " + viewedUser.getFollowerCount());
+        }
+    }
+
+    @Override
+    public void handleException(Exception exception) {
+        //TODO:: handle the exceptions
+    }
 }

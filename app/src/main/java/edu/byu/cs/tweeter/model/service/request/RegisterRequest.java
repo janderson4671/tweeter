@@ -1,15 +1,17 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import android.graphics.Bitmap;
+
 public class RegisterRequest {
 
     private String firstName;
     private String lastName;
     private String username;
     private String password;
-    private byte [] profile;
+    private Bitmap profile;
 
     //Constructor
-    public RegisterRequest(String firstName, String lastName, String username, String password, byte[] profile) {
+    public RegisterRequest(String firstName, String lastName, String username, String password, Bitmap profile) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -34,6 +36,6 @@ public class RegisterRequest {
         return password;
     }
 
-    public byte [] getProfile() { return profile; }
+    public Bitmap getProfile() { return profile; }
 
 }

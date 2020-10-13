@@ -3,6 +3,7 @@ package edu.byu.cs.tweeter.view.main.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginPresenter presenter;
     private Toast loginInToast;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,11 +21,13 @@ public class User implements Comparable<User>, Serializable {
     private List<User> followers;
     private List<User> followees;
 
+    private List<Status> posts;
+
     //Constructors
+
     public User(String firstName, String lastName, String imageURL) {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
     }
-
     public User(String firstName, String lastName, String alias, String imageURL) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,6 +68,14 @@ public class User implements Comparable<User>, Serializable {
 
     public byte [] getImageBytes() {
         return imageBytes;
+    }
+
+    public List<Status> getPosts() {
+        return posts;
+    }
+
+    public void addPost(Status status) {
+        posts.add(status);
     }
 
     public void setImageBytes(byte[] imageBytes) {

@@ -1,20 +1,23 @@
 package edu.byu.cs.tweeter.model.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Status {
 
     private User user;
+    private List<User> mentions;
 
     private String message;
     private Date timeStamp;
 
     //Constructor
-    public Status(User user, String message, Date timeStamp) {
+    public Status(User user, String message, Date timeStamp, List<User> mentions) {
         this.user = user;
         this.message = message;
         this.timeStamp = timeStamp;
+        this.mentions = mentions;
     }
 
     //Getters
@@ -28,6 +31,14 @@ public class Status {
 
     public Date getTimeStamp() {
         return timeStamp;
+    }
+
+    public List<User> getMentions() {
+        return mentions;
+    }
+
+    public void addMention(User mention) {
+        mentions.add(mention);
     }
 
     public void setUserImage(byte [] imageBytes) {

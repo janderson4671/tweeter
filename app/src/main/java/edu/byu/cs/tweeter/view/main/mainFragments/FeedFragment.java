@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class FeedFragment extends Fragment implements StatusPresenter.View{
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", ""), "Hello", new Date(System.currentTimeMillis())));
+                addItem(new Status(new User("Dummy", "User", ""), "Hello", new Date(System.currentTimeMillis()), new ArrayList<>()));
             }
 
             @NonNull

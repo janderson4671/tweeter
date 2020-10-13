@@ -68,7 +68,8 @@
         android:layout_height="wrap_content"
         android:text="@string/sampleMessage"
         android:layout_marginStart="50dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:autoLink="web"/>
 
 
 </LinearLayout>

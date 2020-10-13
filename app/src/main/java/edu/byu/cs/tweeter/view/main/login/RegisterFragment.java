@@ -2,6 +2,7 @@ package edu.byu.cs.tweeter.view.main.login;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -40,7 +41,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
     private String lastName;
     private String username;
     private String password;
-    private byte [] profile;
+    private Bitmap profile;
 
     //Widgets
     private EditText editTextFirstName;
@@ -187,7 +188,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            profile = (byte []) extras.get("data");
+            profile = (Bitmap) extras.get("data");
         }
     }
 
@@ -197,7 +198,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         Intent intent = new Intent(getActivity(), MainActivity.class);
 
         ViewData.getData();
-        ViewData.setLoggedInUser(registerResponse.getUser(), registerResponse.getAuthToken());
+        ViewData.setLoggedInUser(registerResponse.getUser(), registerResponse.getAuthToken(), profile);
 
         registerToast.cancel();
         startActivity(intent);
