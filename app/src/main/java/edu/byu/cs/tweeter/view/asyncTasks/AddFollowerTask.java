@@ -5,17 +5,18 @@ import android.os.AsyncTask;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
+import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
 import edu.byu.cs.tweeter.model.service.response.Response;
 import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
 
-public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, Response> {
+public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, AddFollowerResponse> {
 
     private final AddFollowerPresenter presenter;
     private final Observer observer;
     private Exception exception;
 
     public interface Observer {
-        void addFollowerComplete(Response response);
+        void addFollowerComplete(AddFollowerResponse response);
         void handleException(Exception exception);
     }
 
@@ -29,8 +30,8 @@ public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, Respons
     }
 
     @Override
-    protected Response doInBackground(AddFollowerRequest... requests) {
-        Response response = null;
+    protected AddFollowerResponse doInBackground(AddFollowerRequest... requests) {
+        AddFollowerResponse response = null;
 
         try {
             response = presenter.addFollower(requests[0]);
@@ -42,7 +43,7 @@ public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, Respons
     }
 
     @Override
-    protected void onPostExecute(Response response) {
+    protected void onPostExecute(AddFollowerResponse response) {
         if (exception != null) {
             observer.handleException(exception);
         } else {

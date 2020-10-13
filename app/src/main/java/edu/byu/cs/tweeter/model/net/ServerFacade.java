@@ -16,6 +16,7 @@ import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.request.StatusRequest;
+import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
@@ -262,7 +263,7 @@ public class ServerFacade {
         return statusIndex;
     }
 
-    public Response addFollower(AddFollowerRequest request) {
+    public AddFollowerResponse addFollower(AddFollowerRequest request) {
         List<User> users = getDummyFollowees();
         User currUser = request.getCurrUser();
         User userToFollow = request.getUserToFollow();
@@ -272,11 +273,11 @@ public class ServerFacade {
         if (request.isFollow()) {
             users.get(userIndex).addFollower(currUser);
             currUser.addFollower(users.get(userIndex));
-            return new Response(true, "Added Follower");
+            return new AddFollowerResponse(true, "Added Follower");
         } else {
             //users.get(userIndex).removeFollower(currUser);
             currUser.removeFollower(users.get(userIndex));
-            return new Response(true, "Removed Follower");
+            return new AddFollowerResponse(true, "Removed Follower");
         }
     }
 

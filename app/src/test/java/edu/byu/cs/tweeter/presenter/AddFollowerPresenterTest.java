@@ -13,12 +13,13 @@ import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.AddFollowerService;
 import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
+import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
 import edu.byu.cs.tweeter.model.service.response.Response;
 
 public class AddFollowerPresenterTest {
 
     private AddFollowerRequest request;
-    private Response response;
+    private AddFollowerResponse response;
     private AddFollowerService mockAddFollowerService;
     private AddFollowerPresenter presenter;
 
@@ -29,7 +30,7 @@ public class AddFollowerPresenterTest {
         Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
 
         request = new AddFollowerRequest(currentUser, new AuthToken(), followUser, true);
-        response = new Response(true, "Success!");
+        response = new AddFollowerResponse(true, "Success!");
 
         mockAddFollowerService = Mockito.mock(AddFollowerService.class);
         Mockito.when(mockAddFollowerService.addFollower(request)).thenReturn(response);

@@ -16,7 +16,7 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
-import edu.byu.cs.tweeter.model.service.response.Response;
+import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
 import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
@@ -120,7 +120,7 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
     }
 
     @Override
-    public void addFollowerComplete(Response response) {
+    public void addFollowerComplete(AddFollowerResponse response) {
         if (followButton.getText().equals("Unfollow")) {
             viewedUser.addFollower(null);
             followeeCount.setText("Followers: " + viewedUser.getFollowerCount());
