@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -122,6 +123,6 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
 
     @Override
     public void handleException(Exception exception) {
-        //TODO:: handle exception;
+        Toast.makeText(getContext(), "Can't post status", Toast.LENGTH_LONG).show();
     }
 }

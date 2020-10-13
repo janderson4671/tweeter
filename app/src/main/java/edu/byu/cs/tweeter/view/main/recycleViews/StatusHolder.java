@@ -33,11 +33,6 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     private final TextView userMessage;
     private final TextView userTimeStamp;
 
-    /**
-     * Creates an instance and sets an OnClickListener for the user's row.
-     *
-     * @param itemView the view on which the user will be displayed.
-     */
     public StatusHolder(@NonNull View itemView) {
         super(itemView);
 

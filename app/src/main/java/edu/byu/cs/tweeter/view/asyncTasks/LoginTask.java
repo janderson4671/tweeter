@@ -17,22 +17,12 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
     private final Observer observer;
     private Exception exception;
 
-    /**
-     * An observer interface to be implemented by observers who want to be notified when this task
-     * completes.
-     */
     public interface Observer {
         void loginSuccessful(LoginResponse loginResponse);
         void loginUnsuccessful(LoginResponse loginResponse);
         void handleException(Exception ex);
     }
 
-    /**
-     * Creates an instance.
-     *
-     * @param presenter the presenter this task should use to login.
-     * @param observer the observer who wants to be notified when this task completes.
-     */
     public LoginTask(LoginPresenter presenter, Observer observer) {
         if(observer == null) {
             throw new NullPointerException();
@@ -42,13 +32,6 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
         this.observer = observer;
     }
 
-    /**
-     * The method that is invoked on a background thread to log the user in. This method is
-     * invoked indirectly by calling {@link #execute(LoginRequest...)}.
-     *
-     * @param loginRequests the request object (there will only be one).
-     * @return the response.
-     */
     @Override
     protected LoginResponse doInBackground(LoginRequest... loginRequests) {
         LoginResponse loginResponse = null;
@@ -66,11 +49,6 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
         return loginResponse;
     }
 
-    /**
-     * Loads the profile image for the user.
-     *
-     * @param user the user whose profile image is to be loaded.
-     */
     private void loadImage(User user) {
         try {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
@@ -80,12 +58,6 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
         }
     }
 
-    /**
-     * Notifies the observer (on the thread of the invoker of the
-     * {@link #execute(LoginRequest...)} method) when the task completes.
-     *
-     * @param loginResponse the response that was received by the task.
-     */
     @Override
     protected void onPostExecute(LoginResponse loginResponse) {
         if(exception != null) {

@@ -21,11 +21,6 @@ public class UserHolder extends RecyclerView.ViewHolder {
     private final TextView userAlias;
     private final TextView userName;
 
-    /**
-     * Creates an instance and sets an OnClickListener for the user's row.
-     *
-     * @param itemView the view on which the user will be displayed.
-     */
     public UserHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -46,11 +41,6 @@ public class UserHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    /**
-     * Binds the user's data to the view.
-     *
-     * @param user the user.
-     */
     public void bindUser(User user) {
         this.user = user;
         userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));

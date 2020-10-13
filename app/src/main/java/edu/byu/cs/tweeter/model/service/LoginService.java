@@ -24,11 +24,6 @@ public class LoginService {
         return loginResponse;
     }
 
-    /**
-     * Loads the profile image data for the user.
-     *
-     * @param user the user whose profile image data is to be loaded.
-     */
     private void loadImage(User user) throws IOException {
 
         try {
@@ -39,13 +34,6 @@ public class LoginService {
         }
     }
 
-    /**
-     * Returns an instance of {@link ServerFacade}. Allows mocking of the ServerFacade class for
-     * testing purposes. All usages of ServerFacade should get their ServerFacade instance from this
-     * method to allow for proper mocking.
-     *
-     * @return the instance.
-     */
     ServerFacade getServerFacade() {
         return new ServerFacade();
     }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -132,6 +133,6 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
 
     @Override
     public void handleException(Exception exception) {
-        //TODO:: handle the exceptions
+        Toast.makeText(this, "Follow Failed!", Toast.LENGTH_LONG).show();
     }
 }

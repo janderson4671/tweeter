@@ -88,24 +88,10 @@ abstract public class PagedRecyclerView<HolderType extends RecyclerView.ViewHold
 
         private final LinearLayoutManager layoutManager;
 
-        /**
-         * Creates a new instance.
-         *
-         * @param layoutManager the layout manager being used by the RecyclerView.
-         */
         PagedRecyclerViewPaginationScrollListener(LinearLayoutManager layoutManager) {
             this.layoutManager = layoutManager;
         }
 
-        /**
-         * Determines whether the user has scrolled to the bottom of the currently available data
-         * in the RecyclerView and asks the adapter to load more data if the last load request
-         * indicated that there was more data to load.
-         *
-         * @param recyclerView the RecyclerView.
-         * @param dx the amount of horizontal scroll.
-         * @param dy the amount of vertical scroll.
-         */
         @Override
         public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);

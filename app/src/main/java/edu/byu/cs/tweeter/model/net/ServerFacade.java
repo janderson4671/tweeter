@@ -80,14 +80,6 @@ public class ServerFacade {
     private final Status stat20 = new Status(user20, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
 
 
-    /**
-     * Performs a login and if successful, returns the logged in user and an auth token. The current
-     * implementation is hard-coded to return a dummy user and doesn't actually make a network
-     * request.
-     *
-     * @param request contains all information needed to perform a login.
-     * @return the login response.
-     */
     public LoginResponse login(LoginRequest request) {
         User user = new User("Test", "User",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
@@ -113,16 +105,7 @@ public class ServerFacade {
 
     }
 
-    /**
-     * Returns the users that the user specified in the request is following. Uses information in
-     * the request object to limit the number of followees returned and to return the next set of
-     * followees after any that were returned in a previous request. The current implementation
-     * returns generated data and doesn't actually make a network request.
-     *
-     * @param request contains information about the user whose followees are to be returned and any
-     *                other information required to satisfy the request.
-     * @return the following response.
-     */
+
     public FollowResponse getFollowees(FollowRequest request) {
 
         // Used in place of assert statements because Android does not support them
@@ -241,20 +224,6 @@ public class ServerFacade {
 
     }
 
-//    public StatusResponse getStory(StatusRequest request) {
-//
-//    }
-
-    /**
-     * Determines the index for the first followee in the specified 'allFollowees' list that should
-     * be returned in the current request. This will be the index of the next followee after the
-     * specified 'lastFollowee'.
-     *
-     * @param lastFollowee the last followee that was returned in the previous request or null if
-     *                     there was no previous request.
-     * @param allFollowees the generated list of followees from which we are returning paged results.
-     * @return the index of the first followee to be returned.
-     */
     private int getFolloweesStartingIndex(User lastFollowee, List<User> allFollowees) {
 
         int followeesIndex = 0;
@@ -311,14 +280,6 @@ public class ServerFacade {
         }
     }
 
-
-
-    /**
-     * Returns the list of dummy followee data. This is written as a separate method to allow
-     * mocking of the followees.
-     *
-     * @return the generator.
-     */
     List<User> getDummyFollowees() {
         return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
                 user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,

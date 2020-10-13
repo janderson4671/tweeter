@@ -46,14 +46,6 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
     private ViewData data;
 
-    /**
-     * Creates an instance of the fragment and places the user and auth token in an arguments
-     * bundle assigned to the fragment.
-     *
-     * @param user      the logged in user.
-     * @param authToken the auth token for this user's session.
-     * @return the fragment.
-     */
     public static FollowingFragment newInstance(User user, AuthToken authToken) {
         FollowingFragment fragment = new FollowingFragment();
 
