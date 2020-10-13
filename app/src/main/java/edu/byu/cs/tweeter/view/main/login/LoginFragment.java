@@ -67,6 +67,8 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
         editTextUsername = (EditText) v.findViewById(R.id.loginUsername);
         editTextPassword = (EditText) v.findViewById(R.id.loginPassword);
         loginButton = (Button) v.findViewById(R.id.loginButton);
+
+        loginButton.setEnabled(false);
     }
 
     private void setListeners() {
@@ -79,12 +81,12 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mUsername = s.toString();
+                verifyFields();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                //TODO: validate the username
-                //TODO: Make sure that you do enabling of buttons
+
             }
         });
         editTextPassword.addTextChangedListener(new TextWatcher() {
@@ -96,12 +98,11 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mPassword = s.toString();
+                verifyFields();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                //TODO: validate the username
-                //TODO: Make sure that you do enabling of buttons
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -118,11 +119,14 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
         });
     }
 
-    /**
-     * The callback method that gets invoked for a successful login. Displays the MainActivity.
-     *
-     * @param loginResponse the response from the login request.
-     */
+    private void verifyFields() {
+        if (mUsername != null && mPassword != null) {
+            loginButton.setEnabled(true);
+        } else {
+            loginButton.setEnabled(false);
+        }
+    }
+
     @Override
     public void loginSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -134,23 +138,11 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
         startActivity(intent);
     }
 
-    /**
-     * The callback method that gets invoked for an unsuccessful login. Displays a toast with a
-     * message indicating why the login failed.
-     *
-     * @param loginResponse the response from the login request.
-     */
     @Override
     public void loginUnsuccessful(LoginResponse loginResponse) {
         Toast.makeText(getActivity(), "Failed to login. " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * A callback indicating that an exception was thrown in an asynchronous method called on the
-     * presenter.
-     *
-     * @param exception the exception.
-     */
     @Override
     public void handleException(Exception exception) {
         Log.e(LOG_TAG, exception.getMessage(), exception);

@@ -85,6 +85,8 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         editTextPassword = (EditText) v.findViewById(R.id.registerPassword);
         registerButton = (Button) v.findViewById(R.id.registerButton);
         pictureButton = (Button) v.findViewById(R.id.pictureButton);
+
+        registerButton.setEnabled(false);
     }
 
     private void setListenters() {
@@ -97,6 +99,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 firstName = s.toString();
+                verifyFields();
             }
 
             @Override
@@ -113,6 +116,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 lastName = s.toString();
+                verifyFields();
             }
 
             @Override
@@ -129,6 +133,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 username = s.toString();
+                verifyFields();
             }
 
             @Override
@@ -145,6 +150,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 password = s.toString();
+                verifyFields();
             }
 
             @Override
@@ -165,6 +171,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
                     imageToast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG);
                     imageToast.show();
                 }
+
             }
         });
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +187,14 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         });
     }
 
+    public void verifyFields() {
+        if (firstName != null && lastName != null && username != null && password != null && profile != null) {
+            registerButton.setEnabled(true);
+        } else {
+            registerButton.setEnabled(false);
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,6 +202,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
             Bundle extras = data.getExtras();
             profile = (Bitmap) extras.get("data");
         }
+        verifyFields();
     }
 
     @Override

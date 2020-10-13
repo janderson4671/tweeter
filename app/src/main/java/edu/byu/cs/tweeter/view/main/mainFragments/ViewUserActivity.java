@@ -123,11 +123,11 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
     public void addFollowerComplete(Response response) {
         if (followButton.getText().equals("Unfollow")) {
             viewedUser.addFollower(null);
-            followerCount.setText("Following: " + viewedUser.getFollowerCount());
+            followeeCount.setText("Followers: " + viewedUser.getFollowerCount());
         }
         else {
             viewedUser.removeFollower(null);
-            followerCount.setText("Following: " + viewedUser.getFollowerCount());
+            followeeCount.setText("Followers: " + viewedUser.getFollowerCount());
         }
     }
 
