@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.main.mainFragments.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".view.main.ViewUserActivity"
+            android:name=".view.main.mainFragments.ViewUserActivity"
             android:label="@string/title_activity_view_user"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

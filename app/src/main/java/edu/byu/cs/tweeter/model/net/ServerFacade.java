@@ -1,6 +1,5 @@
 package edu.byu.cs.tweeter.model.net;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,7 +23,6 @@ import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.model.service.response.Response;
 import edu.byu.cs.tweeter.model.service.response.StatusResponse;
-import edu.byu.cs.tweeter.view.main.ViewData;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through

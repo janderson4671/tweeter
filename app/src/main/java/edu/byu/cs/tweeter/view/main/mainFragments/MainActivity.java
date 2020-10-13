@@ -1,11 +1,10 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.mainFragments;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -26,8 +25,9 @@ import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.presenter.LogoutPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LogoutTask;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
+import edu.byu.cs.tweeter.view.main.adapters.SectionsPagerAdapter;
 import edu.byu.cs.tweeter.view.main.login.LoginActivity;
-import edu.byu.cs.tweeter.view.main.mainFragments.NewStatusFragment;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**

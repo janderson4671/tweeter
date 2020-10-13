@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.mainFragments;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +18,8 @@ import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
 import edu.byu.cs.tweeter.model.service.response.Response;
 import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
+import edu.byu.cs.tweeter.view.main.adapters.ViewUserPagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class ViewUserActivity extends AppCompatActivity implements AddFollowerPresenter.View, AddFollowerTask.Observer {

@@ -22,8 +22,8 @@ import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
-import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
-import edu.byu.cs.tweeter.view.main.UserHolder;
+import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
+import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
 
 /**
  * The fragment that displays on the 'Following' tab.

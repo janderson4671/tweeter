@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.adapters;
 
 import android.content.Context;
 
@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.view.main.recycleViews.PlaceholderFragment;
 import edu.byu.cs.tweeter.view.main.mainFragments.FeedFragment;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowerFragment;
 import edu.byu.cs.tweeter.view.main.mainFragments.FollowingFragment;
@@ -20,7 +21,7 @@ import edu.byu.cs.tweeter.view.main.mainFragments.StoryFragment;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to one of the sections/tabs/pages
  * of the Main Activity.
  */
-class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private static final int FEED_FRAGMENT_POSITION = 0;
     private static final int STORY_FRAGMENT_POSITION = 1;

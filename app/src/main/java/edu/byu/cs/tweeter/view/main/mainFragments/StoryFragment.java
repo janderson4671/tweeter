@@ -24,9 +24,9 @@ import edu.byu.cs.tweeter.model.service.request.StatusRequest;
 import edu.byu.cs.tweeter.model.service.response.StatusResponse;
 import edu.byu.cs.tweeter.presenter.StatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
-import edu.byu.cs.tweeter.view.main.PagedRecyclerView;
-import edu.byu.cs.tweeter.view.main.StatusHolder;
-import edu.byu.cs.tweeter.view.main.ViewData;
+import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
+import edu.byu.cs.tweeter.view.main.recycleViews.StatusHolder;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
 public class StoryFragment extends Fragment implements StatusPresenter.View {
 

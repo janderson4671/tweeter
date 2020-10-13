@@ -21,8 +21,8 @@ import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
-import edu.byu.cs.tweeter.view.main.MainActivity;
-import edu.byu.cs.tweeter.view.main.ViewData;
+import edu.byu.cs.tweeter.view.main.mainFragments.MainActivity;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
 public class LoginFragment extends Fragment implements LoginPresenter.View, LoginTask.Observer{
 

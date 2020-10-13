@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -23,7 +22,7 @@ import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.PostStatusTask;
-import edu.byu.cs.tweeter.view.main.ViewData;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
 public class NewStatusFragment extends DialogFragment implements PostStatusTask.Observer, PostStatusPresenter.View {
 
