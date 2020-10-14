@@ -36,6 +36,7 @@ public class User implements Comparable<User>, Serializable {
 
         followers = new ArrayList<>();
         followees = new ArrayList<>();
+        posts = new ArrayList<>();
     }
 
     public int getFollowerCount() {

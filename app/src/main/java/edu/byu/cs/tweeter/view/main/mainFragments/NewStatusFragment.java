@@ -118,6 +118,7 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
 
     @Override
     public void postComplete(PostStatusResponse response) {
+        Toast.makeText(getContext(), "Status Posted!", Toast.LENGTH_LONG).show();
         dismiss();
     }
 

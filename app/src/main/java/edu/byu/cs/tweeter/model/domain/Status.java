@@ -1,10 +1,11 @@
 package edu.byu.cs.tweeter.model.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Status {
+public class Status implements Serializable {
 
     private User user;
     private List<User> mentions;
