@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
@@ -15,7 +14,6 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
 import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
-import edu.byu.cs.tweeter.model.service.response.Response;
 
 public class AddFollowerServiceTest {
 
@@ -25,7 +23,7 @@ public class AddFollowerServiceTest {
     private AddFollowerResponse successResponse;
     private AddFollowerResponse failureResponse;
 
-    private AddFollowerService followingServiceSpy;
+    private AddFollowerService addFollowerSpy;
 
     @BeforeEach
     public void setup() {
@@ -46,26 +44,30 @@ public class AddFollowerServiceTest {
         Mockito.when(mockServerFacade.addFollower(invalidRequest)).thenReturn(failureResponse);
 
         // Create a AddFolloweringService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new AddFollowerService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        addFollowerSpy = Mockito.spy(new AddFollowerService());
+        Mockito.when(addFollowerSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetAddFollowerees_validRequest_correctResponse() throws IOException {
-        AddFollowerResponse response = followingServiceSpy.addFollower(validRequest);
+    public void testGetAddFollower_validRequest_correctResponse() throws IOException {
+        AddFollowerResponse response = addFollowerSpy.addFollower(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetAddFollowerees_validRequest_loadsProfileImages() throws IOException {
-        AddFollowerResponse response = followingServiceSpy.addFollower(validRequest);
+    public void testGetAddFollower_validRequest_loadsProfileImages() throws IOException {
+        AddFollowerResponse response = addFollowerSpy.addFollower(validRequest);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
-    public void testGetAddFollowerees_invalidRequest_returnsNoAddFollowerees() throws IOException {
-        AddFollowerResponse response = followingServiceSpy.addFollower(invalidRequest);
+    public void testGetAddFollower_invalidRequest_returnsNoAddFollowerees() throws IOException {
+        AddFollowerResponse response = addFollowerSpy.addFollower(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 

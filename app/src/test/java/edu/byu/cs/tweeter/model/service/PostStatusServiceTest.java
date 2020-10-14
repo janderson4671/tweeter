@@ -22,7 +22,7 @@ public class PostStatusServiceTest {
     private PostStatusResponse successResponse;
     private PostStatusResponse failureResponse;
 
-    private PostStatusService followingServiceSpy;
+    private PostStatusService postStatusServiceSpy;
 
     @BeforeEach
     public void setup() {
@@ -42,26 +42,30 @@ public class PostStatusServiceTest {
         Mockito.when(mockServerFacade.postStatus(invalidRequest)).thenReturn(failureResponse);
 
         // Create a PostStatusingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new PostStatusService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        postStatusServiceSpy = Mockito.spy(new PostStatusService());
+        Mockito.when(postStatusServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetPostStatusees_validRequest_correctResponse() throws IOException {
-        PostStatusResponse response = followingServiceSpy.addPost(validRequest);
+    public void testPostStatus_validRequest_correctResponse() throws IOException {
+        PostStatusResponse response = postStatusServiceSpy.addPost(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetPostStatusees_validRequest_loadsProfileImages() throws IOException {
-        PostStatusResponse response = followingServiceSpy.addPost(validRequest);
+    public void testPostStatus_validRequest_correctMessage() throws IOException {
+        PostStatusResponse response = postStatusServiceSpy.addPost(validRequest);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
-    public void testGetPostStatusees_invalidRequest_returnsNoPostStatusees() throws IOException {
-        PostStatusResponse response = followingServiceSpy.addPost(invalidRequest);
+    public void testPostStatus_invalidRequest_returnsFail() throws IOException {
+        PostStatusResponse response = postStatusServiceSpy.addPost(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 

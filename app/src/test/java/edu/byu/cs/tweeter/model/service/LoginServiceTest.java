@@ -21,7 +21,7 @@ public class LoginServiceTest {
     private LoginResponse successResponse;
     private LoginResponse failureResponse;
 
-    private LoginService followingServiceSpy;
+    private LoginService loginServiceSpy;
 
     @BeforeEach
     public void setup() {
@@ -40,26 +40,31 @@ public class LoginServiceTest {
         Mockito.when(mockServerFacade.login(invalidRequest)).thenReturn(failureResponse);
 
         // Create a LoginingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new LoginService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        loginServiceSpy = Mockito.spy(new LoginService());
+        Mockito.when(loginServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetLoginees_validRequest_correctResponse() throws IOException {
-        LoginResponse response = followingServiceSpy.login(validRequest);
+    public void testLogin_validRequest_correctResponse() throws IOException {
+        LoginResponse response = loginServiceSpy.login(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetLoginees_validRequest_loadsProfileImages() throws IOException {
-        LoginResponse response = followingServiceSpy.login(validRequest);
+    public void testLogin_validRequest_hasAlias() throws IOException {
+        LoginResponse response = loginServiceSpy.login(validRequest);
 
         Assertions.assertNotNull(response.getUser().getAlias());
+        Assertions.assertEquals("@FirstNameLastName", response.getUser().getAlias());
     }
 
     @Test
-    public void testGetLoginees_invalidRequest_returnsNoLoginees() throws IOException {
-        LoginResponse response = followingServiceSpy.login(invalidRequest);
+    public void GetLogin_invalidRequest_returnsFail() throws IOException {
+        LoginResponse response = loginServiceSpy.login(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 

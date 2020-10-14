@@ -50,12 +50,15 @@ public class FollowingPresenterTest {
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.getFollowing(request));
     }
 
     @Test
     public void testGetFollowing_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
         Mockito.when(mockFollowingService.getFollowees(request)).thenThrow(new IOException());
+
+        Assertions.assertNotNull(response);
 
         Assertions.assertThrows(IOException.class, () -> {
             presenter.getFollowing(request);

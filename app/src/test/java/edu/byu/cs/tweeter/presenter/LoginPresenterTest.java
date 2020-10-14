@@ -38,6 +38,7 @@ public class LoginPresenterTest {
     public void testLoginReturnsResult() throws IOException {
         Mockito.when(mockLoginService.login(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.login(request));
     }
 
@@ -45,6 +46,7 @@ public class LoginPresenterTest {
     public void testLoginThrowsException() throws IOException {
         Mockito.when(mockLoginService.login(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.login(request);
         });

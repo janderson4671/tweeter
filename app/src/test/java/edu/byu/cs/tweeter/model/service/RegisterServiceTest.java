@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
@@ -22,7 +21,7 @@ public class RegisterServiceTest {
     private RegisterResponse successResponse;
     private RegisterResponse failureResponse;
 
-    private RegisterService followingServiceSpy;
+    private RegisterService registerServiceSpy;
 
     @BeforeEach
     public void setup() {
@@ -41,26 +40,30 @@ public class RegisterServiceTest {
         Mockito.when(mockServerFacade.register(invalidRequest)).thenReturn(failureResponse);
 
         // Create a RegisteringService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new RegisterService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        registerServiceSpy = Mockito.spy(new RegisterService());
+        Mockito.when(registerServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetRegisterees_validRequest_correctResponse() throws IOException {
-        RegisterResponse response = followingServiceSpy.register(validRequest);
+    public void testRegister_validRequest_correctResponse() throws IOException {
+        RegisterResponse response = registerServiceSpy.register(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetRegisterees_validRequest_loadsProfileImages() throws IOException {
-        RegisterResponse response = followingServiceSpy.register(validRequest);
+    public void testRegister_validRequest_correctAlias() throws IOException {
+        RegisterResponse response = registerServiceSpy.register(validRequest);
 
         Assertions.assertNotNull(response.getUser().getAlias());
+        Assertions.assertEquals("@FirstNameLastName", response.getUser().getAlias());
     }
 
     @Test
     public void testGetRegisterees_invalidRequest_returnsNoRegisterees() throws IOException {
-        RegisterResponse response = followingServiceSpy.register(invalidRequest);
+        RegisterResponse response = registerServiceSpy.register(invalidRequest);
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 

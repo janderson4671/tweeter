@@ -38,6 +38,7 @@ public class LogoutPresenterTest {
     public void testLogoutReturnsResult() throws IOException {
         Mockito.when(mockLogoutService.logout(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.logout(request));
     }
 
@@ -45,6 +46,7 @@ public class LogoutPresenterTest {
     public void testLogoutThrowsException() throws IOException {
         Mockito.when(mockLogoutService.logout(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.logout(request);
         });

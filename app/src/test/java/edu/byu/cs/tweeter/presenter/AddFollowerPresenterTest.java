@@ -43,6 +43,7 @@ public class AddFollowerPresenterTest {
     public void testAddFollowerReturnsResult() throws IOException {
         Mockito.when(mockAddFollowerService.addFollower(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.addFollower(request));
     }
 
@@ -50,6 +51,7 @@ public class AddFollowerPresenterTest {
     public void testAddFollowerThrowsException() throws IOException {
         Mockito.when(mockAddFollowerService.addFollower(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.addFollower(request);
         });

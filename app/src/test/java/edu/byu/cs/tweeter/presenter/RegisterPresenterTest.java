@@ -39,6 +39,7 @@ public class RegisterPresenterTest {
     public void testRegisterReturnsResult() throws IOException {
         Mockito.when(mockRegisterService.register(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.register(request));
     }
 
@@ -46,6 +47,7 @@ public class RegisterPresenterTest {
     public void testRegisterThrowsException() throws IOException {
         Mockito.when(mockRegisterService.register(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.register(request);
         });

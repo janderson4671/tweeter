@@ -43,6 +43,7 @@ public class StatusPresenterTest {
     public void testStatusReturnsResult() throws IOException {
         Mockito.when(mockStatusService.getStatuses(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.getStatuses(request));
     }
 
@@ -50,6 +51,7 @@ public class StatusPresenterTest {
     public void testStatusThrowsException() throws IOException {
         Mockito.when(mockStatusService.getStatuses(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.getStatuses(request);
         });

@@ -40,6 +40,7 @@ public class PostStatusPresenterTest {
     public void testPostStatusReturnsResult() throws IOException {
         Mockito.when(mockPostStatusService.addPost(request)).thenReturn(response);
 
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.postStatus(request));
     }
 
@@ -47,6 +48,7 @@ public class PostStatusPresenterTest {
     public void testPostStatusThrowsException() throws IOException {
         Mockito.when(mockPostStatusService.addPost(request)).thenThrow(new IOException());
 
+        Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
             presenter.postStatus(request);
         });

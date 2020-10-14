@@ -24,7 +24,7 @@ public class StatusServiceTest {
     private StatusResponse successResponse;
     private StatusResponse failureResponse;
 
-    private StatusService followingServiceSpy;
+    private StatusService statusServiceSpy;
 
     @BeforeEach
     public void setup() {
@@ -45,26 +45,30 @@ public class StatusServiceTest {
         Mockito.when(mockServerFacade.getFeed(invalidRequest)).thenReturn(failureResponse);
 
         // Create a StatusingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new StatusService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        statusServiceSpy = Mockito.spy(new StatusService());
+        Mockito.when(statusServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetStatusees_validRequest_correctResponse() throws IOException {
-        StatusResponse response = followingServiceSpy.getStatuses(validRequest);
+    public void testStatus_validRequest_correctResponse() throws IOException {
+        StatusResponse response = statusServiceSpy.getStatuses(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetStatusees_validRequest_loadsProfileImages() throws IOException {
-        StatusResponse response = followingServiceSpy.getStatuses(validRequest);
+    public void testStatus_validRequest_returnsStatuses() throws IOException {
+        StatusResponse response = statusServiceSpy.getStatuses(validRequest);
 
         Assertions.assertNotNull(response.getStatuses());
     }
 
     @Test
-    public void testGetStatusees_invalidRequest_returnsNoStatusees() throws IOException {
-        StatusResponse response = followingServiceSpy.getStatuses(invalidRequest);
+    public void testStatus_invalidRequest_returnsNoStatus() throws IOException {
+        StatusResponse response = statusServiceSpy.getStatuses(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 

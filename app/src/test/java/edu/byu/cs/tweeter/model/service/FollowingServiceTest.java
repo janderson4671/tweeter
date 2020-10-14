@@ -59,6 +59,8 @@ public class FollowingServiceTest {
     @Test
     public void testGetFollowees_validRequest_correctResponse() throws IOException {
         FollowResponse response = followingServiceSpy.getFollowees(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
@@ -74,6 +76,8 @@ public class FollowingServiceTest {
     @Test
     public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
         FollowResponse response = followingServiceSpy.getFollowees(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 }

@@ -21,7 +21,7 @@ public class LogoutServiceTest {
     private LogoutResponse successResponse;
     private LogoutResponse failureResponse;
 
-    private LogoutService followingServiceSpy;
+    private LogoutService logoutServiceSpy;
 
     @BeforeEach
     public void setup() {
@@ -40,26 +40,30 @@ public class LogoutServiceTest {
         Mockito.when(mockServerFacade.logout(invalidRequest)).thenReturn(failureResponse);
 
         // Create a LogoutingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new LogoutService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        logoutServiceSpy = Mockito.spy(new LogoutService());
+        Mockito.when(logoutServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetLogoutees_validRequest_correctResponse() throws IOException {
-        LogoutResponse response = followingServiceSpy.logout(validRequest);
+    public void testLogout_validRequest_correctResponse() throws IOException {
+        LogoutResponse response = logoutServiceSpy.logout(validRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetLogoutees_validRequest_loadsProfileImages() throws IOException {
-        LogoutResponse response = followingServiceSpy.logout(validRequest);
+    public void testLogout_validRequest_correctMessage() throws IOException {
+        LogoutResponse response = logoutServiceSpy.logout(validRequest);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
-    public void testGetLogoutees_invalidRequest_returnsNoLogoutees() throws IOException {
-        LogoutResponse response = followingServiceSpy.logout(invalidRequest);
+    public void testLogout_invalidRequest_returnsFail() throws IOException {
+        LogoutResponse response = logoutServiceSpy.logout(invalidRequest);
+
+        Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }
 }
