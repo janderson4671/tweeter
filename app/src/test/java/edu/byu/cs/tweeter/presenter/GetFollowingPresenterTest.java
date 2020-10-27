@@ -10,16 +10,16 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.FollowingService;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.GetFollowingService;
+import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
 
-public class FollowingPresenterTest {
+public class GetFollowingPresenterTest {
 
-    private FollowRequest request;
-    private FollowResponse response;
-    private FollowingService mockFollowingService;
-    private FollowingPresenter presenter;
+    private GetFollowingRequest request;
+    private GetFollowingResponse response;
+    private GetFollowingService mMockGetFollowingService;
+    private GetFollowingPresenter presenter;
 
     @BeforeEach
     public void setup() throws IOException {
@@ -32,21 +32,21 @@ public class FollowingPresenterTest {
         User resultUser3 = new User("FirstName3", "LastName3",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
-        request = new FollowRequest(currentUser, new AuthToken(), 10, null, 2);
-        response = new FollowResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
+        request = new GetFollowingRequest(currentUser, new AuthToken(), 10, null, 2);
+        response = new GetFollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
         // Create a mock FollowingService
-        mockFollowingService = Mockito.mock(FollowingService.class);
-        Mockito.when(mockFollowingService.getFollowees(request)).thenReturn(response);
+        mMockGetFollowingService = Mockito.mock(GetFollowingService.class);
+        Mockito.when(mMockGetFollowingService.getFollowing(request)).thenReturn(response);
 
         // Wrap a FollowingPresenter in a spy that will use the mock service.
-        presenter = Mockito.spy(new FollowingPresenter(new FollowingPresenter.View() {}));
-        Mockito.when(presenter.getFollowingService()).thenReturn(mockFollowingService);
+        presenter = Mockito.spy(new GetFollowingPresenter(new GetFollowingPresenter.View() {}));
+        Mockito.when(presenter.getFollowingService()).thenReturn(mMockGetFollowingService);
     }
 
     @Test
     public void testGetFollowing_returnsServiceResult() throws IOException {
-        Mockito.when(mockFollowingService.getFollowees(request)).thenReturn(response);
+        Mockito.when(mMockGetFollowingService.getFollowing(request)).thenReturn(response);
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
@@ -56,7 +56,7 @@ public class FollowingPresenterTest {
 
     @Test
     public void testGetFollowing_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
-        Mockito.when(mockFollowingService.getFollowees(request)).thenThrow(new IOException());
+        Mockito.when(mMockGetFollowingService.getFollowing(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);
 

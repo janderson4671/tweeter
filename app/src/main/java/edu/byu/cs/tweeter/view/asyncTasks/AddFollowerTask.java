@@ -4,23 +4,22 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
-import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
-import edu.byu.cs.tweeter.model.service.response.Response;
-import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.presenter.FollowPresenter;
 
-public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, AddFollowerResponse> {
+public class AddFollowerTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
 
-    private final AddFollowerPresenter presenter;
+    private final FollowPresenter presenter;
     private final Observer observer;
     private Exception exception;
 
     public interface Observer {
-        void addFollowerComplete(AddFollowerResponse response);
+        void addFollowerComplete(FollowResponse response);
         void handleException(Exception exception);
     }
 
-    public AddFollowerTask(AddFollowerPresenter presenter, Observer observer) {
+    public AddFollowerTask(FollowPresenter presenter, Observer observer) {
         if (observer == null) {
             throw new NullPointerException();
         }
@@ -30,8 +29,8 @@ public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, AddFoll
     }
 
     @Override
-    protected AddFollowerResponse doInBackground(AddFollowerRequest... requests) {
-        AddFollowerResponse response = null;
+    protected FollowResponse doInBackground(FollowRequest... requests) {
+        FollowResponse response = null;
 
         try {
             response = presenter.addFollower(requests[0]);
@@ -43,7 +42,7 @@ public class AddFollowerTask extends AsyncTask<AddFollowerRequest, Void, AddFoll
     }
 
     @Override
-    protected void onPostExecute(AddFollowerResponse response) {
+    protected void onPostExecute(FollowResponse response) {
         if (exception != null) {
             observer.handleException(exception);
         } else {

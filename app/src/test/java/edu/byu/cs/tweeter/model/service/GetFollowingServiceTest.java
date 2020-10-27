@@ -11,18 +11,18 @@ import java.util.Arrays;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
 
-public class FollowingServiceTest {
+public class GetFollowingServiceTest {
 
-    private FollowRequest validRequest;
-    private FollowRequest invalidRequest;
+    private GetFollowingRequest validRequest;
+    private GetFollowingRequest invalidRequest;
 
-    private FollowResponse successResponse;
-    private FollowResponse failureResponse;
+    private GetFollowingResponse successResponse;
+    private GetFollowingResponse failureResponse;
 
-    private FollowingService followingServiceSpy;
+    private GetFollowingService mGetFollowingServiceSpy;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -40,25 +40,25 @@ public class FollowingServiceTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowRequest(currentUser, new AuthToken(), 3, null,2);
-        invalidRequest = new FollowRequest(null, new AuthToken(), 0, null,2);
+        validRequest = new GetFollowingRequest(currentUser, new AuthToken(), 3, null,2);
+        invalidRequest = new GetFollowingRequest(null, new AuthToken(), 0, null,2);
 
         // Setup a mock ServerFacade that will return known responses
-        successResponse = new FollowResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
+        successResponse = new GetFollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
         Mockito.when(mockServerFacade.getFollowees(validRequest)).thenReturn(successResponse);
 
-        failureResponse = new FollowResponse("An exception occured");
+        failureResponse = new GetFollowingResponse("An exception occured");
         Mockito.when(mockServerFacade.getFollowees(invalidRequest)).thenReturn(failureResponse);
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new FollowingService());
-        Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        mGetFollowingServiceSpy = Mockito.spy(new GetFollowingService());
+        Mockito.when(mGetFollowingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
     public void testGetFollowees_validRequest_correctResponse() throws IOException {
-        FollowResponse response = followingServiceSpy.getFollowees(validRequest);
+        GetFollowingResponse response = mGetFollowingServiceSpy.getFollowing(validRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -66,7 +66,7 @@ public class FollowingServiceTest {
 
     @Test
     public void testGetFollowees_validRequest_loadsProfileImages() throws IOException {
-        FollowResponse response = followingServiceSpy.getFollowees(validRequest);
+        GetFollowingResponse response = mGetFollowingServiceSpy.getFollowing(validRequest);
 
         for(User user : response.getFollowees()) {
             Assertions.assertNotNull(user.getImageBytes());
@@ -75,7 +75,7 @@ public class FollowingServiceTest {
 
     @Test
     public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
-        FollowResponse response = followingServiceSpy.getFollowees(invalidRequest);
+        GetFollowingResponse response = mGetFollowingServiceSpy.getFollowing(invalidRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

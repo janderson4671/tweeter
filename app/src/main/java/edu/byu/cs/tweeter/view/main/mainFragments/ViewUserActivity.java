@@ -15,15 +15,15 @@ import com.google.android.material.tabs.TabLayout;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.AddFollowerRequest;
-import edu.byu.cs.tweeter.model.service.response.AddFollowerResponse;
-import edu.byu.cs.tweeter.presenter.AddFollowerPresenter;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.presenter.FollowPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.main.adapters.ViewUserPagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-public class ViewUserActivity extends AppCompatActivity implements AddFollowerPresenter.View, AddFollowerTask.Observer {
+public class ViewUserActivity extends AppCompatActivity implements FollowPresenter.View, AddFollowerTask.Observer {
 
     public static final String VIEWED_USER_KEY = "ViewedUser";
 
@@ -37,7 +37,7 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
 
     private ViewData data;
 
-    private AddFollowerPresenter presenter;
+    private FollowPresenter presenter;
 
     User viewedUser;
     User loggedInUser;
@@ -48,7 +48,7 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_user);
 
-        presenter = new AddFollowerPresenter(this);
+        presenter = new FollowPresenter(this);
 
         data = ViewData.getData();
 
@@ -114,13 +114,13 @@ public class ViewUserActivity extends AppCompatActivity implements AddFollowerPr
             followButton.setText("Follow");
         }
 
-        AddFollowerRequest request = new AddFollowerRequest(data.getLoggedInUser(), authToken, viewedUser, follow);
+        FollowRequest request = new FollowRequest(data.getLoggedInUser(), authToken, viewedUser, follow);
         AddFollowerTask task = new AddFollowerTask(presenter, this);
         task.execute(request);
     }
 
     @Override
-    public void addFollowerComplete(AddFollowerResponse response) {
+    public void addFollowerComplete(FollowResponse response) {
         if (followButton.getText().equals("Unfollow")) {
             viewedUser.addFollower(null);
             followeeCount.setText("Followers: " + viewedUser.getFollowerCount());

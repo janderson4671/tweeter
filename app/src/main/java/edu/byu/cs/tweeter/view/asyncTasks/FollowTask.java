@@ -4,25 +4,25 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
-import edu.byu.cs.tweeter.presenter.FollowingPresenter;
+import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
+import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
 
 /**
  * An {@link AsyncTask} for retrieving followees for a user.
  */
-public class FollowTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
+public class FollowTask extends AsyncTask<GetFollowingRequest, Void, GetFollowingResponse> {
 
-    private final FollowingPresenter presenter;
+    private final GetFollowingPresenter presenter;
     private final Observer observer;
     private Exception exception;
 
     public interface Observer {
-        void dataRetrieved(FollowResponse followResponse);
+        void dataRetrieved(GetFollowingResponse getFollowingResponse);
         void handleException(Exception exception);
     }
 
-    public FollowTask(FollowingPresenter presenter, Observer observer) {
+    public FollowTask(GetFollowingPresenter presenter, Observer observer) {
         if(observer == null) {
             throw new NullPointerException();
         }
@@ -32,12 +32,12 @@ public class FollowTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
     }
 
     @Override
-    protected FollowResponse doInBackground(FollowRequest... followRequests) {
+    protected GetFollowingResponse doInBackground(GetFollowingRequest... getFollowingRequests) {
 
-        FollowResponse response = null;
+        GetFollowingResponse response = null;
 
         try {
-            response = presenter.getFollowing(followRequests[0]);
+            response = presenter.getFollowing(getFollowingRequests[0]);
         } catch (IOException ex) {
             exception = ex;
         }
@@ -46,11 +46,11 @@ public class FollowTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
     }
 
     @Override
-    protected void onPostExecute(FollowResponse followResponse) {
+    protected void onPostExecute(GetFollowingResponse getFollowingResponse) {
         if(exception != null) {
             observer.handleException(exception);
         } else {
-            observer.dataRetrieved(followResponse);
+            observer.dataRetrieved(getFollowingResponse);
         }
     }
 }

@@ -3,21 +3,37 @@ package edu.byu.cs.tweeter.model.service.request;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
-/**
- * Contains all the information needed to make a request to have the server return the next page of
- * followees for a specified follower.
- */
-public class FollowRequest extends DataRetrievalRequest{
+public class FollowRequest {
 
-    private final User lastFollowee;
+    private User currUser;
+    private AuthToken authToken;
 
-    public FollowRequest(User user, AuthToken authToken, int limit, User lastFollowee, int fragmentCode) {
-        super(user, authToken, limit, fragmentCode);
+    private User userToFollow;
+    private boolean follow;
 
-        this.lastFollowee = lastFollowee;
+    //Constructor
+    public FollowRequest(User currUser, AuthToken authToken, User userToFollow, boolean follow) {
+        this.currUser = currUser;
+        this.authToken = authToken;
+        this.userToFollow = userToFollow;
+        this.follow = follow;
     }
 
-    public User getLastFollowee() {
-        return lastFollowee;
+    //Getters
+    public User getCurrUser() {
+        return currUser;
     }
+
+    public AuthToken getAuthToken() {
+        return authToken;
+    }
+
+    public User getUserToFollow() {
+        return userToFollow;
+    }
+
+    public boolean isFollow() {
+        return follow;
+    }
+
 }

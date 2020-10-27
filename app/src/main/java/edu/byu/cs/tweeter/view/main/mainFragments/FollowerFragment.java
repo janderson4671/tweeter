@@ -18,9 +18,9 @@ import java.util.List;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
-import edu.byu.cs.tweeter.presenter.FollowingPresenter;
+import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
+import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
@@ -28,7 +28,7 @@ import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
 /**
  * The fragment that displays on the 'Following' tab.
  */
-public class FollowerFragment extends Fragment implements FollowingPresenter.View {
+public class FollowerFragment extends Fragment implements GetFollowingPresenter.View {
 
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
@@ -41,7 +41,7 @@ public class FollowerFragment extends Fragment implements FollowingPresenter.Vie
 
     private User user;
     private AuthToken authToken;
-    private FollowingPresenter presenter;
+    private GetFollowingPresenter presenter;
 
     public static FollowerFragment newInstance(User user, AuthToken authToken) {
         FollowerFragment fragment = new FollowerFragment();
@@ -63,7 +63,7 @@ public class FollowerFragment extends Fragment implements FollowingPresenter.Vie
         user = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
-        presenter = new FollowingPresenter(this);
+        presenter = new GetFollowingPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -91,7 +91,7 @@ public class FollowerFragment extends Fragment implements FollowingPresenter.Vie
                 addLoadingFooter();
 
                 FollowTask followTask = new FollowTask(presenter, this);
-                FollowRequest request = new FollowRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                GetFollowingRequest request = new GetFollowingRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
                 followTask.execute(request);
             }
 
@@ -124,7 +124,7 @@ public class FollowerFragment extends Fragment implements FollowingPresenter.Vie
             }
 
             @Override
-            public void dataRetrieved(FollowResponse response) {
+            public void dataRetrieved(GetFollowingResponse response) {
                 List<User> followees = response.getFollowees();
 
                 lastItem = (followees.size() > 0) ? followees.get(followees.size() - 1) : null;
