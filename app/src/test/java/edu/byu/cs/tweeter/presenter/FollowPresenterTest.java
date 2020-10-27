@@ -11,6 +11,7 @@ import java.util.Date;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.FollowService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
@@ -23,7 +24,7 @@ public class FollowPresenterTest {
     private FollowPresenter presenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         User followUser = new User("Jason", "Anderson", null);
         Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
@@ -32,27 +33,27 @@ public class FollowPresenterTest {
         response = new FollowResponse(true, "Success!");
 
         mMockFollowService = Mockito.mock(FollowService.class);
-        Mockito.when(mMockFollowService.addFollower(request)).thenReturn(response);
+        Mockito.when(mMockFollowService.follow(request)).thenReturn(response);
 
         presenter = Mockito.spy(new FollowPresenter(new FollowPresenter.View() {}));
         Mockito.when(presenter.getAddFollowerService()).thenReturn(mMockFollowService);
     }
 
     @Test
-    public void testAddFollowerReturnsResult() throws IOException {
-        Mockito.when(mMockFollowService.addFollower(request)).thenReturn(response);
+    public void testAddFollowerReturnsResult() throws IOException, TweeterRemoteException {
+        Mockito.when(mMockFollowService.follow(request)).thenReturn(response);
 
         Assertions.assertNotNull(response);
-        Assertions.assertEquals(response, presenter.addFollower(request));
+        Assertions.assertEquals(response, presenter.follow(request));
     }
 
     @Test
-    public void testAddFollowerThrowsException() throws IOException {
-        Mockito.when(mMockFollowService.addFollower(request)).thenThrow(new IOException());
+    public void testAddFollowerThrowsException() throws IOException, TweeterRemoteException {
+        Mockito.when(mMockFollowService.follow(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {
-            presenter.addFollower(request);
+            presenter.follow(request);
         });
     }
 

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.LoginService;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
@@ -21,7 +22,7 @@ public class LoginPresenterTest {
     private LoginPresenter presenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
 
         request = new LoginRequest(currentUser.getAlias(), "12345678");
@@ -35,7 +36,7 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testLoginReturnsResult() throws IOException {
+    public void testLoginReturnsResult() throws IOException, TweeterRemoteException {
         Mockito.when(mockLoginService.login(request)).thenReturn(response);
 
         Assertions.assertNotNull(response);
@@ -43,7 +44,7 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testLoginThrowsException() throws IOException {
+    public void testLoginThrowsException() throws IOException, TweeterRemoteException {
         Mockito.when(mockLoginService.login(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);

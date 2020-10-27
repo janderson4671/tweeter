@@ -42,7 +42,7 @@ public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterRespo
             if (registerResponse.isSuccess()) {
                 loadImage(registerResponse.getUser());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

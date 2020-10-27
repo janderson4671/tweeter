@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.GetFollowingService;
 import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
@@ -22,7 +23,7 @@ public class GetFollowingPresenterTest {
     private GetFollowingPresenter presenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
 
         User resultUser1 = new User("FirstName1", "LastName1",
@@ -45,7 +46,7 @@ public class GetFollowingPresenterTest {
     }
 
     @Test
-    public void testGetFollowing_returnsServiceResult() throws IOException {
+    public void testGetFollowing_returnsServiceResult() throws IOException, TweeterRemoteException {
         Mockito.when(mMockGetFollowingService.getFollowing(request)).thenReturn(response);
 
         // Assert that the presenter returns the same response as the service (it doesn't do
@@ -55,7 +56,7 @@ public class GetFollowingPresenterTest {
     }
 
     @Test
-    public void testGetFollowing_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
+    public void testGetFollowing_serviceThrowsIOException_presenterThrowsIOException() throws IOException, TweeterRemoteException {
         Mockito.when(mMockGetFollowingService.getFollowing(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);

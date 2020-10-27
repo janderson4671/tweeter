@@ -1,11 +1,23 @@
 package edu.byu.cs.tweeter.model.net;
 
 import java.io.IOException;
+import java.util.List;
 
+import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
+import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
+import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through
@@ -39,6 +51,62 @@ public class ServerFacade {
             throw new RuntimeException(response.getMessage());
         }
     }
+
+    public LogoutResponse logout(LogoutRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        LogoutResponse response = clientCommunicator.doPost(urlPath, request, null, LogoutResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public RegisterResponse register(RegisterRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        RegisterResponse response = clientCommunicator.doPost(urlPath, request, null, RegisterResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public GetStatusResponse getStatuses(GetStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        GetStatusResponse response = clientCommunicator.doPost(urlPath, request, null, GetStatusResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public FollowResponse follow(FollowRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        FollowResponse response = clientCommunicator.doPost(urlPath, request, null, FollowResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public PostStatusResponse postStatus(PostStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        PostStatusResponse response = clientCommunicator.doPost(urlPath, request, null, PostStatusResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    //USED FOR TESTING ONLY!!!
+    public List<User> getDummyFollowees() {
+        return null;
+    }
+
 
 
 

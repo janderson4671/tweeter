@@ -11,10 +11,11 @@ import java.util.Date;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 
-public class PostStatusServiceTest {
+public class PostGetStatusServiceTest {
 
     private PostStatusRequest validRequest;
     private PostStatusRequest invalidRequest;
@@ -22,10 +23,12 @@ public class PostStatusServiceTest {
     private PostStatusResponse successResponse;
     private PostStatusResponse failureResponse;
 
-    private PostStatusService postStatusServiceSpy;
+    private PostStatusServiceProxy postStatusServiceSpy;
+
+    private String dummyURL = "/helloworld";
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()), null);
 
@@ -36,34 +39,34 @@ public class PostStatusServiceTest {
         // Setup a mock ServerFacade that will return known responses
         successResponse = new PostStatusResponse(true, "Success!");
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
-        Mockito.when(mockServerFacade.postStatus(validRequest)).thenReturn(successResponse);
+        Mockito.when(mockServerFacade.postStatus(validRequest, dummyURL)).thenReturn(successResponse);
 
         failureResponse = new PostStatusResponse(false, "An exception occured");
-        Mockito.when(mockServerFacade.postStatus(invalidRequest)).thenReturn(failureResponse);
+        Mockito.when(mockServerFacade.postStatus(invalidRequest, dummyURL)).thenReturn(failureResponse);
 
         // Create a PostStatusingService instance and wrap it with a spy that will use the mock service
-        postStatusServiceSpy = Mockito.spy(new PostStatusService());
+        postStatusServiceSpy = Mockito.spy(new PostStatusServiceProxy());
         Mockito.when(postStatusServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testPostStatus_validRequest_correctResponse() throws IOException {
-        PostStatusResponse response = postStatusServiceSpy.addPost(validRequest);
+    public void testPostStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
+        PostStatusResponse response = postStatusServiceSpy.postStatus(validRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testPostStatus_validRequest_correctMessage() throws IOException {
-        PostStatusResponse response = postStatusServiceSpy.addPost(validRequest);
+    public void testPostStatus_validRequest_correctMessage() throws IOException, TweeterRemoteException {
+        PostStatusResponse response = postStatusServiceSpy.postStatus(validRequest);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
-    public void testPostStatus_invalidRequest_returnsFail() throws IOException {
-        PostStatusResponse response = postStatusServiceSpy.addPost(invalidRequest);
+    public void testPostStatus_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
+        PostStatusResponse response = postStatusServiceSpy.postStatus(invalidRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

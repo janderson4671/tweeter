@@ -20,15 +20,15 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.StatusRequest;
-import edu.byu.cs.tweeter.model.service.response.StatusResponse;
-import edu.byu.cs.tweeter.presenter.StatusPresenter;
+import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
+import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
+import edu.byu.cs.tweeter.presenter.GetStatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.StatusHolder;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
-public class StoryFragment extends Fragment implements StatusPresenter.View {
+public class StoryFragment extends Fragment implements GetStatusPresenter.View {
 
     private static final String LOG_TAG = "StoryFragment";
     private static final int FRAGMENT_CODE = 1;
@@ -38,7 +38,7 @@ public class StoryFragment extends Fragment implements StatusPresenter.View {
 
     private User user;
     private AuthToken authToken;
-    private StatusPresenter presenter;
+    private GetStatusPresenter presenter;
 
     private ViewData data;
 
@@ -60,7 +60,7 @@ public class StoryFragment extends Fragment implements StatusPresenter.View {
         user = data.getLoggedInUser();
         authToken = data.getAuthToken();
 
-        presenter = new StatusPresenter(this);
+        presenter = new GetStatusPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -87,7 +87,7 @@ public class StoryFragment extends Fragment implements StatusPresenter.View {
                 addLoadingFooter();
 
                 StatusTask dataRetrievalTask = new StatusTask(presenter, this);
-                StatusRequest request = new StatusRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                GetStatusRequest request = new GetStatusRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
                 dataRetrievalTask.execute(request);
             }
 
@@ -119,7 +119,7 @@ public class StoryFragment extends Fragment implements StatusPresenter.View {
             }
 
             @Override
-            public void dataRetrieved(StatusResponse response) {
+            public void dataRetrieved(GetStatusResponse response) {
                 List<Status> statuses = response.getStatuses();
                 lastItem = (statuses.size() > 0) ? statuses.get(statuses.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();

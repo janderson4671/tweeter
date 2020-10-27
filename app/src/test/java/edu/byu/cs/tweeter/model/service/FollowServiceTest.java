@@ -12,6 +12,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 
@@ -23,10 +24,12 @@ public class FollowServiceTest {
     private FollowResponse successResponse;
     private FollowResponse failureResponse;
 
-    private FollowService addFollowerSpy;
+    private FollowServiceProxy addFollowerSpy;
+
+    private String dummyURL = "/helloworld";
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         User invalidUser = new User("Nathan", "Craddock", null);
         Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()), null);
@@ -38,34 +41,34 @@ public class FollowServiceTest {
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowResponse(true, "Success!");
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
-        Mockito.when(mockServerFacade.addFollower(validRequest)).thenReturn(successResponse);
+        Mockito.when(mockServerFacade.follow(validRequest, dummyURL)).thenReturn(successResponse);
 
         failureResponse = new FollowResponse(false, "Failed!");
-        Mockito.when(mockServerFacade.addFollower(invalidRequest)).thenReturn(failureResponse);
+        Mockito.when(mockServerFacade.follow(invalidRequest, dummyURL)).thenReturn(failureResponse);
 
         // Create a AddFolloweringService instance and wrap it with a spy that will use the mock service
-        addFollowerSpy = Mockito.spy(new FollowService());
+        addFollowerSpy = Mockito.spy(new FollowServiceProxy());
         Mockito.when(addFollowerSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetAddFollower_validRequest_correctResponse() throws IOException {
-        FollowResponse response = addFollowerSpy.addFollower(validRequest);
+    public void testGetAddFollower_validRequest_correctResponse() throws IOException, TweeterRemoteException {
+        FollowResponse response = addFollowerSpy.follow(validRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetAddFollower_validRequest_loadsProfileImages() throws IOException {
-        FollowResponse response = addFollowerSpy.addFollower(validRequest);
+    public void testGetAddFollower_validRequest_loadsProfileImages() throws IOException, TweeterRemoteException {
+        FollowResponse response = addFollowerSpy.follow(validRequest);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
-    public void testGetAddFollower_invalidRequest_returnsNoAddFollowerees() throws IOException {
-        FollowResponse response = addFollowerSpy.addFollower(invalidRequest);
+    public void testGetAddFollower_invalidRequest_returnsNoAddFollowerees() throws IOException, TweeterRemoteException {
+        FollowResponse response = addFollowerSpy.follow(invalidRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

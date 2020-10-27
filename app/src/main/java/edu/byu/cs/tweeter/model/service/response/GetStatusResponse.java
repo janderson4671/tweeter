@@ -4,17 +4,16 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
 
-public class StatusResponse extends PagedResponse {
+public class GetStatusResponse extends PagedResponse {
 
     private List<Status> statuses;
 
-    public StatusResponse(String message) {
+    public GetStatusResponse(String message) {
         super(false, message, false);
     }
 
-    public StatusResponse(List<Status> statuses, boolean hasMorePages) {
+    public GetStatusResponse(List<Status> statuses, boolean hasMorePages) {
         super(true, hasMorePages);
         this.statuses = statuses;
     }
@@ -33,7 +32,7 @@ public class StatusResponse extends PagedResponse {
             return false;
         }
 
-        StatusResponse that = (StatusResponse) param;
+        GetStatusResponse that = (GetStatusResponse) param;
 
         return (Objects.equals(statuses, that.statuses) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
 import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
@@ -38,7 +39,7 @@ public class FollowTask extends AsyncTask<GetFollowingRequest, Void, GetFollowin
 
         try {
             response = presenter.getFollowing(getFollowingRequests[0]);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             exception = ex;
         }
 

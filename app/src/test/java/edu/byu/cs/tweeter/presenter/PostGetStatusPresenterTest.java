@@ -10,11 +10,12 @@ import java.util.Date;
 
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.PostStatusService;
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 
-public class PostStatusPresenterTest {
+public class PostGetStatusPresenterTest {
 
     private PostStatusRequest request;
     private PostStatusResponse response;
@@ -22,7 +23,7 @@ public class PostStatusPresenterTest {
     private PostStatusPresenter presenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
 
@@ -30,23 +31,23 @@ public class PostStatusPresenterTest {
         response = new PostStatusResponse(true, "Success!");
 
         mockPostStatusService = Mockito.mock(PostStatusService.class);
-        Mockito.when(mockPostStatusService.addPost(request)).thenReturn(response);
+        Mockito.when(mockPostStatusService.postStatus(request)).thenReturn(response);
 
         presenter = Mockito.spy(new PostStatusPresenter(new PostStatusPresenter.View() {}));
         Mockito.when(presenter.getPostStatusService()).thenReturn(mockPostStatusService);
     }
 
     @Test
-    public void testPostStatusReturnsResult() throws IOException {
-        Mockito.when(mockPostStatusService.addPost(request)).thenReturn(response);
+    public void testPostStatusReturnsResult() throws IOException, TweeterRemoteException {
+        Mockito.when(mockPostStatusService.postStatus(request)).thenReturn(response);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.postStatus(request));
     }
 
     @Test
-    public void testPostStatusThrowsException() throws IOException {
-        Mockito.when(mockPostStatusService.addPost(request)).thenThrow(new IOException());
+    public void testPostStatusThrowsException() throws IOException, TweeterRemoteException {
+        Mockito.when(mockPostStatusService.postStatus(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {

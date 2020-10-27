@@ -17,9 +17,12 @@ public class User implements Comparable<User>, Serializable {
 
     private byte [] imageBytes;
 
-
     private List<User> followers;
     private List<User> followees;
+
+    //TODO: Impliment These!!
+    private int numFollowers;
+    private int numFollowing;
 
     private List<Status> posts;
 

@@ -4,22 +4,22 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.request.StatusRequest;
-import edu.byu.cs.tweeter.model.service.response.StatusResponse;
-import edu.byu.cs.tweeter.presenter.StatusPresenter;
+import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
+import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
+import edu.byu.cs.tweeter.presenter.GetStatusPresenter;
 
-public class StatusTask extends AsyncTask<StatusRequest, Void, StatusResponse> {
+public class StatusTask extends AsyncTask<GetStatusRequest, Void, GetStatusResponse> {
 
-    private final StatusPresenter presenter;
+    private final GetStatusPresenter presenter;
     private final Observer observer;
     private Exception exception;
 
     public interface Observer {
-        void dataRetrieved(StatusResponse statusResponse);
+        void dataRetrieved(GetStatusResponse getStatusResponse);
         void handleException(Exception exception);
     }
 
-    public StatusTask(StatusPresenter presenter, Observer observer) {
+    public StatusTask(GetStatusPresenter presenter, Observer observer) {
         if (observer == null) {
             throw new NullPointerException();
         }
@@ -29,13 +29,13 @@ public class StatusTask extends AsyncTask<StatusRequest, Void, StatusResponse> {
     }
 
     @Override
-    protected StatusResponse doInBackground(StatusRequest... statusRequests) {
+    protected GetStatusResponse doInBackground(GetStatusRequest... getStatusRequests) {
 
-        StatusResponse response = null;
+        GetStatusResponse response = null;
 
         try {
-            response = presenter.getStatuses(statusRequests[0]);
-        } catch (IOException ex) {
+            response = presenter.getStatuses(getStatusRequests[0]);
+        } catch (Exception ex) {
             exception = ex;
         }
 
@@ -43,11 +43,11 @@ public class StatusTask extends AsyncTask<StatusRequest, Void, StatusResponse> {
     }
 
     @Override
-    protected void onPostExecute(StatusResponse statusResponse) {
+    protected void onPostExecute(GetStatusResponse getStatusResponse) {
         if (exception != null) {
             observer.handleException(exception);
         } else {
-            observer.dataRetrieved(statusResponse);
+            observer.dataRetrieved(getStatusResponse);
         }
     }
 }

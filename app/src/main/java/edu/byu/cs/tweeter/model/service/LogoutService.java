@@ -3,15 +3,12 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 
-public class LogoutService {
+public interface LogoutService {
 
-    public LogoutResponse logout(LogoutRequest request) throws IOException {
-        LogoutResponse response = getServerFacade().logout(request);
-        return response;
-    }
+    public LogoutResponse logout(LogoutRequest request) throws IOException, TweeterRemoteException;
 
-    public ServerFacade getServerFacade() { return new ServerFacade(); }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.RegisterService;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
@@ -21,7 +22,7 @@ public class RegisterPresenterTest {
     private RegisterPresenter presenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
 
         request = new RegisterRequest("Jason", "Anderson", "@jasonanderson",
@@ -36,7 +37,7 @@ public class RegisterPresenterTest {
     }
 
     @Test
-    public void testRegisterReturnsResult() throws IOException {
+    public void testRegisterReturnsResult() throws IOException, TweeterRemoteException {
         Mockito.when(mockRegisterService.register(request)).thenReturn(response);
 
         Assertions.assertNotNull(response);
@@ -44,7 +45,7 @@ public class RegisterPresenterTest {
     }
 
     @Test
-    public void testRegisterThrowsException() throws IOException {
+    public void testRegisterThrowsException() throws IOException, TweeterRemoteException {
         Mockito.when(mockRegisterService.register(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);

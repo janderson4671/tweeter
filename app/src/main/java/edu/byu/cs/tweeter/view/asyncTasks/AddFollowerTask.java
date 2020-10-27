@@ -33,8 +33,8 @@ public class AddFollowerTask extends AsyncTask<FollowRequest, Void, FollowRespon
         FollowResponse response = null;
 
         try {
-            response = presenter.addFollower(requests[0]);
-        } catch (IOException ex) {
+            response = presenter.follow(requests[0]);
+        } catch (Exception ex) {
             exception = ex;
         }
 
