@@ -11,13 +11,19 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class GetFollowingServiceProxy implements GetFollowingService {
 
-    static final String URL_PATH = "/getfollowing";
+    static final String URL_PATH_FOLLOWING = "/getfollowing";
+    static final String URL_PATH_FOLLOWERS = "/getfollowers";
 
     @Override
     public GetFollowingResponse getFollowing(GetFollowingRequest request) throws IOException, TweeterRemoteException {
 
+        GetFollowingResponse response;
 
-        GetFollowingResponse response = getServerFacade().getFollowing(request, URL_PATH);
+        if (request.getFragmentCode() == 2) {
+            response = getServerFacade().getFollowing(request, URL_PATH_FOLLOWERS);
+        } else {
+            response = getServerFacade().getFollowing(request, URL_PATH_FOLLOWING);
+        }
 
         if(response.isSuccess()) {
             loadImages(response);

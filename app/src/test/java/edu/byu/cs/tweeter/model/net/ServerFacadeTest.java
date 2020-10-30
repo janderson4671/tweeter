@@ -27,7 +27,7 @@ class ServerFacadeTest {
 
     private ServerFacade serverFacadeSpy;
 
-    private String dummyURL = "/helloworld";
+    private String dummyURL = "helloworld";
 
     @BeforeEach
     void setup() {
@@ -112,7 +112,7 @@ class ServerFacadeTest {
 
 
     @Test
-    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() throws IOException, TweeterRemoteException {
+    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() {
 
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7, user8);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);

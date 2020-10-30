@@ -26,7 +26,7 @@ import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 public class ServerFacade {
 
     //TODO: Find out the actual base url!
-    private static final String SERVER_URL = "Nothing for now";
+    private static final String SERVER_URL = "https://bjr38ii6s7.execute-api.us-east-2.amazonaws.com/dev";
 
     private final ClientCommunicator clientCommunicator = new ClientCommunicator(SERVER_URL);
 
