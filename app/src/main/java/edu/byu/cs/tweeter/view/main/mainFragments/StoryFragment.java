@@ -121,6 +121,9 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
             @Override
             public void dataRetrieved(GetStatusResponse response) {
 
+                //Add all mentioned users to viewData for later use
+                data.addMentionedUsers(response.getMentionedUsers());
+
                 user.addStoryStatuses(response.getStatuses());
                 
                 List<Status> story = user.getStory();

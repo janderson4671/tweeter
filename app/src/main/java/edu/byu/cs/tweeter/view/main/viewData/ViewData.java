@@ -2,6 +2,8 @@ package edu.byu.cs.tweeter.view.main.viewData;
 
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
@@ -11,6 +13,8 @@ public class ViewData {
 
     private static User loggedInUser;
     private static AuthToken authToken;
+
+    private static List<User> allMentionedUsers;
 
     private static Bitmap profile;
 
@@ -33,6 +37,8 @@ public class ViewData {
 
     public Bitmap getProfile() { return profile; }
 
+    public List<User> getAllMentionedUsers() { return allMentionedUsers; }
+
     //Setters
     public static void setLoggedInUser(User user, AuthToken authTokenIn, Bitmap profileIn) {
         loggedInUser = user;
@@ -45,6 +51,14 @@ public class ViewData {
         loggedInUser = null;
         authToken = null;
         profile = null;
+    }
+
+    public void addMentionedUsers(List<User> users) {
+        for (User currUser : users) {
+            if (!allMentionedUsers.contains(currUser)) {
+                allMentionedUsers.add(currUser);
+            }
+        }
     }
 
 }

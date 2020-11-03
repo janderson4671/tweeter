@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.Status;
+import edu.byu.cs.tweeter.model.domain.User;
 
 public class GetStatusResponse extends PagedResponse {
 
     private List<Status> statuses;
+
+    List<User> mentionedUsers;
 
     public GetStatusResponse(String message) {
         super(false, message, false);
@@ -21,6 +24,8 @@ public class GetStatusResponse extends PagedResponse {
     public List<Status> getStatuses() {
         return statuses;
     }
+
+    public List<User> getMentionedUsers() { return mentionedUsers; }
 
     @Override
     public boolean equals(Object param) {

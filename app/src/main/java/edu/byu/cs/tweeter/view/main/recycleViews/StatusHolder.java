@@ -20,6 +20,7 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.ViewUserActivity;
+import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class StatusHolder extends RecyclerView.ViewHolder {
@@ -32,6 +33,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     private final TextView userName;
     private final TextView userMessage;
     private final TextView userTimeStamp;
+
+    private ViewData data = ViewData.getData();
 
     public StatusHolder(@NonNull View itemView) {
         super(itemView);
@@ -93,7 +96,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     }
 
     private boolean checkValidUser(String alias) {
-        List<User> mentions = status.getMentionAliases();
+        List<User> mentions = data.getAllMentionedUsers();
 
         for (User currUser : mentions) {
             if (currUser.getAlias().equals(alias)) {
@@ -105,7 +108,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     }
 
     public void startViewUserActivity(View v, String alias) {
-        List<User> mentions = status.getMentionAliases();
+        List<User> mentions = data.getAllMentionedUsers();
         User selectedUser = null;
 
         for (User currUser : mentions) {

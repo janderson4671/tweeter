@@ -123,6 +123,9 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
             @Override
             public void dataRetrieved(GetStatusResponse response) {
 
+                //Add to list of mentioned users
+                data.addMentionedUsers(response.getMentionedUsers());
+
                 user.addFeedStatuses(response.getStatuses());
 
                 List<Status> feed = user.getFeed();
