@@ -43,7 +43,7 @@ class ServerFacadeTest {
         GetFollowingRequest request = new GetFollowingRequest(user1, new AuthToken(), 0, null, 2);
         GetFollowingResponse response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(0, response.getFollowees().size());
+        Assertions.assertEquals(0, response.getUsers().size());
         Assertions.assertFalse(response.getHasMorePages());
     }
 
@@ -56,8 +56,8 @@ class ServerFacadeTest {
         GetFollowingRequest request = new GetFollowingRequest(user2, new AuthToken(), 1, null, 2);
         GetFollowingResponse response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(1, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user2));
+        Assertions.assertEquals(1, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user2));
         Assertions.assertFalse(response.getHasMorePages());
     }
 
@@ -70,9 +70,9 @@ class ServerFacadeTest {
         GetFollowingRequest request = new GetFollowingRequest(user3, new AuthToken(), 2, null, 2);
         GetFollowingResponse response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user2));
-        Assertions.assertTrue(response.getFollowees().contains(user3));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user2));
+        Assertions.assertTrue(response.getUsers().contains(user3));
         Assertions.assertFalse(response.getHasMorePages());
     }
 
@@ -86,33 +86,33 @@ class ServerFacadeTest {
         GetFollowingResponse response = serverFacadeSpy.getFollowing(request, dummyURL);
 
         // Verify first page
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user2));
-        Assertions.assertTrue(response.getFollowees().contains(user3));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user2));
+        Assertions.assertTrue(response.getUsers().contains(user3));
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify second page
-        request = new GetFollowingRequest(user5, new AuthToken(), 2, response.getFollowees().get(1), 2);
+        request = new GetFollowingRequest(user5, new AuthToken(), 2, response.getUsers().get(1), 2);
         response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user4));
-        Assertions.assertTrue(response.getFollowees().contains(user5));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user4));
+        Assertions.assertTrue(response.getUsers().contains(user5));
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify third page
-        request = new GetFollowingRequest(user5, new AuthToken(), 2, response.getFollowees().get(1), 2);
+        request = new GetFollowingRequest(user5, new AuthToken(), 2, response.getUsers().get(1), 2);
         response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user6));
-        Assertions.assertTrue(response.getFollowees().contains(user7));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user6));
+        Assertions.assertTrue(response.getUsers().contains(user7));
         Assertions.assertFalse(response.getHasMorePages());
     }
 
 
     @Test
-    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() {
+    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() throws IOException, TweeterRemoteException {
 
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7, user8);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
@@ -121,35 +121,35 @@ class ServerFacadeTest {
         GetFollowingResponse response = serverFacadeSpy.getFollowing(request, dummyURL);
 
         // Verify first page
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user2));
-        Assertions.assertTrue(response.getFollowees().contains(user3));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user2));
+        Assertions.assertTrue(response.getUsers().contains(user3));
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify second page
-        request = new GetFollowingRequest(user6, new AuthToken(),2, response.getFollowees().get(1), 2);
+        request = new GetFollowingRequest(user6, new AuthToken(),2, response.getUsers().get(1), 2);
         response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user4));
-        Assertions.assertTrue(response.getFollowees().contains(user5));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user4));
+        Assertions.assertTrue(response.getUsers().contains(user5));
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify third page
-        request = new GetFollowingRequest(user6, new AuthToken(), 2, response.getFollowees().get(1), 2);
+        request = new GetFollowingRequest(user6, new AuthToken(), 2, response.getUsers().get(1), 2);
         response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(2, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user6));
-        Assertions.assertTrue(response.getFollowees().contains(user7));
+        Assertions.assertEquals(2, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user6));
+        Assertions.assertTrue(response.getUsers().contains(user7));
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify fourth page
-        request = new GetFollowingRequest(user6, new AuthToken(), 2, response.getFollowees().get(1), 2);
+        request = new GetFollowingRequest(user6, new AuthToken(), 2, response.getUsers().get(1), 2);
         response = serverFacadeSpy.getFollowing(request, dummyURL);
 
-        Assertions.assertEquals(1, response.getFollowees().size());
-        Assertions.assertTrue(response.getFollowees().contains(user8));
+        Assertions.assertEquals(1, response.getUsers().size());
+        Assertions.assertTrue(response.getUsers().contains(user8));
         Assertions.assertFalse(response.getHasMorePages());
     }
 }

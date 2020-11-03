@@ -33,7 +33,7 @@ public class GetFollowingServiceProxy implements GetFollowingService {
     }
 
     private void loadImages(GetFollowingResponse response) throws IOException {
-        for(User user : response.getFollowees()) {
+        for(User user : response.getUsers()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
             user.setImageBytes(bytes);
         }

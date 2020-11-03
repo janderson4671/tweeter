@@ -93,7 +93,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     }
 
     private boolean checkValidUser(String alias) {
-        List<User> mentions = status.getMentions();
+        List<User> mentions = status.getMentionAliases();
 
         for (User currUser : mentions) {
             if (currUser.getAlias().equals(alias)) {
@@ -105,7 +105,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
     }
 
     public void startViewUserActivity(View v, String alias) {
-        List<User> mentions = status.getMentions();
+        List<User> mentions = status.getMentionAliases();
         User selectedUser = null;
 
         for (User currUser : mentions) {

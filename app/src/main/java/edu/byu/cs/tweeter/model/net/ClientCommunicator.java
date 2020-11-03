@@ -31,7 +31,7 @@ class ClientCommunicator {
         RequestStrategy requestStrategy = new RequestStrategy() {
             @Override
             public void setRequestMethod(HttpURLConnection connection) throws IOException {
-                connection.setRequestMethod("POST");
+                    connection.setRequestMethod("POST");
             }
 
             @Override

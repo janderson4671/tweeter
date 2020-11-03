@@ -125,14 +125,17 @@ public class FollowerFragment extends Fragment implements GetFollowingPresenter.
 
             @Override
             public void dataRetrieved(GetFollowingResponse response) {
-                List<User> followees = response.getFollowees();
 
-                lastItem = (followees.size() > 0) ? followees.get(followees.size() - 1) : null;
+                user.addFollowers(response.getUsers());
+
+                List<User> followers = user.getFollowers();
+
+                lastItem = (followers.size() > 0) ? followers.get(followers.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(followees);
+                addItems(followers);
             }
 
             @Override

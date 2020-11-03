@@ -18,13 +18,15 @@ public class User implements Comparable<User>, Serializable {
     private byte [] imageBytes;
 
     private List<User> followers;
-    private List<User> followees;
+    private List<User> following;
 
     //TODO: Impliment These!!
     private int numFollowers;
     private int numFollowing;
 
     private List<Status> posts;
+    private List<Status> feed;
+    private List<Status> story;
 
     //Constructors
 
@@ -38,16 +40,18 @@ public class User implements Comparable<User>, Serializable {
         this.imageUrl = imageURL;
 
         followers = new ArrayList<>();
-        followees = new ArrayList<>();
+        following = new ArrayList<>();
         posts = new ArrayList<>();
+        feed = new ArrayList<>();
+        story = new ArrayList<>();
     }
 
     public int getFollowerCount() {
-        return followers.size();
+        return 0;
     }
 
     public int getFolloweeCount() {
-        return followees.size();
+        return 0;
     }
 
     public String getFirstName() {
@@ -86,20 +90,53 @@ public class User implements Comparable<User>, Serializable {
         this.imageBytes = imageBytes;
     }
 
+    //TODO: Get rid of these later
     public void addFollower(User user) {
-        followers.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+        //followers.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
     }
 
     public void removeFollower(User user) {
-        followers.remove(followers.size() - 1);
+        //followers.remove(followers.size() - 1);
     }
 
     public void addFollowee(User user) {
-        followees.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+        //followees.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
     }
 
     public void removeFollowee(User user) {
-        followees.remove(followees.size() - 1);
+        //followees.remove(followees.size() - 1);
+    }
+
+    public void addFollowers(List<User> followers) {
+        this.followers.addAll(followers);
+    }
+
+    public void addFollowing(List<User> following) {
+        this.following.addAll(following);
+    }
+
+    public void addFeedStatuses(List<Status> newStatuses) {
+        feed.addAll(newStatuses);
+    }
+
+    public void addStoryStatuses(List<Status> newStatuses) {
+        story.addAll(newStatuses);
+    }
+
+    public List<Status> getFeed() {
+        return feed;
+    }
+
+    public List<Status> getStory() {
+        return story;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public List<User> getFollowing() {
+        return following;
     }
 
     @Override

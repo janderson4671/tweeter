@@ -8,17 +8,17 @@ import java.util.Objects;
 public class Status implements Serializable {
 
     private User user;
-    private List<User> mentions;
+    private List<String> mentionAliases;
 
     private String message;
     private Date timeStamp;
 
     //Constructor
-    public Status(User user, String message, Date timeStamp, List<User> mentions) {
+    public Status(User user, String message, Date timeStamp, List<String> mentionAliases) {
         this.user = user;
         this.message = message;
         this.timeStamp = timeStamp;
-        this.mentions = mentions;
+        this.mentionAliases = mentionAliases;
     }
 
     //Getters
@@ -34,12 +34,12 @@ public class Status implements Serializable {
         return timeStamp;
     }
 
-    public List<User> getMentions() {
-        return mentions;
+    public List<String> getMentionAliases() {
+        return mentionAliases;
     }
 
     public void addMention(User mention) {
-        mentions.add(mention);
+        mentionAliases.add(mention.getAlias());
     }
 
     public void setUserImage(byte [] imageBytes) {

@@ -11,19 +11,19 @@ import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
  */
 public class GetFollowingResponse extends PagedResponse {
 
-    private List<User> followees;
+    private List<User> users;
 
     public GetFollowingResponse(String message) {
         super(false, message, false);
     }
 
-    public GetFollowingResponse(List<User> followees, boolean hasMorePages) {
+    public GetFollowingResponse(List<User> users, boolean hasMorePages) {
         super(true, hasMorePages);
-        this.followees = followees;
+        this.users = users;
     }
 
-    public List<User> getFollowees() {
-        return followees;
+    public List<User> getUsers() {
+        return users;
     }
 
     @Override
@@ -38,13 +38,13 @@ public class GetFollowingResponse extends PagedResponse {
 
         GetFollowingResponse that = (GetFollowingResponse) param;
 
-        return (Objects.equals(followees, that.followees) &&
+        return (Objects.equals(users, that.users) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
                 this.isSuccess() == that.isSuccess());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(followees);
+        return Objects.hash(users);
     }
 }

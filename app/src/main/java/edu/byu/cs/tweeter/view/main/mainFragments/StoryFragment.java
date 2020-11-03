@@ -120,13 +120,17 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
 
             @Override
             public void dataRetrieved(GetStatusResponse response) {
-                List<Status> statuses = response.getStatuses();
-                lastItem = (statuses.size() > 0) ? statuses.get(statuses.size() - 1) : null;
+
+                user.addStoryStatuses(response.getStatuses());
+                
+                List<Status> story = user.getStory();
+
+                lastItem = (story.size() > 0) ? story.get(story.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(statuses);
+                addItems(story);
             }
 
             @Override

@@ -122,13 +122,17 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
 
             @Override
             public void dataRetrieved(GetStatusResponse response) {
-                List<Status> statuses = response.getStatuses();
-                lastItem = (statuses.size() > 0) ? statuses.get(statuses.size() - 1) : null;
+
+                user.addFeedStatuses(response.getStatuses());
+
+                List<Status> feed = user.getFeed();
+
+                lastItem = (feed.size() > 0) ? feed.get(feed.size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(statuses);
+                addItems(feed);
             }
 
             @Override
