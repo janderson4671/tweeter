@@ -133,7 +133,7 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.Sort.html" title="enum in edu.byu.cs.tweeter.model.net">FollowGenerator.Sort</a></span></code>
-<div class="block">An enum used to specify the sort order of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> object returned by this generator.</div>
+<div class="block">An enum used to specify the sort order of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> object returned by this generator.</div>
 </td>
 </tr>
 </table>
@@ -152,22 +152,22 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain">Follow</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.html#generateFollowsForUsers-java.util.List-int-int-edu.byu.cs.tweeter.model.net.FollowGenerator.Sort-">generateFollowsForUsers</a></span>(java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&gt;&nbsp;users,
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain">Follow</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.html#generateFollowsForUsers-java.util.List-int-int-edu.byu.cs.tweeter.model.net.FollowGenerator.Sort-">generateFollowsForUsers</a></span>(java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&gt;&nbsp;users,
                        int&nbsp;minFollowersPerUser,
                        int&nbsp;maxFollowersPerUser,
                        <a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.Sort.html" title="enum in edu.byu.cs.tweeter.model.net">FollowGenerator.Sort</a>&nbsp;sortOrder)</code>
-<div class="block">Randomly Generates <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects from the specified list of users.</div>
+<div class="block">Randomly Generates <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects from the specified list of users.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain">Follow</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain">Follow</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.html#generateUsersAndFollows-int-int-int-edu.byu.cs.tweeter.model.net.FollowGenerator.Sort-">generateUsersAndFollows</a></span>(int&nbsp;userCount,
                        int&nbsp;minFollowersPerUser,
                        int&nbsp;maxFollowersPerUser,
                        <a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.Sort.html" title="enum in edu.byu.cs.tweeter.model.net">FollowGenerator.Sort</a>&nbsp;sortOrder)</code>
-<div class="block">Randomly generates the specified number of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain"><code>User</code></a> objects, then randomly generates
- <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects for the generated users.</div>
+<div class="block">Randomly generates the specified number of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain"><code>User</code></a> objects, then randomly generates
+ <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects for the generated users.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -218,12 +218,12 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>generateUsersAndFollows</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain">Follow</a>&gt;&nbsp;generateUsersAndFollows(int&nbsp;userCount,
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain">Follow</a>&gt;&nbsp;generateUsersAndFollows(int&nbsp;userCount,
                                                       int&nbsp;minFollowersPerUser,
                                                       int&nbsp;maxFollowersPerUser,
                                                       <a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.Sort.html" title="enum in edu.byu.cs.tweeter.model.net">FollowGenerator.Sort</a>&nbsp;sortOrder)</pre>
-<div class="block">Randomly generates the specified number of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain"><code>User</code></a> objects, then randomly generates
- <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects for the generated users. Ensures that each <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain"><code>User</code></a> has between
+<div class="block">Randomly generates the specified number of <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain"><code>User</code></a> objects, then randomly generates
+ <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects for the generated users. Ensures that each <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain"><code>User</code></a> has between
  'minFollowersPerUser' and 'maxFollowersPerUser'. Makes no guarantees about how many users a
  user follows.</div>
 <dl>
@@ -232,7 +232,7 @@ extends java.lang.Object</pre>
 <dd><code>minFollowersPerUser</code> - the minimum number of followers each user will have.</dd>
 <dd><code>maxFollowersPerUser</code> - the maximum number of followers each user will have.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the generated <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects.</dd>
+<dd>the generated <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects.</dd>
 </dl>
 </li>
 </ul>
@@ -242,12 +242,12 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>generateFollowsForUsers</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain">Follow</a>&gt;&nbsp;generateFollowsForUsers(java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&gt;&nbsp;users,
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain">Follow</a>&gt;&nbsp;generateFollowsForUsers(java.util.List&lt;<a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&gt;&nbsp;users,
                                                       int&nbsp;minFollowersPerUser,
                                                       int&nbsp;maxFollowersPerUser,
                                                       <a href="../../../../../../edu/byu/cs/tweeter/model/net/FollowGenerator.Sort.html" title="enum in edu.byu.cs.tweeter.model.net">FollowGenerator.Sort</a>&nbsp;sortOrder)</pre>
-<div class="block">Randomly Generates <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects from the specified list of users. Ensures that each
- <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain"><code>User</code></a> has between 'minFollowersPerUser' and 'maxFollowersPerUser'. Makes no guarantees
+<div class="block">Randomly Generates <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects from the specified list of users. Ensures that each
+ <a href="../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain"><code>User</code></a> has between 'minFollowersPerUser' and 'maxFollowersPerUser'. Makes no guarantees
  about how many users a user follows.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -256,7 +256,7 @@ extends java.lang.Object</pre>
 <dd><code>maxFollowersPerUser</code> - the maximum number of followers each user will have.</dd>
 <dd><code>sortOrder</code> - specifies the sort order or returned results.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the generated <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in edu.byu.cs.tweeter.model.domain"><code>Follow</code></a> objects.</dd>
+<dd>the generated <a href="../../../../../../edu/byu/cs/tweeter/model/domain/Follow.html" title="class in com.example.shared.domain"><code>Follow</code></a> objects.</dd>
 </dl>
 </li>
 </ul>

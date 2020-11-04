@@ -8,13 +8,13 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Date;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.FollowService;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import com.example.shared.service.FollowService;
+import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.response.FollowResponse;
 
 public class FollowPresenterTest {
 

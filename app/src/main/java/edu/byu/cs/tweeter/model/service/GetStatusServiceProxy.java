@@ -2,11 +2,14 @@ package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.domain.Status;
+import com.example.shared.domain.Status;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
+
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.GetStatusRequest;
+import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.GetStatusService;
+
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class GetStatusServiceProxy implements GetStatusService {

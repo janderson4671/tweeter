@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.GetStatusService;
-import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
+import com.example.shared.service.GetStatusService;
+import com.example.shared.service.request.GetStatusRequest;
+import com.example.shared.service.response.GetStatusResponse;
 
 public class GetStatusPresenterTest {
 

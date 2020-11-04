@@ -7,12 +7,12 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.LoginService;
-import edu.byu.cs.tweeter.model.service.request.LoginRequest;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import com.example.shared.service.LoginService;
+import com.example.shared.service.request.LoginRequest;
+import com.example.shared.service.response.LoginResponse;
 
 public class LoginPresenterTest {
 

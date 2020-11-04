@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/LoginRequest.html" title="class in edu.byu.cs.tweeter.model.service.request"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/LoginRequest.html" title="class in com.example.shared.service.request"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" target="_top">Frames</a></li>
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">edu.byu.cs.tweeter.model.service.request</div>
+<div class="subTitle">com.example.shared.service.request</div>
 <h2 title="Class FollowingRequest" class="title">Class FollowingRequest</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>edu.byu.cs.tweeter.model.service.request.GetFollowingRequest</li>
+<li>com.example.shared.service.request.GetFollowingRequest</li>
 </ul>
 </li>
 </ul>
@@ -130,9 +130,9 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html#FollowingRequest-edu.byu.cs.tweeter.model.domain.User-int-edu.byu.cs.tweeter.model.domain.User-">FollowingRequest</a></span>(<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;follower,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html#FollowingRequest-com.example.shared.domain.User-int-com.example.shared.domain.User-">FollowingRequest</a></span>(<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;follower,
                 int&nbsp;limit,
-                <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;lastFollowee)</code>
+                <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;lastFollowee)</code>
 <div class="block">Creates an instance.</div>
 </td>
 </tr>
@@ -152,13 +152,13 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a></code></td>
+<td class="colFirst"><code><a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html#getFollower--">getFollower</a></span>()</code>
 <div class="block">Returns the follower whose followees are to be returned by this request.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a></code></td>
+<td class="colFirst"><code><a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/FollowingRequest.html#getLastFollowee--">getLastFollowee</a></span>()</code>
 <div class="block">Returns the last followee that was returned in the previous request or null if there was no
  previous request or if no followees were returned in the previous request.</div>
@@ -192,19 +192,19 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="FollowingRequest-edu.byu.cs.tweeter.model.domain.User-int-edu.byu.cs.tweeter.model.domain.User-">
+<a name="FollowingRequest-com.example.shared.domain.User-int-com.example.shared.domain.User-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>FollowingRequest</h4>
-<pre>public&nbsp;FollowingRequest(<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;follower,
+<pre>public&nbsp;FollowingRequest(<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;follower,
                         int&nbsp;limit,
-                        <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;lastFollowee)</pre>
+                        <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;lastFollowee)</pre>
 <div class="block">Creates an instance.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>follower</code> - the <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain"><code>User</code></a> whose followees are to be returned.</dd>
+<dd><code>follower</code> - the <a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain"><code>User</code></a> whose followees are to be returned.</dd>
 <dd><code>limit</code> - the maximum number of followees to return.</dd>
 <dd><code>lastFollowee</code> - the last followee that was returned in the previous request (null if
                      there was no previous request or if no followees were returned in the
@@ -226,7 +226,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getFollower</h4>
-<pre>public&nbsp;<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;getFollower()</pre>
+<pre>public&nbsp;<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;getFollower()</pre>
 <div class="block">Returns the follower whose followees are to be returned by this request.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -254,7 +254,7 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getLastFollowee</h4>
-<pre>public&nbsp;<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in edu.byu.cs.tweeter.model.domain">User</a>&nbsp;getLastFollowee()</pre>
+<pre>public&nbsp;<a href="../../../../../../../edu/byu/cs/tweeter/model/domain/User.html" title="class in com.example.shared.domain">User</a>&nbsp;getLastFollowee()</pre>
 <div class="block">Returns the last followee that was returned in the previous request or null if there was no
  previous request or if no followees were returned in the previous request.</div>
 <dl>
@@ -291,7 +291,7 @@ extends java.lang.Object</pre>
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/LoginRequest.html" title="class in edu.byu.cs.tweeter.model.service.request"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../edu/byu/cs/tweeter/model/service/request/LoginRequest.html" title="class in com.example.shared.service.request"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?edu/byu/cs/tweeter/model/service/request/FollowingRequest.html" target="_top">Frames</a></li>

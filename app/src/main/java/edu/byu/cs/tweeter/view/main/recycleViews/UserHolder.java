@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.ViewUserActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 

@@ -3,21 +3,21 @@ package edu.byu.cs.tweeter.model.net;
 import java.io.IOException;
 import java.util.List;
 
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
-import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
-import edu.byu.cs.tweeter.model.service.request.LoginRequest;
-import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
-import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
-import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
-import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
-import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
-import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import com.example.shared.domain.User;
+import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.request.GetFollowingRequest;
+import com.example.shared.service.request.GetStatusRequest;
+import com.example.shared.service.request.LoginRequest;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.request.PostStatusRequest;
+import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.FollowResponse;
+import com.example.shared.service.response.GetFollowingResponse;
+import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.response.LoginResponse;
+import com.example.shared.service.response.LogoutResponse;
+import com.example.shared.service.response.PostStatusResponse;
+import com.example.shared.service.response.RegisterResponse;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through

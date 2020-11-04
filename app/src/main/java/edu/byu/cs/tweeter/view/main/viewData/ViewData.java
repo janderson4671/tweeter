@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 
 import java.util.List;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
 
 public class ViewData {
 

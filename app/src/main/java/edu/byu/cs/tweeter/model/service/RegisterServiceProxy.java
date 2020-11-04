@@ -2,14 +2,17 @@ package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.RegisterResponse;
+import com.example.shared.service.RegisterService;
+
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
-public class RegisterServiceProxy implements RegisterService{
+public class RegisterServiceProxy implements RegisterService {
 
     private static final String URL_PATH = "/register";
 

@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.GetFollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.GetFollowingResponse;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
+import com.example.shared.service.request.GetFollowingRequest;
+import com.example.shared.service.response.GetFollowingResponse;
 
 class ServerFacadeTest {
 

@@ -19,10 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
-import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.presenter.LogoutPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LogoutTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;

@@ -17,11 +17,11 @@ import java.util.Date;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.GetStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.GetStatusResponse;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
+import com.example.shared.service.request.GetStatusRequest;
+import com.example.shared.service.response.GetStatusResponse;
 import edu.byu.cs.tweeter.presenter.GetStatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;

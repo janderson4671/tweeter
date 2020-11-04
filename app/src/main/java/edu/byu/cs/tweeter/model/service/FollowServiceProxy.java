@@ -3,11 +3,13 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 
-public class FollowServiceProxy implements FollowService{
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.response.FollowResponse;
+import com.example.shared.service.FollowService;
+
+public class FollowServiceProxy implements FollowService {
 
     private static final String URL_PATH_FOLLOW = "/follow";
     private static final String URL_PATH_UNFOLLOW = "/unfollow";

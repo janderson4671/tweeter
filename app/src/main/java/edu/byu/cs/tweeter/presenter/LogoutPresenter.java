@@ -3,10 +3,10 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.LogoutService;
+import com.example.shared.service.LogoutService;
 import edu.byu.cs.tweeter.model.service.LogoutServiceProxy;
-import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
-import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.LogoutResponse;
 
 public class LogoutPresenter {
 

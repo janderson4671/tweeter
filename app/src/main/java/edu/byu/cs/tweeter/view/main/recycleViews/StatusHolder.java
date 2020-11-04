@@ -17,8 +17,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.ViewUserActivity;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.util.ImageUtils;

@@ -8,12 +8,12 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Date;
 
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
+import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
+import com.example.shared.service.request.PostStatusRequest;
+import com.example.shared.service.response.PostStatusResponse;
 
 public class PostGetStatusServiceTest {
 

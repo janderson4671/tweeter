@@ -3,9 +3,11 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
-import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.LogoutResponse;
+import com.example.shared.service.LogoutService;
 
 public class LogoutServiceProxy implements LogoutService {
 

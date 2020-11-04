@@ -3,10 +3,10 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.FollowService;
+import com.example.shared.service.FollowService;
 import edu.byu.cs.tweeter.model.service.FollowServiceProxy;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.response.FollowResponse;
 
 public class FollowPresenter {
 

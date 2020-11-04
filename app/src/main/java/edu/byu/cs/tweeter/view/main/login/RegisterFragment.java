@@ -19,8 +19,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.RegisterResponse;
+
+import java.io.ByteArrayOutputStream;
+
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
 import edu.byu.cs.tweeter.view.main.mainFragments.MainActivity;
@@ -39,6 +42,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
     private String username;
     private String password;
     private Bitmap profile;
+    private byte[] profileBytes;
 
     //Widgets
     private EditText editTextFirstName;
@@ -180,7 +184,11 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
                 registerToast = Toast.makeText(getActivity(), "Logging In", Toast.LENGTH_LONG);
                 registerToast.show();
 
-                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, password, profile);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                profile.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                profileBytes = stream.toByteArray();
+
+                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, password, profileBytes);
                 RegisterTask registerTask = new RegisterTask(presenter, RegisterFragment.this);
                 registerTask.execute(registerRequest);
             }

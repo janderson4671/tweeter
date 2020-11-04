@@ -3,10 +3,10 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.RegisterService;
+import com.example.shared.service.RegisterService;
 import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.RegisterResponse;
 
 public class RegisterPresenter {
     private final RegisterPresenter.View view;

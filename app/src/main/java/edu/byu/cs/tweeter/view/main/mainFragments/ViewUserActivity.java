@@ -13,10 +13,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
+import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.response.FollowResponse;
 import edu.byu.cs.tweeter.presenter.FollowPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;

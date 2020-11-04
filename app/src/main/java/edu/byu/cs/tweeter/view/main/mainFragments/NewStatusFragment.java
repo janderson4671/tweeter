@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
+import com.example.shared.domain.Status;
+import com.example.shared.service.request.PostStatusRequest;
+import com.example.shared.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.PostStatusTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;

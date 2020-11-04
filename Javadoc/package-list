@@ -1,9 +1,9 @@
 edu.byu.cs.tweeter
-edu.byu.cs.tweeter.model.domain
+com.example.shared.domain
 edu.byu.cs.tweeter.model.net
 edu.byu.cs.tweeter.model.service
-edu.byu.cs.tweeter.model.service.request
-edu.byu.cs.tweeter.model.service.response
+com.example.shared.service.request
+com.example.shared.service.response
 edu.byu.cs.tweeter.presenter
 edu.byu.cs.tweeter.util
 edu.byu.cs.tweeter.view

@@ -3,9 +3,11 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
-import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
+
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.PostStatusRequest;
+import com.example.shared.service.response.PostStatusResponse;
+import com.example.shared.service.PostStatusService;
 
 public class PostStatusServiceProxy implements PostStatusService {
 
