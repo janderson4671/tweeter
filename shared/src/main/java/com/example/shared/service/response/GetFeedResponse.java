@@ -3,28 +3,29 @@ package com.example.shared.service.response;
 import java.util.List;
 import java.util.Objects;
 
+import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetFollowingRequest;
 
-/**
- * A paged response for a {@link GetFollowingRequest}.
- */
-public class GetFollowingResponse extends PagedResponse {
+public class GetFeedResponse extends PagedResponse {
 
-    public List<User> users;
+    private List<Status> statuses;
 
-    public GetFollowingResponse(String message) {
+    List<User> mentionedUsers;
+
+    public GetFeedResponse(String message) {
         super(false, message, false);
     }
 
-    public GetFollowingResponse(List<User> users, boolean hasMorePages) {
+    public GetFeedResponse(List<Status> statuses, boolean hasMorePages) {
         super(true, hasMorePages);
-        this.users = users;
+        this.statuses = statuses;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Status> getStatuses() {
+        return statuses;
     }
+
+    public List<User> getMentionedUsers() { return mentionedUsers; }
 
     @Override
     public boolean equals(Object param) {
@@ -36,15 +37,16 @@ public class GetFollowingResponse extends PagedResponse {
             return false;
         }
 
-        GetFollowingResponse that = (GetFollowingResponse) param;
+        GetFeedResponse that = (GetFeedResponse) param;
 
-        return (Objects.equals(users, that.users) &&
+        return (Objects.equals(statuses, that.statuses) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
                 this.isSuccess() == that.isSuccess());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(users);
+        return Objects.hash(statuses);
     }
+
 }

@@ -1,23 +1,19 @@
 package com.example.shared.service.response;
 
+import com.example.shared.domain.User;
+
 import java.util.List;
 import java.util.Objects;
 
-import com.example.shared.domain.User;
-import com.example.shared.service.request.GetFollowingRequest;
-
-/**
- * A paged response for a {@link GetFollowingRequest}.
- */
-public class GetFollowingResponse extends PagedResponse {
+public class GetFollowersResponse extends PagedResponse {
 
     public List<User> users;
 
-    public GetFollowingResponse(String message) {
+    public GetFollowersResponse(String message) {
         super(false, message, false);
     }
 
-    public GetFollowingResponse(List<User> users, boolean hasMorePages) {
+    public GetFollowersResponse(List<User> users, boolean hasMorePages) {
         super(true, hasMorePages);
         this.users = users;
     }
@@ -36,7 +32,7 @@ public class GetFollowingResponse extends PagedResponse {
             return false;
         }
 
-        GetFollowingResponse that = (GetFollowingResponse) param;
+        GetFollowersResponse that = (GetFollowersResponse) param;
 
         return (Objects.equals(users, that.users) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
@@ -47,4 +43,5 @@ public class GetFollowingResponse extends PagedResponse {
     public int hashCode() {
         return Objects.hash(users);
     }
+
 }

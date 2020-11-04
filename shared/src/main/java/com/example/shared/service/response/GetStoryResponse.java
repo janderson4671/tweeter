@@ -1,22 +1,22 @@
 package com.example.shared.service.response;
 
-import java.util.List;
-import java.util.Objects;
-
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 
-public class GetStatusResponse extends PagedResponse {
+import java.util.List;
+import java.util.Objects;
+
+public class GetStoryResponse extends PagedResponse {
 
     private List<Status> statuses;
 
     List<User> mentionedUsers;
 
-    public GetStatusResponse(String message) {
+    public GetStoryResponse(String message) {
         super(false, message, false);
     }
 
-    public GetStatusResponse(List<Status> statuses, boolean hasMorePages) {
+    public GetStoryResponse(List<Status> statuses, boolean hasMorePages) {
         super(true, hasMorePages);
         this.statuses = statuses;
     }
@@ -37,7 +37,7 @@ public class GetStatusResponse extends PagedResponse {
             return false;
         }
 
-        GetStatusResponse that = (GetStatusResponse) param;
+        GetStoryResponse that = (GetStoryResponse) param;
 
         return (Objects.equals(statuses, that.statuses) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&

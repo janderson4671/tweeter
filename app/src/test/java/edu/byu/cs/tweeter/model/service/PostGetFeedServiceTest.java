@@ -15,7 +15,7 @@ import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.PostStatusResponse;
 
-public class PostGetStatusServiceTest {
+public class PostGetFeedServiceTest {
 
     private PostStatusRequest validRequest;
     private PostStatusRequest invalidRequest;

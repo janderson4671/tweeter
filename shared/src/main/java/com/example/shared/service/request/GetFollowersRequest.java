@@ -3,23 +3,20 @@ package com.example.shared.service.request;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 
-/**
- * Contains all the information needed to make a request to have the server return the next page of
- * followees for a specified follower.
- */
-public class GetFollowingRequest {
+public class GetFollowersRequest {
 
     private final User loggedInUser;
 
     private final AuthToken authToken;
-    private final int limit;
-    private final User lastFollowing;
 
-    public GetFollowingRequest(User loggedInUser, AuthToken authToken, int limit, User lastFollowing) {
+    private final int limit;
+    private final User lastFollower;
+
+    public GetFollowersRequest(User loggedInUser, AuthToken authToken, int limit, User lastFollower) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
-        this.lastFollowing = lastFollowing;
+        this.lastFollower = lastFollower;
     }
 
     public User getLoggedInUser() {
@@ -34,7 +31,9 @@ public class GetFollowingRequest {
         return limit;
     }
 
-    public User getLastFollowing() {
-        return lastFollowing;
+    public User getLastFollower() {
+        return lastFollower;
     }
+
+
 }

@@ -14,18 +14,18 @@ import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.response.GetFeedResponse;
 
-public class GetStatusServiceTest {
+public class GetFeedServiceTest {
 
-    private GetStatusRequest validRequest;
-    private GetStatusRequest invalidRequest;
+    private GetFeedRequest validRequest;
+    private GetFeedRequest invalidRequest;
 
-    private GetStatusResponse successResponse;
-    private GetStatusResponse failureResponse;
+    private GetFeedResponse successResponse;
+    private GetFeedResponse failureResponse;
 
-    private GetStatusServiceProxy mGetStatusServiceSpy;
+    private GetFeedServiceProxy mGetStatusServiceSpy;
 
     private String dummyURL = "/helloworld";
 
@@ -36,25 +36,25 @@ public class GetStatusServiceTest {
         Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()), null);
 
         // Setup request objects to use in the tests
-        validRequest = new GetStatusRequest(currentUser, new AuthToken(), 10, stuatus, 3);
-        invalidRequest = new GetStatusRequest(currentUser, new AuthToken(), 10, stuatus, 3);
+        validRequest = new GetFeedRequest(currentUser, new AuthToken(), 10, stuatus, 3);
+        invalidRequest = new GetFeedRequest(currentUser, new AuthToken(), 10, stuatus, 3);
 
         // Setup a mock ServerFacade that will return known responses
-        successResponse = new GetStatusResponse(new ArrayList<>(), false);
+        successResponse = new GetFeedResponse(new ArrayList<>(), false);
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
         Mockito.when(mockServerFacade.getStatuses(validRequest, dummyURL)).thenReturn(successResponse);
 
-        failureResponse = new GetStatusResponse("Failed!");
+        failureResponse = new GetFeedResponse("Failed!");
         Mockito.when(mockServerFacade.getStatuses(invalidRequest, dummyURL)).thenReturn(failureResponse);
 
         // Create a StatusingService instance and wrap it with a spy that will use the mock service
-        mGetStatusServiceSpy = Mockito.spy(new GetStatusServiceProxy());
+        mGetStatusServiceSpy = Mockito.spy(new GetFeedServiceProxy());
         Mockito.when(mGetStatusServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
     public void testStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        GetStatusResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -62,14 +62,14 @@ public class GetStatusServiceTest {
 
     @Test
     public void testStatus_validRequest_returnsStatuses() throws IOException, TweeterRemoteException {
-        GetStatusResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
 
         Assertions.assertNotNull(response.getStatuses());
     }
 
     @Test
     public void testStatus_invalidRequest_returnsNoStatus() throws IOException, TweeterRemoteException {
-        GetStatusResponse response = mGetStatusServiceSpy.getStatuses(invalidRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(invalidRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

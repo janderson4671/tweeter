@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.util.List;
 
 import com.example.shared.domain.User;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.FollowRequest;
 import com.example.shared.service.request.GetFollowingRequest;
-import com.example.shared.service.request.GetStatusRequest;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.request.GetStoryRequest;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.FollowResponse;
 import com.example.shared.service.response.GetFollowingResponse;
-import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.response.GetFeedResponse;
+import com.example.shared.service.response.GetStoryResponse;
 import com.example.shared.service.response.LoginResponse;
 import com.example.shared.service.response.LogoutResponse;
 import com.example.shared.service.response.PostStatusResponse;
@@ -72,8 +75,18 @@ public class ServerFacade {
         }
     }
 
-    public GetStatusResponse getStatuses(GetStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
-        GetStatusResponse response = clientCommunicator.doPost(urlPath, request, null, GetStatusResponse.class);
+    public GetStoryResponse getStory(GetStoryRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        GetStoryResponse response = clientCommunicator.doPost(urlPath, request, null, GetStoryResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public GetFeedResponse getStatuses(GetFeedRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        GetFeedResponse response = clientCommunicator.doPost(urlPath, request, null, GetFeedResponse.class);
 
         if (response.isSuccess()) {
             return response;

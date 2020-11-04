@@ -6,28 +6,21 @@ import com.example.shared.domain.Status;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 
 import com.example.shared.net.TweeterRemoteException;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
-import com.example.shared.service.GetStatusService;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.response.GetFeedResponse;
+import com.example.shared.service.GetFeedService;
 
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
-public class GetStatusServiceProxy implements GetStatusService {
+public class GetFeedServiceProxy implements GetFeedService {
 
     private static final String URL_PATH_FEED = "/getfeed";
-    private static final String URL_PATH_STORY = "/getstory";
 
-    public GetStatusResponse getStatuses(GetStatusRequest request) throws IOException, TweeterRemoteException {
+    public GetFeedResponse getStatuses(GetFeedRequest request) throws IOException, TweeterRemoteException {
 
         String url = null;
 
-        if (request.getFragmentCode() == 0) {
-            url = URL_PATH_FEED;
-        } else {
-            url = URL_PATH_STORY;
-        }
-
-        GetStatusResponse response = getServerFacade().getStatuses(request, url);
+        GetFeedResponse response = getServerFacade().getStatuses(request, url);
 
         if(response.isSuccess()) {
             loadImgaes(response);
@@ -36,7 +29,7 @@ public class GetStatusServiceProxy implements GetStatusService {
         return response;
     }
 
-    private void loadImgaes(GetStatusResponse response) throws IOException {
+    private void loadImgaes(GetFeedResponse response) throws IOException {
         for (Status status : response.getStatuses()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
             status.setUserImage(bytes);

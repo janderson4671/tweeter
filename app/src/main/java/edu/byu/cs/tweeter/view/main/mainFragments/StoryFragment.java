@@ -20,15 +20,15 @@ import edu.byu.cs.tweeter.R;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
-import edu.byu.cs.tweeter.presenter.GetStatusPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
+import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.response.GetStoryResponse;
+import edu.byu.cs.tweeter.presenter.GetStoryPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetStoryTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.StatusHolder;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
-public class StoryFragment extends Fragment implements GetStatusPresenter.View {
+public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
     private static final String LOG_TAG = "StoryFragment";
     private static final int FRAGMENT_CODE = 1;
@@ -38,7 +38,7 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
 
     private User user;
     private AuthToken authToken;
-    private GetStatusPresenter presenter;
+    private GetStoryPresenter presenter;
 
     private ViewData data;
 
@@ -60,7 +60,7 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
         user = data.getLoggedInUser();
         authToken = data.getAuthToken();
 
-        presenter = new GetStatusPresenter(this);
+        presenter = new GetStoryPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -79,16 +79,16 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
             recyclerView.setAdapter(pagedRecyclerViewAdapter);
         }
 
-        class StoryViewAdapter extends PagedRecyclerViewAdapter implements StatusTask.Observer {
+        class StoryViewAdapter extends PagedRecyclerViewAdapter implements GetStoryTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                StatusTask dataRetrievalTask = new StatusTask(presenter, this);
-                GetStatusRequest request = new GetStatusRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
-                dataRetrievalTask.execute(request);
+                GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
+                GetStoryRequest request = new GetStoryRequest(user, authToken, PAGE_SIZE, lastItem);
+                getStoryTask.execute(request);
             }
 
             @Override
@@ -119,7 +119,7 @@ public class StoryFragment extends Fragment implements GetStatusPresenter.View {
             }
 
             @Override
-            public void dataRetrieved(GetStatusResponse response) {
+            public void dataRetrieved(GetStoryResponse response) {
 
                 //Add all mentioned users to viewData for later use
                 data.addMentionedUsers(response.getMentionedUsers());

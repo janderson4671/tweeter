@@ -15,7 +15,7 @@ import com.example.shared.service.PostStatusService;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.PostStatusResponse;
 
-public class PostGetStatusPresenterTest {
+public class PostGetFeedPresenterTest {
 
     private PostStatusRequest request;
     private PostStatusResponse response;

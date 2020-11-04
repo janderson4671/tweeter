@@ -20,15 +20,15 @@ import edu.byu.cs.tweeter.R;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
-import edu.byu.cs.tweeter.presenter.GetStatusPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.StatusTask;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.response.GetFeedResponse;
+import edu.byu.cs.tweeter.presenter.GetFeedPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.StatusHolder;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
-public class FeedFragment extends Fragment implements GetStatusPresenter.View{
+public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
     private static final String LOG_TAG = "FeedFragment";
     private static final int FRAGMENT_CODE = 0;
@@ -38,7 +38,7 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
 
     private User user;
     private AuthToken authToken;
-    private GetStatusPresenter presenter;
+    private GetFeedPresenter presenter;
 
     private ViewData data;
 
@@ -60,7 +60,7 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
         user = data.getLoggedInUser();
         authToken = data.getAuthToken();
 
-        presenter = new GetStatusPresenter(this);
+        presenter = new GetFeedPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -80,15 +80,15 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
 
         }
 
-        class FeedViewAdapter extends PagedRecyclerViewAdapter implements StatusTask.Observer {
+        class FeedViewAdapter extends PagedRecyclerViewAdapter implements GetFeedTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                StatusTask dataRetrievalTask = new StatusTask(presenter, this);
-                GetStatusRequest request = new GetStatusRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
+                GetFeedTask dataRetrievalTask = new GetFeedTask(presenter, this);
+                GetFeedRequest request = new GetFeedRequest(user, authToken, PAGE_SIZE, lastItem);
                 dataRetrievalTask.execute(request);
             }
 
@@ -121,7 +121,7 @@ public class FeedFragment extends Fragment implements GetStatusPresenter.View{
             }
 
             @Override
-            public void dataRetrieved(GetStatusResponse response) {
+            public void dataRetrieved(GetFeedResponse response) {
 
                 //Add to list of mentioned users
                 data.addMentionedUsers(response.getMentionedUsers());

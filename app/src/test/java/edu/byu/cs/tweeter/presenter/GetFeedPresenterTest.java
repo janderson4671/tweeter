@@ -13,35 +13,35 @@ import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import com.example.shared.service.GetStatusService;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.GetFeedService;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.response.GetFeedResponse;
 
-public class GetStatusPresenterTest {
+public class GetFeedPresenterTest {
 
-    private GetStatusRequest request;
-    private GetStatusResponse response;
-    private GetStatusService mMockGetStatusService;
-    private GetStatusPresenter presenter;
+    private GetFeedRequest request;
+    private GetFeedResponse response;
+    private GetFeedService mMockGetFeedService;
+    private GetFeedPresenter presenter;
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
 
-        request = new GetStatusRequest(currentUser, new AuthToken(), 10, null, 2);
-        response = new GetStatusResponse(new ArrayList<Status>(), false);
+        request = new GetFeedRequest(currentUser, new AuthToken(), 10, null, 2);
+        response = new GetFeedResponse(new ArrayList<Status>(), false);
 
-        mMockGetStatusService = Mockito.mock(GetStatusService.class);
-        Mockito.when(mMockGetStatusService.getStatuses(request)).thenReturn(response);
+        mMockGetFeedService = Mockito.mock(GetFeedService.class);
+        Mockito.when(mMockGetFeedService.getStatuses(request)).thenReturn(response);
 
-        presenter = Mockito.spy(new GetStatusPresenter(new GetStatusPresenter.View() {}));
-        Mockito.when(presenter.getStatusService()).thenReturn(mMockGetStatusService);
+        presenter = Mockito.spy(new GetFeedPresenter(new GetFeedPresenter.View() {}));
+        Mockito.when(presenter.getStatusService()).thenReturn(mMockGetFeedService);
     }
 
     @Test
     public void testStatusReturnsResult() throws IOException, TweeterRemoteException {
-        Mockito.when(mMockGetStatusService.getStatuses(request)).thenReturn(response);
+        Mockito.when(mMockGetFeedService.getStatuses(request)).thenReturn(response);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response, presenter.getStatuses(request));
@@ -49,7 +49,7 @@ public class GetStatusPresenterTest {
 
     @Test
     public void testStatusThrowsException() throws IOException, TweeterRemoteException {
-        Mockito.when(mMockGetStatusService.getStatuses(request)).thenThrow(new IOException());
+        Mockito.when(mMockGetFeedService.getStatuses(request)).thenThrow(new IOException());
 
         Assertions.assertNotNull(response);
         Assertions.assertThrows(IOException.class, () -> {

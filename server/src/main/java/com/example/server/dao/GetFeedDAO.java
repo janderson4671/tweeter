@@ -4,8 +4,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetStatusRequest;
-import com.example.shared.service.response.GetStatusResponse;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.response.GetFeedResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +60,7 @@ public class GetFeedDAO {
     private final Status stat19 = new Status(user19, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
     private final Status stat20 = new Status(user20, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
 
-    public GetStatusResponse handleRequest(GetStatusRequest request, Context context) {
+    public GetFeedResponse handleRequest(GetFeedRequest request, Context context) {
 
         LambdaLogger logger = context.getLogger();
         logger.log("Entering Get Feed Service");
@@ -83,7 +83,7 @@ public class GetFeedDAO {
 
         logger.log("Exiting Get Feed Service");
 
-        return new GetStatusResponse(responseStatuses, hasMorePages);
+        return new GetFeedResponse(responseStatuses, hasMorePages);
     }
 
     List<User> getDummyFollowees() {
