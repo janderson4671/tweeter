@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.FollowRequest;
+import com.example.shared.service.request.GetFollowersRequest;
 import com.example.shared.service.request.GetFollowingRequest;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.request.GetStoryRequest;
@@ -14,6 +15,7 @@ import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.FollowResponse;
+import com.example.shared.service.response.GetFollowersResponse;
 import com.example.shared.service.response.GetFollowingResponse;
 import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.response.GetStoryResponse;
@@ -43,6 +45,16 @@ public class ServerFacade {
             throw new RuntimeException(response.getMessage());
         }
 
+    }
+
+    public GetFollowersResponse getFollowers(GetFollowersRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        GetFollowersResponse response = clientCommunicator.doPost(urlPath, request, null, GetFollowersResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
     }
 
     public LoginResponse login(LoginRequest request, String urlPath) throws IOException, TweeterRemoteException {

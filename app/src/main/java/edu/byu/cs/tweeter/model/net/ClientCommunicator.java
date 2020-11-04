@@ -1,5 +1,9 @@
 package edu.byu.cs.tweeter.model.net;
 
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRequestException;
+import com.example.shared.net.TweeterServerException;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;

@@ -2,7 +2,7 @@ package edu.byu.cs.tweeter.presenter;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.LogoutService;
 import edu.byu.cs.tweeter.model.service.LogoutServiceProxy;
 import com.example.shared.service.request.LogoutRequest;

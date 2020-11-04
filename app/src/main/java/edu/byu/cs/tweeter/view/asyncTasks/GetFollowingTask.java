@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
 /**
  * An {@link AsyncTask} for retrieving followees for a user.
  */
-public class FollowTask extends AsyncTask<GetFollowingRequest, Void, GetFollowingResponse> {
+public class GetFollowingTask extends AsyncTask<GetFollowingRequest, Void, GetFollowingResponse> {
 
     private final GetFollowingPresenter presenter;
     private final Observer observer;
@@ -20,7 +20,7 @@ public class FollowTask extends AsyncTask<GetFollowingRequest, Void, GetFollowin
         void handleException(Exception exception);
     }
 
-    public FollowTask(GetFollowingPresenter presenter, Observer observer) {
+    public GetFollowingTask(GetFollowingPresenter presenter, Observer observer) {
         if(observer == null) {
             throw new NullPointerException();
         }

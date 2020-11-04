@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
+import java.net.URL;
 
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
@@ -15,18 +16,11 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 public class GetFollowingServiceProxy implements GetFollowingService {
 
     static final String URL_PATH_FOLLOWING = "/getfollowing";
-    static final String URL_PATH_FOLLOWERS = "/getfollowers";
 
     @Override
     public GetFollowingResponse getFollowing(GetFollowingRequest request) throws IOException, TweeterRemoteException {
 
-        GetFollowingResponse response;
-
-        if (request.getFragmentCode() == 2) {
-            response = getServerFacade().getFollowing(request, URL_PATH_FOLLOWERS);
-        } else {
-            response = getServerFacade().getFollowing(request, URL_PATH_FOLLOWING);
-        }
+        GetFollowingResponse response = getServerFacade().getFollowing(request, URL_PATH_FOLLOWING);
 
         if(response.isSuccess()) {
             loadImages(response);

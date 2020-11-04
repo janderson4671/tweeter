@@ -21,7 +21,7 @@ import com.example.shared.domain.User;
 import com.example.shared.service.request.GetFollowingRequest;
 import com.example.shared.service.response.GetFollowingResponse;
 import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
@@ -87,16 +87,16 @@ public class FollowingFragment extends Fragment implements GetFollowingPresenter
 
         }
 
-        class FollowingViewAdapter extends PagedRecyclerViewAdapter implements FollowTask.Observer {
+        class FollowingViewAdapter extends PagedRecyclerViewAdapter implements GetFollowingTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                FollowTask followTask = new FollowTask(presenter, this);
-                GetFollowingRequest request = new GetFollowingRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
-                followTask.execute(request);
+                GetFollowingTask getFollowingTask = new GetFollowingTask(presenter, this);
+                GetFollowingRequest request = new GetFollowingRequest(user, authToken, PAGE_SIZE, lastItem);
+                getFollowingTask.execute(request);
             }
 
             @Override

@@ -18,22 +18,21 @@ import java.util.List;
 import edu.byu.cs.tweeter.R;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetFollowingRequest;
-import com.example.shared.service.response.GetFollowingResponse;
-import edu.byu.cs.tweeter.presenter.GetFollowingPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
+import com.example.shared.service.request.GetFollowersRequest;
+import com.example.shared.service.response.GetFollowersResponse;
+import edu.byu.cs.tweeter.presenter.GetFollowersPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
 
 /**
  * The fragment that displays on the 'Following' tab.
  */
-public class FollowerFragment extends Fragment implements GetFollowingPresenter.View {
+public class FollowerFragment extends Fragment implements GetFollowersPresenter.View {
 
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
     private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
-    private static final int FRAGMENT_CODE = 3;
 
     private static final int LOADING_DATA_VIEW = 0;
 
@@ -41,7 +40,7 @@ public class FollowerFragment extends Fragment implements GetFollowingPresenter.
 
     private User user;
     private AuthToken authToken;
-    private GetFollowingPresenter presenter;
+    private GetFollowersPresenter presenter;
 
     public static FollowerFragment newInstance(User user, AuthToken authToken) {
         FollowerFragment fragment = new FollowerFragment();
@@ -63,7 +62,7 @@ public class FollowerFragment extends Fragment implements GetFollowingPresenter.
         user = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
-        presenter = new GetFollowingPresenter(this);
+        presenter = new GetFollowersPresenter(this);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -83,16 +82,16 @@ public class FollowerFragment extends Fragment implements GetFollowingPresenter.
 
         }
 
-        class FollowerViewAdapter extends PagedRecyclerViewAdapter implements FollowTask.Observer {
+        class FollowerViewAdapter extends PagedRecyclerViewAdapter implements GetFollowersTask.Observer {
 
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 addLoadingFooter();
 
-                FollowTask followTask = new FollowTask(presenter, this);
-                GetFollowingRequest request = new GetFollowingRequest(user, authToken, PAGE_SIZE, lastItem, FRAGMENT_CODE);
-                followTask.execute(request);
+                GetFollowersTask GetFollowersTask = new GetFollowersTask(presenter, this);
+                GetFollowersRequest request = new GetFollowersRequest(user, authToken, PAGE_SIZE, lastItem);
+                GetFollowersTask.execute(request);
             }
 
             @Override
@@ -124,7 +123,7 @@ public class FollowerFragment extends Fragment implements GetFollowingPresenter.
             }
 
             @Override
-            public void dataRetrieved(GetFollowingResponse response) {
+            public void dataRetrieved(GetFollowersResponse response) {
 
                 user.addFollowers(response.getUsers());
 
