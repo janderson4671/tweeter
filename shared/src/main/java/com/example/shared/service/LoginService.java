@@ -10,5 +10,5 @@ import com.example.shared.service.response.LoginResponse;
  * Contains the business logic to support the login operation.
  */
 public interface LoginService {
-    public LoginResponse login(LoginRequest request) throws IOException, TweeterRemoteException;
+    public LoginResponse login(LoginRequest request);
 }

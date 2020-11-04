@@ -11,6 +11,6 @@ import com.example.shared.service.response.GetFollowingResponse;
  */
 public interface GetFollowingService {
 
-    public GetFollowingResponse getFollowing(GetFollowingRequest request) throws IOException, TweeterRemoteException;
+    public GetFollowingResponse getFollowing(GetFollowingRequest request);
 
 }

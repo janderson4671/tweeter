@@ -1,18 +1,16 @@
 package com.example.server.dao;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetFeedRequest;
-import com.example.shared.service.response.GetFeedResponse;
+import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.response.GetStoryResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class GetFeedDAO {
+public class GetStoryDAO {
 
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
     private static final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
@@ -60,8 +58,7 @@ public class GetFeedDAO {
     private final Status stat19 = new Status(user19, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
     private final Status stat20 = new Status(user20, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
 
-    public GetFeedResponse getStatuses(GetFeedRequest request) {
-        //For now we use dummy data
+    public GetStoryResponse getStatuses(GetStoryRequest request) {
 
         List<Status> allStatuses = getDummyStatuses();
         List<Status> responseStatuses = new ArrayList<>(request.getLimit());
@@ -77,7 +74,7 @@ public class GetFeedDAO {
             hasMorePages = followingIndex < allStatuses.size();
         }
 
-        return new GetFeedResponse(responseStatuses, hasMorePages);
+        return new GetStoryResponse(responseStatuses, hasMorePages);
     }
 
     List<User> getDummyFollowees() {
@@ -139,5 +136,4 @@ public class GetFeedDAO {
         }
 
     }
-
 }

@@ -7,5 +7,5 @@ import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.RegisterResponse;
 
 public interface RegisterService {
-    public RegisterResponse register(RegisterRequest request) throws IOException, TweeterRemoteException;
+    public RegisterResponse register(RegisterRequest request);
 }

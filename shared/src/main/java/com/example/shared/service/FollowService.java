@@ -8,6 +8,6 @@ import com.example.shared.service.response.FollowResponse;
 
 public interface FollowService {
 
-    public FollowResponse follow(FollowRequest request) throws IOException, TweeterRemoteException;
+    public FollowResponse follow(FollowRequest request);
 
 }
