@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class GetFeedServiceImpl implements GetFeedService {
     @Override
-    public GetFeedResponse getStatuses(GetFeedRequest request) throws IOException, TweeterRemoteException {
+    public GetFeedResponse getStatuses(GetFeedRequest request) {
         return getFeedDAO().getStatuses(request);
     }
 

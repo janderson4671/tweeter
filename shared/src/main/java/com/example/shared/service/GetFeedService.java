@@ -8,6 +8,6 @@ import com.example.shared.service.response.GetFeedResponse;
 
 public interface GetFeedService {
 
-    public GetFeedResponse getStatuses(GetFeedRequest request);
+    public GetFeedResponse getStatuses(GetFeedRequest request) throws IOException, TweeterRemoteException;
 
 }

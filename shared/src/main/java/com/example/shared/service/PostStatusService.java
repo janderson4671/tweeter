@@ -8,6 +8,6 @@ import com.example.shared.service.response.PostStatusResponse;
 
 public interface PostStatusService {
 
-    public PostStatusResponse postStatus(PostStatusRequest request);
+    public PostStatusResponse postStatus(PostStatusRequest request) throws IOException, TweeterRemoteException;
 
 }

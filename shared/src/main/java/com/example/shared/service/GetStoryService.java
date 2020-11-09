@@ -8,6 +8,6 @@ import java.io.IOException;
 
 public interface GetStoryService {
 
-    public GetStoryResponse getStatuses(GetStoryRequest request);
+    public GetStoryResponse getStatuses(GetStoryRequest request) throws IOException, TweeterRemoteException;
 
 }

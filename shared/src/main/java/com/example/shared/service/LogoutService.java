@@ -8,6 +8,6 @@ import com.example.shared.service.response.LogoutResponse;
 
 public interface LogoutService {
 
-    public LogoutResponse logout(LogoutRequest request);
+    public LogoutResponse logout(LogoutRequest request) throws IOException, TweeterRemoteException;
 
 }

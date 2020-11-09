@@ -8,6 +8,6 @@ import java.io.IOException;
 
 public interface GetFollowersService {
 
-    public GetFollowersResponse getFollowers(GetFollowersRequest request);
+    public GetFollowersResponse getFollowers(GetFollowersRequest request) throws IOException, TweeterRemoteException;
 
 }
