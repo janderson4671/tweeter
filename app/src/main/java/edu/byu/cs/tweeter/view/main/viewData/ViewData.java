@@ -54,6 +54,11 @@ public class ViewData {
     }
 
     public void addMentionedUsers(List<User> users) {
+
+        if (users == null) {
+            return;
+        }
+
         for (User currUser : users) {
             if (!allMentionedUsers.contains(currUser)) {
                 allMentionedUsers.add(currUser);

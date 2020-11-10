@@ -93,7 +93,7 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", ""), "Hello", new Date(System.currentTimeMillis()), new ArrayList<>()));
+                addItem(new Status(new User("Dummy", "User", ""), "Hello", "Merp", new ArrayList<>()));
             }
 
             @NonNull

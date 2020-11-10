@@ -8,8 +8,9 @@ import com.example.shared.domain.User;
  */
 public class LoginResponse extends Response {
 
-    private User user;
-    private AuthToken authToken;
+    public User user;
+
+    public AuthToken authToken;
 
     public LoginResponse(String message) {
         super(false, message);
@@ -27,5 +28,13 @@ public class LoginResponse extends Response {
 
     public AuthToken getAuthToken() {
         return authToken;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
     }
 }

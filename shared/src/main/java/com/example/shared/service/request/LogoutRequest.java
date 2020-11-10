@@ -5,12 +5,15 @@ import com.example.shared.domain.User;
 
 public class LogoutRequest {
 
-    User user;
-    AuthToken authToken;
+    public User user;
+    public AuthToken authToken;
 
     public LogoutRequest(User user, AuthToken authToken) {
         this.user = user;
         this.authToken = authToken;
+    }
+
+    public LogoutRequest() {
     }
 
     public User getUser() {

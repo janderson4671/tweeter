@@ -18,9 +18,7 @@ public class GetFeedServiceProxy implements GetFeedService {
 
     public GetFeedResponse getStatuses(GetFeedRequest request) throws IOException, TweeterRemoteException {
 
-        String url = null;
-
-        GetFeedResponse response = getServerFacade().getStatuses(request, url);
+        GetFeedResponse response = getServerFacade().getStatuses(request, URL_PATH_FEED);
 
         if(response.isSuccess()) {
             loadImgaes(response);

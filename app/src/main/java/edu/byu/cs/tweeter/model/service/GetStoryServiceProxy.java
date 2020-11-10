@@ -13,7 +13,7 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class GetStoryServiceProxy implements GetStoryService {
 
-    private static final String URL_PATH_FEED = "/getstory";
+    private static final String URL_PATH_STORY = "/getstory";
 
     private void loadImgaes(GetStoryResponse response) throws IOException {
         for (Status status : response.getStatuses()) {
@@ -29,9 +29,7 @@ public class GetStoryServiceProxy implements GetStoryService {
     @Override
     public GetStoryResponse getStatuses(GetStoryRequest request) throws IOException, TweeterRemoteException {
 
-        String url = null;
-
-        GetStoryResponse response = getServerFacade().getStory(request, url);
+        GetStoryResponse response = getServerFacade().getStory(request, URL_PATH_STORY);
 
         if (response.isSuccess()) {
             loadImgaes(response);

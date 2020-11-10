@@ -6,18 +6,21 @@ import com.example.shared.domain.User;
 
 public class GetStoryRequest {
 
-    private final User loggedInUser;
+    public User loggedInUser;
 
-    private final AuthToken authToken;
+    public AuthToken authToken;
 
-    private final int limit;
-    private final Status lastStatus;
+    public int limit;
+    public Status lastStatus;
 
     public GetStoryRequest(User loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
         this.lastStatus = lastStatus;
+    }
+
+    public GetStoryRequest() {
     }
 
     public User getLoggedInUser() {

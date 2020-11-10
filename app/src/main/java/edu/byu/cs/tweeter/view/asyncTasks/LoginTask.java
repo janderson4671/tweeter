@@ -52,7 +52,7 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
     private void loadImage(User user) {
         try {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            user.setImageBytes(bytes);
+            //user.setImageBytes(bytes);
         } catch (IOException e) {
             Log.e(this.getClass().getName(), e.toString(), e);
         }

@@ -37,26 +37,26 @@ public class GetStoryDAO {
     private final User user20 = new User("Jill", "Johnson", FEMALE_IMAGE_URL);
 
     //Dummy Statuses
-    private final Status stat1 = new Status(user1, "Hello! Follow this link :) https://www.google.com", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat2 = new Status(user2, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat3 = new Status(user3, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat4 = new Status(user4, "test @AmyAmes @FrankFrandson", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat5 = new Status(user5, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat6 = new Status(user6, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat7 = new Status(user7, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat8 = new Status(user8, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat9 = new Status(user9, "test @NathanCraddock @ElliottEnderson", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat10 = new Status(user10, "test @Joseph Chou", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat11 = new Status(user11, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat12 = new Status(user12, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat13 = new Status(user13, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat14 = new Status(user14, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat15 = new Status(user15, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat16 = new Status(user16, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat17 = new Status(user17, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat18 = new Status(user18, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat19 = new Status(user19, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
-    private final Status stat20 = new Status(user20, "test", new Date(System.currentTimeMillis()), new ArrayList<>());
+    private final Status stat1 = new Status(user1, "Hello! Follow this link :) https://www.google.com", "Fake Date", new ArrayList<>());
+    private final Status stat2 = new Status(user2, "test", "Fake Date", new ArrayList<>());
+    private final Status stat3 = new Status(user3, "test", "Fake Date", new ArrayList<>());
+    private final Status stat4 = new Status(user4, "test @AmyAmes @FrankFrandson", "Fake Date", new ArrayList<>());
+    private final Status stat5 = new Status(user5, "test", "Fake Date", new ArrayList<>());
+    private final Status stat6 = new Status(user6, "test", "Fake Date", new ArrayList<>());
+    private final Status stat7 = new Status(user7, "test", "Fake Date", new ArrayList<>());
+    private final Status stat8 = new Status(user8, "test", "Fake Date", new ArrayList<>());
+    private final Status stat9 = new Status(user9, "test @NathanCraddock @ElliottEnderson", "Fake Date", new ArrayList<>());
+    private final Status stat10 = new Status(user10, "test @Joseph Chou", "Fake Date", new ArrayList<>());
+    private final Status stat11 = new Status(user11, "test", "Fake Date", new ArrayList<>());
+    private final Status stat12 = new Status(user12, "test", "Fake Date", new ArrayList<>());
+    private final Status stat13 = new Status(user13, "test", "Fake Date", new ArrayList<>());
+    private final Status stat14 = new Status(user14, "test", "Fake Date", new ArrayList<>());
+    private final Status stat15 = new Status(user15, "test", "Fake Date", new ArrayList<>());
+    private final Status stat16 = new Status(user16, "test", "Fake Date", new ArrayList<>());
+    private final Status stat17 = new Status(user17, "test", "Fake Date", new ArrayList<>());
+    private final Status stat18 = new Status(user18, "test", "Fake Date", new ArrayList<>());
+    private final Status stat19 = new Status(user19, "test", "Fake Date", new ArrayList<>());
+    private final Status stat20 = new Status(user20, "test", "Fake Date", new ArrayList<>());
 
     public GetStoryResponse getStatuses(GetStoryRequest request) {
 

@@ -94,7 +94,7 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", ""), "Hello", new Date(System.currentTimeMillis()), new ArrayList<>()));
+                addItem(new Status(new User("Dummy", "User", ""), "Hello", "Merp", new ArrayList<>()));
             }
 
             @NonNull

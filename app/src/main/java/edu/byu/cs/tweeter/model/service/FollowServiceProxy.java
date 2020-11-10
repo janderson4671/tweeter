@@ -12,20 +12,11 @@ import com.example.shared.service.FollowService;
 public class FollowServiceProxy implements FollowService {
 
     private static final String URL_PATH_FOLLOW = "/follow";
-    private static final String URL_PATH_UNFOLLOW = "/unfollow";
 
     @Override
     public FollowResponse follow(FollowRequest request) throws IOException, TweeterRemoteException {
 
-        String url = null;
-
-        if (request.isFollow()) {
-            url = URL_PATH_FOLLOW;
-        } else {
-            url = URL_PATH_UNFOLLOW;
-        }
-
-        FollowResponse response = getServerFacade().follow(request, url);
+        FollowResponse response = getServerFacade().follow(request, URL_PATH_FOLLOW);
         return response;
     }
 

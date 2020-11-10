@@ -2,11 +2,11 @@ package com.example.shared.service.request;
 
 public class RegisterRequest {
 
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
-    private byte [] profile;
+    public String firstName;
+    public String lastName;
+    public String username;
+    public String password;
+    public byte [] profile;
 
     //Constructor
     public RegisterRequest(String firstName, String lastName, String username, String password, byte [] profile) {
@@ -15,6 +15,9 @@ public class RegisterRequest {
         this.username = username;
         this.password = password;
         this.profile = profile;
+    }
+
+    public RegisterRequest() {
     }
 
     //Getters

@@ -76,7 +76,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
         userAlias.setText(viewedUser.getAlias());
 
         userImageView = findViewById(R.id.userImage_view_user);
-        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(viewedUser.getImageBytes()));
+        //userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(viewedUser.getImageBytes()));
 
         followeeCount = findViewById(R.id.followeeCount_view_user);
         followeeCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));

@@ -13,12 +13,12 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class GetFollowersServiceProxy implements GetFollowersService {
 
-    static final String URL_PATH_FOLLOWER = "/getfollower";
+    static final String URL_PATH_FOLLOWER = "/getfollowers";
 
     private void loadImages(GetFollowersResponse response) throws IOException {
         for(User user : response.getUsers()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            user.setImageBytes(bytes);
+            //user.setImageBytes(bytes);
         }
     }
 

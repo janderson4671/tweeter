@@ -1,16 +1,23 @@
 package com.example.shared.service.request;
 
+import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 
 public class PostStatusRequest {
 
-    Status status;
-    User user;
+    public Status status;
+    public User user;
 
-    public PostStatusRequest(Status status, User user) {
+    public AuthToken authToken;
+
+    public PostStatusRequest(Status status, User user, AuthToken authToken) {
         this.status = status;
         this.user = user;
+        this.authToken = authToken;
+    }
+
+    public PostStatusRequest() {
     }
 
     public Status getStatus() {

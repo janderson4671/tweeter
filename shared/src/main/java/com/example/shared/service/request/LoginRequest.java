@@ -5,13 +5,15 @@ package com.example.shared.service.request;
  */
 public class LoginRequest {
 
-    private final String username;
-    private final String password;
+    public String username;
+    public String password;
 
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    public LoginRequest() {}
 
     public String getUsername() {
         return username;
@@ -20,4 +22,5 @@ public class LoginRequest {
     public String getPassword() {
         return password;
     }
+
 }

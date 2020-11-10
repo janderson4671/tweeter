@@ -7,14 +7,32 @@ import java.util.Objects;
 
 public class Status implements Serializable {
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setMentionAliases(List<String> mentionAliases) {
+        this.mentionAliases = mentionAliases;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     private User user;
     private List<String> mentionAliases;
 
     private String message;
-    private Date timeStamp;
+    private String timeStamp;
+
+    public Status() {}
 
     //Constructor
-    public Status(User user, String message, Date timeStamp, List<String> mentionAliases) {
+    public Status(User user, String message, String timeStamp, List<String> mentionAliases) {
         this.user = user;
         this.message = message;
         this.timeStamp = timeStamp;
@@ -30,7 +48,7 @@ public class Status implements Serializable {
         return message;
     }
 
-    public Date getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
@@ -43,7 +61,7 @@ public class Status implements Serializable {
     }
 
     public void setUserImage(byte [] imageBytes) {
-        user.setImageBytes(imageBytes);
+        //user.setImageBytes(imageBytes);
     }
 
     @Override

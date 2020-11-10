@@ -104,8 +104,8 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
 
     private void postStatus() {
         PostStatusTask task = new PostStatusTask(presenter, this);
-        PostStatusRequest request = new PostStatusRequest(new Status(data.getLoggedInUser(), message, new Date(System.currentTimeMillis()), new ArrayList<>()),
-                data.getLoggedInUser());
+        PostStatusRequest request = new PostStatusRequest(new Status(data.getLoggedInUser(), message, "January 1st", new ArrayList<>()),
+                data.getLoggedInUser(), data.getAuthToken());
         task.execute(request);
     }
 

@@ -10,12 +10,38 @@ import java.util.Objects;
  */
 public class User implements Comparable<User>, Serializable {
 
-    private final String firstName;
-    private final String lastName;
-    private final String alias;
-    private final String imageUrl;
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
 
-    private byte [] imageBytes;
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
+
+    public void setNumFollowers(int numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public void setNumFollowing(int numFollowing) {
+        this.numFollowing = numFollowing;
+    }
+
+    public void setPosts(List<Status> posts) {
+        this.posts = posts;
+    }
+
+    public void setFeed(List<Status> feed) {
+        this.feed = feed;
+    }
+
+    public void setStory(List<Status> story) {
+        this.story = story;
+    }
+
+    private String firstName;
+    private String lastName;
+    private String alias;
+    private String imageUrl;
 
     private List<User> followers;
     private List<User> following;
@@ -29,6 +55,8 @@ public class User implements Comparable<User>, Serializable {
     private List<Status> story;
 
     //Constructors
+
+    public User() {}
 
     public User(String firstName, String lastName, String imageURL) {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
@@ -74,20 +102,12 @@ public class User implements Comparable<User>, Serializable {
         return imageUrl;
     }
 
-    public byte [] getImageBytes() {
-        return imageBytes;
-    }
-
     public List<Status> getPosts() {
         return posts;
     }
 
     public void addPost(Status status) {
         posts.add(status);
-    }
-
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
     }
 
     //TODO: Get rid of these later

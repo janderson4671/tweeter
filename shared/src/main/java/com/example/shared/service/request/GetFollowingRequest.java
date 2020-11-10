@@ -9,17 +9,20 @@ import com.example.shared.domain.User;
  */
 public class GetFollowingRequest {
 
-    private final User loggedInUser;
+    public User loggedInUser;
 
-    private final AuthToken authToken;
-    private final int limit;
-    private final User lastFollowing;
+    public AuthToken authToken;
+    public int limit;
+    public User lastFollowing;
 
     public GetFollowingRequest(User loggedInUser, AuthToken authToken, int limit, User lastFollowing) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
         this.lastFollowing = lastFollowing;
+    }
+
+    public GetFollowingRequest() {
     }
 
     public User getLoggedInUser() {

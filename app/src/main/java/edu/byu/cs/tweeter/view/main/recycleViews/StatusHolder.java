@@ -58,7 +58,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         this.user = status.getUser();
         this.status = status;
 
-        userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
+        //userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
         userMessage.setMovementMethod(LinkMovementMethod.getInstance());
@@ -97,6 +97,10 @@ public class StatusHolder extends RecyclerView.ViewHolder {
 
     private boolean checkValidUser(String alias) {
         List<User> mentions = data.getAllMentionedUsers();
+
+        if (mentions == null) {
+            return false;
+        }
 
         for (User currUser : mentions) {
             if (currUser.getAlias().equals(alias)) {

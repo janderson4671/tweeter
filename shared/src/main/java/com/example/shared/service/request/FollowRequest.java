@@ -5,11 +5,11 @@ import com.example.shared.domain.User;
 
 public class FollowRequest {
 
-    private User currUser;
-    private AuthToken authToken;
+    public User currUser;
+    public AuthToken authToken;
 
-    private User userToFollow;
-    private boolean follow;
+    public User userToFollow;
+    public boolean follow;
 
     //Constructor
     public FollowRequest(User currUser, AuthToken authToken, User userToFollow, boolean follow) {
@@ -18,6 +18,8 @@ public class FollowRequest {
         this.userToFollow = userToFollow;
         this.follow = follow;
     }
+
+    public FollowRequest() {}
 
     //Getters
     public User getCurrUser() {
