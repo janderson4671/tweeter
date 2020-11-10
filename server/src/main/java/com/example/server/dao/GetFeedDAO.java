@@ -50,7 +50,7 @@ public class GetFeedDAO {
     private final Status stat9 = new Status(user9, "test @NathanCraddock @ElliottEnderson", "Fake Date", new ArrayList<>());
     private final Status stat10 = new Status(user10, "test @Joseph Chou", "Fake Date", new ArrayList<>());
     private final Status stat11 = new Status(user11, "test", "Fake Date", new ArrayList<>());
-    private final Status stat12 = new Status(user12, "test", "Fake Date", new ArrayList<>());
+    private final Status stat12 = new Status(user12, "test hi", "Fake Date", new ArrayList<>());
     private final Status stat13 = new Status(user13, "test", "Fake Date", new ArrayList<>());
     private final Status stat14 = new Status(user14, "test", "Fake Date", new ArrayList<>());
     private final Status stat15 = new Status(user15, "test", "Fake Date", new ArrayList<>());

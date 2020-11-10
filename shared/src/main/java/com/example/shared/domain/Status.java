@@ -69,7 +69,7 @@ public class Status implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Status status = (Status) o;
-        return user.equals(status.user) &&
+        return user.getAlias().equals(status.user.getAlias()) &&
                 message.equals(status.message); /*&&
                 timeStamp.equals(status.timeStamp);*/
     }

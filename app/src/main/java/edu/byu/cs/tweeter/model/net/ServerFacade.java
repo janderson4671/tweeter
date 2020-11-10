@@ -37,7 +37,7 @@ public class ServerFacade {
 
     public GetFollowingResponse getFollowing(GetFollowingRequest request, String urlPath) throws IOException, TweeterRemoteException {
 
-        GetFollowingResponse response = clientCommunicator.doPost(urlPath, request, null, GetFollowingResponse.class);
+         GetFollowingResponse response = clientCommunicator.doPost(urlPath, request, null, GetFollowingResponse.class);
 
         if (response.isSuccess()) {
             return response;

@@ -95,6 +95,11 @@ public class User implements Comparable<User>, Serializable {
     }
 
     public String getAlias() {
+
+        if (alias == null) {
+            alias = String.format("@%s%s", firstName, lastName);
+        }
+
         return alias;
     }
 
@@ -164,7 +169,9 @@ public class User implements Comparable<User>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return alias.equals(user.alias);
+        System.out.println(this.getAlias());
+        System.out.println(user.getAlias());
+        return this.getAlias().equals(user.getAlias());
     }
 
     @Override
