@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
 
     private void logoutUser() {
         LogoutTask task = new LogoutTask(presenter, this);
-        LogoutRequest request = new LogoutRequest(data.getLoggedInUser(), data.getAuthToken());
+        LogoutRequest request = new LogoutRequest(data.getLoggedInUser().getAlias(), data.getAuthToken());
         task.execute(request);
     }
 

@@ -1,14 +1,13 @@
 package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.User;
 
 public class LogoutRequest {
 
-    public User user;
+    public String user;
     public AuthToken authToken;
 
-    public LogoutRequest(User user, AuthToken authToken) {
+    public LogoutRequest(String user, AuthToken authToken) {
         this.user = user;
         this.authToken = authToken;
     }
@@ -16,7 +15,7 @@ public class LogoutRequest {
     public LogoutRequest() {
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 

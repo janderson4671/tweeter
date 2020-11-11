@@ -1,18 +1,17 @@
 package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.User;
 
 public class GetFollowersRequest {
 
-    public User loggedInUser;
+    public String loggedInUser;
 
     public AuthToken authToken;
 
     public int limit;
-    public User lastFollower;
+    public String lastFollower;
 
-    public GetFollowersRequest(User loggedInUser, AuthToken authToken, int limit, User lastFollower) {
+    public GetFollowersRequest(String loggedInUser, AuthToken authToken, int limit, String lastFollower) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
@@ -22,7 +21,7 @@ public class GetFollowersRequest {
     public GetFollowersRequest() {
     }
 
-    public User getLoggedInUser() {
+    public String getLoggedInUser() {
         return loggedInUser;
     }
 
@@ -34,7 +33,7 @@ public class GetFollowersRequest {
         return limit;
     }
 
-    public User getLastFollower() {
+    public String getLastFollower() {
         return lastFollower;
     }
 

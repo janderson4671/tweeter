@@ -1,7 +1,6 @@
 package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.User;
 
 /**
  * Contains all the information needed to make a request to have the server return the next page of
@@ -9,13 +8,13 @@ import com.example.shared.domain.User;
  */
 public class GetFollowingRequest {
 
-    public User loggedInUser;
+    public String loggedInUser;
 
     public AuthToken authToken;
     public int limit;
-    public User lastFollowing;
+    public String lastFollowing;
 
-    public GetFollowingRequest(User loggedInUser, AuthToken authToken, int limit, User lastFollowing) {
+    public GetFollowingRequest(String loggedInUser, AuthToken authToken, int limit, String lastFollowing) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
@@ -25,7 +24,7 @@ public class GetFollowingRequest {
     public GetFollowingRequest() {
     }
 
-    public User getLoggedInUser() {
+    public String getLoggedInUser() {
         return loggedInUser;
     }
 
@@ -37,7 +36,7 @@ public class GetFollowingRequest {
         return limit;
     }
 
-    public User getLastFollowing() {
+    public String getLastFollowing() {
         return lastFollowing;
     }
 }

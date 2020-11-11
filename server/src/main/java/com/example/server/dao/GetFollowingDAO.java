@@ -67,23 +67,24 @@ public class GetFollowingDAO {
                 user19, user20);
     }
 
-    private int getFolloweesStartingIndex(User lastFollowee, List<User> allFollowing) {
+    private int getFolloweesStartingIndex(String lastFollowing, List<User> allFollowing) {
 
-        int followeesIndex = 0;
+        int followingIndex = 0;
 
-        if(lastFollowee != null) {
+        if(lastFollowing != null) {
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allFollowing.size(); i++) {
-                if(lastFollowee.equals(allFollowing.get(i))) {
+                if(lastFollowing.equals(allFollowing.get(i).getAlias())) {
                     // We found the index of the last item returned last time. Increment to get
                     // to the first one we should return
-                    followeesIndex = i + 1;
+                    followingIndex = i + 1;
                 }
             }
         }
-
-        return followeesIndex;
+        System.out.println(lastFollowing);
+        System.out.println(followingIndex);
+        return followingIndex;
     }
 
 }

@@ -30,6 +30,7 @@ abstract public class PagedRecyclerView<HolderType extends RecyclerView.ViewHold
     public PagedRecyclerView(Context context, RecyclerView recyclerView) {
         this.context = context;
         this.recyclerView = recyclerView;
+        this.lastItem = null;
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);

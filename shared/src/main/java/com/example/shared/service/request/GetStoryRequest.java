@@ -2,18 +2,17 @@ package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
-import com.example.shared.domain.User;
 
 public class GetStoryRequest {
 
-    public User loggedInUser;
+    public String loggedInUser;
 
     public AuthToken authToken;
 
     public int limit;
     public Status lastStatus;
 
-    public GetStoryRequest(User loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
+    public GetStoryRequest(String loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
@@ -23,7 +22,7 @@ public class GetStoryRequest {
     public GetStoryRequest() {
     }
 
-    public User getLoggedInUser() {
+    public String getLoggedInUser() {
         return loggedInUser;
     }
 

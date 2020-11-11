@@ -1,18 +1,17 @@
 package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.User;
 
 public class FollowRequest {
 
-    public User currUser;
+    public String currUser;
     public AuthToken authToken;
 
-    public User userToFollow;
+    public String userToFollow;
     public boolean follow;
 
     //Constructor
-    public FollowRequest(User currUser, AuthToken authToken, User userToFollow, boolean follow) {
+    public FollowRequest(String currUser, AuthToken authToken, String userToFollow, boolean follow) {
         this.currUser = currUser;
         this.authToken = authToken;
         this.userToFollow = userToFollow;
@@ -22,7 +21,7 @@ public class FollowRequest {
     public FollowRequest() {}
 
     //Getters
-    public User getCurrUser() {
+    public String getCurrUser() {
         return currUser;
     }
 
@@ -30,7 +29,7 @@ public class FollowRequest {
         return authToken;
     }
 
-    public User getUserToFollow() {
+    public String getUserToFollow() {
         return userToFollow;
     }
 

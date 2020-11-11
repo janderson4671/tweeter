@@ -2,11 +2,10 @@ package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
-import com.example.shared.domain.User;
 
 public class GetFeedRequest {
 
-    public User loggedInUser;
+    public String loggedInUser;
 
     public AuthToken authToken;
 
@@ -14,7 +13,7 @@ public class GetFeedRequest {
     public Status lastStatus;
 
 
-    public GetFeedRequest(User loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
+    public GetFeedRequest(String loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
         this.limit = limit;
@@ -24,7 +23,7 @@ public class GetFeedRequest {
     public GetFeedRequest() {
     }
 
-    public User getLoggedInUser() {
+    public String getLoggedInUser() {
         return loggedInUser;
     }
 

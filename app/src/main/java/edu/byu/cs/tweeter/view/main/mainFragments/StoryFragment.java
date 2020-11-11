@@ -87,13 +87,13 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
                 addLoadingFooter();
 
                 GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
-                GetStoryRequest request = new GetStoryRequest(user, authToken, PAGE_SIZE, lastItem);
+                GetStoryRequest request = new GetStoryRequest(user.getAlias(), authToken, PAGE_SIZE, lastItem);
                 getStoryTask.execute(request);
             }
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", ""), "Hello", "Merp", new ArrayList<>()));
+                addItem(new Status("@DummyUser", "Hello", "Merp", new ArrayList<>(),null, null));
             }
 
             @NonNull

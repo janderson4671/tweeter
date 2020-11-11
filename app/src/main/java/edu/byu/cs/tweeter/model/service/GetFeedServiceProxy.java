@@ -29,8 +29,8 @@ public class GetFeedServiceProxy implements GetFeedService {
 
     private void loadImgaes(GetFeedResponse response) throws IOException {
         for (Status status : response.getStatuses()) {
-            byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
-            status.setUserImage(bytes);
+//            byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUserImageURL());
+//            status.setUserImage(bytes);
         }
     }
 

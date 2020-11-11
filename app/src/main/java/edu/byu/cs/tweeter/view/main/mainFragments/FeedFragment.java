@@ -88,13 +88,13 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
                 addLoadingFooter();
 
                 GetFeedTask dataRetrievalTask = new GetFeedTask(presenter, this);
-                GetFeedRequest request = new GetFeedRequest(user, authToken, PAGE_SIZE, lastItem);
+                GetFeedRequest request = new GetFeedRequest(user.getAlias(), authToken, PAGE_SIZE, lastItem);
                 dataRetrievalTask.execute(request);
             }
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", ""), "Hello", "Merp", new ArrayList<>()));
+                addItem(new Status("@DummyUser", "Hello", "Merp", new ArrayList<>(),null, null));
             }
 
             @NonNull

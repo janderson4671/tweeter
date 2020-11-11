@@ -50,7 +50,7 @@ public class GetFollowersDAO {
         boolean hasMorePages = false;
 
         if (request.getLimit() > 0) {
-            int followingIndex = getFolloweesStartingIndex(request.getLastFollower(), allFollowing);
+            int followingIndex = getFollowersStartingIndex(request.getLastFollower(), allFollowing);
 
             for (int limitCounter = 0; followingIndex < allFollowing.size() && limitCounter < request.getLimit(); followingIndex++, limitCounter++) {
                 responseFollowers.add(allFollowing.get(followingIndex));
@@ -67,15 +67,15 @@ public class GetFollowersDAO {
                 user19, user20);
     }
 
-    private int getFolloweesStartingIndex(User lastFollowee, List<User> allFollowing) {
+    private int getFollowersStartingIndex(String lastFollower, List<User> allFollowing) {
 
         int followeesIndex = 0;
 
-        if(lastFollowee != null) {
+        if(lastFollower != null) {
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allFollowing.size(); i++) {
-                if(lastFollowee.equals(allFollowing.get(i))) {
+                if(lastFollower.equals(allFollowing.get(i).getAlias())) {
                     // We found the index of the last item returned last time. Increment to get
                     // to the first one we should return
                     followeesIndex = i + 1;

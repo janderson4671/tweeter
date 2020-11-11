@@ -2,16 +2,15 @@ package com.example.shared.service.request;
 
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
-import com.example.shared.domain.User;
 
 public class PostStatusRequest {
 
     public Status status;
-    public User user;
+    public String user;
 
     public AuthToken authToken;
 
-    public PostStatusRequest(Status status, User user, AuthToken authToken) {
+    public PostStatusRequest(Status status, String user, AuthToken authToken) {
         this.status = status;
         this.user = user;
         this.authToken = authToken;
@@ -24,7 +23,7 @@ public class PostStatusRequest {
         return status;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 

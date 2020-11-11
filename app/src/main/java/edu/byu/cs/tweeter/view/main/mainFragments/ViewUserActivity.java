@@ -114,7 +114,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
             followButton.setText("Follow");
         }
 
-        FollowRequest request = new FollowRequest(data.getLoggedInUser(), authToken, viewedUser, follow);
+        FollowRequest request = new FollowRequest(data.getLoggedInUser().getAlias(), authToken, viewedUser.getAlias(), follow);
         AddFollowerTask task = new AddFollowerTask(presenter, this);
         task.execute(request);
     }

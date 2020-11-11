@@ -90,7 +90,15 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
                 addLoadingFooter();
 
                 GetFollowersTask GetFollowersTask = new GetFollowersTask(presenter, this);
-                GetFollowersRequest request = new GetFollowersRequest(user, authToken, PAGE_SIZE, lastItem);
+
+                GetFollowersRequest request;
+
+                if (lastItem == null) {
+                    request = new GetFollowersRequest(user.getAlias(), authToken, PAGE_SIZE, null);
+                } else {
+                    request = new GetFollowersRequest(user.getAlias(), authToken, PAGE_SIZE, lastItem.getAlias());
+                }
+
                 GetFollowersTask.execute(request);
             }
 
