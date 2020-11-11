@@ -27,6 +27,14 @@ public class GetFeedResponse extends PagedResponse {
 
     public List<User> getMentionedUsers() { return mentionedUsers; }
 
+    public void setStatuses(List<Status> statuses) {
+        this.statuses = statuses;
+    }
+
+    public void setMentionedUsers(List<User> mentionedUsers) {
+        this.mentionedUsers = mentionedUsers;
+    }
+
     @Override
     public boolean equals(Object param) {
         if (this == param) {

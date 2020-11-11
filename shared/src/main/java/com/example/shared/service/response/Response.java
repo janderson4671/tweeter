@@ -5,8 +5,8 @@ package com.example.shared.service.response;
  */
 public class Response {
 
-    private final boolean success;
-    private final String message;
+    private boolean success;
+    private String message;
 
     Response(boolean success) {
         this(success, null);
@@ -23,5 +23,13 @@ public class Response {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

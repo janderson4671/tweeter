@@ -5,10 +5,10 @@ import com.example.shared.domain.Status;
 
 public class PostStatusRequest {
 
-    public Status status;
-    public String user;
+    private Status status;
+    private String user;
 
-    public AuthToken authToken;
+    private AuthToken authToken;
 
     public PostStatusRequest(Status status, String user, AuthToken authToken) {
         this.status = status;
@@ -25,6 +25,18 @@ public class PostStatusRequest {
 
     public String getUser() {
         return user;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
     }
 
 }

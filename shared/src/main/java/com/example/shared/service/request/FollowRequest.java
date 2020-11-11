@@ -4,11 +4,11 @@ import com.example.shared.domain.AuthToken;
 
 public class FollowRequest {
 
-    public String currUser;
-    public AuthToken authToken;
+    private String currUser;
+    private AuthToken authToken;
 
-    public String userToFollow;
-    public boolean follow;
+    private String userToFollow;
+    private boolean follow;
 
     //Constructor
     public FollowRequest(String currUser, AuthToken authToken, String userToFollow, boolean follow) {
@@ -37,4 +37,19 @@ public class FollowRequest {
         return follow;
     }
 
+    public void setCurrUser(String currUser) {
+        this.currUser = currUser;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
+
+    public void setUserToFollow(String userToFollow) {
+        this.userToFollow = userToFollow;
+    }
+
+    public void setFollow(boolean follow) {
+        this.follow = follow;
+    }
 }

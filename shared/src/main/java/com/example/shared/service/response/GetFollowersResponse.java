@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class GetFollowersResponse extends PagedResponse {
 
-    public List<User> users;
+    private List<User> users;
 
     public GetFollowersResponse(String message) {
         super(false, message, false);
@@ -20,6 +20,10 @@ public class GetFollowersResponse extends PagedResponse {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

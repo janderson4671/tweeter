@@ -4,9 +4,9 @@ import com.example.shared.domain.AuthToken;
 
 public class LogoutRequest {
 
-    public String user;
-    public AuthToken authToken;
+    private String user;
 
+    private AuthToken authToken;
     public LogoutRequest(String user, AuthToken authToken) {
         this.user = user;
         this.authToken = authToken;
@@ -21,5 +21,13 @@ public class LogoutRequest {
 
     public AuthToken getAuthToken() {
         return authToken;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
     }
 }

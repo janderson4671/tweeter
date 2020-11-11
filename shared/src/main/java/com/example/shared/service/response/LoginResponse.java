@@ -8,9 +8,9 @@ import com.example.shared.domain.User;
  */
 public class LoginResponse extends Response {
 
-    public User user;
+    private User user;
 
-    public AuthToken authToken;
+    private AuthToken authToken;
 
     public LoginResponse(String message) {
         super(false, message);

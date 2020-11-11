@@ -5,12 +5,12 @@ import com.example.shared.domain.Status;
 
 public class GetFeedRequest {
 
-    public String loggedInUser;
+    private String loggedInUser;
 
-    public AuthToken authToken;
+    private AuthToken authToken;
 
-    public int limit;
-    public Status lastStatus;
+    private int limit;
+    private Status lastStatus;
 
 
     public GetFeedRequest(String loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
@@ -37,5 +37,21 @@ public class GetFeedRequest {
 
     public Status getLastStatus() {
         return lastStatus;
+    }
+
+    public void setLoggedInUser(String loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setLastStatus(Status lastStatus) {
+        this.lastStatus = lastStatus;
     }
 }

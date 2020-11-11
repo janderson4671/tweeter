@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class GetStoryResponse extends PagedResponse {
-
     private List<Status> statuses;
 
-    List<User> mentionedUsers;
+    private List<User> mentionedUsers;
 
     public GetStoryResponse(String message) {
         super(false, message, false);
@@ -26,6 +25,14 @@ public class GetStoryResponse extends PagedResponse {
     }
 
     public List<User> getMentionedUsers() { return mentionedUsers; }
+
+    public void setStatuses(List<Status> statuses) {
+        this.statuses = statuses;
+    }
+
+    public void setMentionedUsers(List<User> mentionedUsers) {
+        this.mentionedUsers = mentionedUsers;
+    }
 
     @Override
     public boolean equals(Object param) {

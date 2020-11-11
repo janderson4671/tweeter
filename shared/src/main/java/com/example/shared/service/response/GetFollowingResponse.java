@@ -11,7 +11,7 @@ import com.example.shared.service.request.GetFollowingRequest;
  */
 public class GetFollowingResponse extends PagedResponse {
 
-    public List<User> users;
+    private List<User> users;
 
     public GetFollowingResponse(String message) {
         super(false, message, false);
@@ -24,6 +24,10 @@ public class GetFollowingResponse extends PagedResponse {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override
