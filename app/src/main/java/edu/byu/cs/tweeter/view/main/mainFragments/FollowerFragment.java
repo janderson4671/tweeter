@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
@@ -133,16 +135,12 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
             @Override
             public void dataRetrieved(GetFollowersResponse response) {
 
-                user.addFollowers(response.getUsers());
-
-                List<User> followers = user.getFollowers();
-
-                lastItem = (followers.size() > 0) ? followers.get(followers.size() - 1) : null;
+                lastItem = (itemList.size() > 0) ? response.getUsers().get(response.getUsers().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(followers);
+                addItems(response.getUsers());
             }
 
             @Override

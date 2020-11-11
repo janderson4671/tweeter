@@ -123,19 +123,16 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
             @Override
             public void dataRetrieved(GetFeedResponse response) {
 
+                //TODO: Take a look at this later
                 //Add to list of mentioned users
                 data.addMentionedUsers(response.getMentionedUsers());
 
-                user.addFeedStatuses(response.getStatuses());
-
-                List<Status> feed = user.getFeed();
-
-                lastItem = (feed.size() > 0) ? feed.get(feed.size() - 1) : null;
+                lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(feed);
+                addItems(response.getStatuses());
             }
 
             @Override

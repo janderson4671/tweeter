@@ -10,14 +10,6 @@ import java.util.Objects;
  */
 public class User implements Comparable<User>, Serializable {
 
-    public void setFollowers(List<User> followers) {
-        this.followers = followers;
-    }
-
-    public void setFollowing(List<User> following) {
-        this.following = following;
-    }
-
     public void setNumFollowers(int numFollowers) {
         this.numFollowers = numFollowers;
     }
@@ -30,48 +22,34 @@ public class User implements Comparable<User>, Serializable {
         this.posts = posts;
     }
 
-    public void setFeed(List<Status> feed) {
-        this.feed = feed;
-    }
-
-    public void setStory(List<Status> story) {
-        this.story = story;
-    }
 
     private String firstName;
     private String lastName;
     private String alias;
     private String imageUrl;
 
-    private List<User> followers;
-    private List<User> following;
-
     //TODO: Impliment These!!
     private int numFollowers;
     private int numFollowing;
 
     private List<Status> posts;
-    private List<Status> feed;
-    private List<Status> story;
 
     //Constructors
 
     public User() {}
 
     public User(String firstName, String lastName, String imageURL) {
-        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
+        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, 0, 0);
     }
-    public User(String firstName, String lastName, String alias, String imageURL) {
+    public User(String firstName, String lastName, String alias, String imageURL, int numFollowers, int numFollowing) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.alias = alias;
         this.imageUrl = imageURL;
+        this.numFollowers = numFollowers;
+        this.numFollowing = numFollowing;
 
-        followers = new ArrayList<>();
-        following = new ArrayList<>();
         posts = new ArrayList<>();
-        feed = new ArrayList<>();
-        story = new ArrayList<>();
     }
 
     public int getFollowerCount() {
@@ -130,38 +108,6 @@ public class User implements Comparable<User>, Serializable {
 
     public void removeFollowee(User user) {
         //followees.remove(followees.size() - 1);
-    }
-
-    public void addFollowers(List<User> followers) {
-        this.followers.addAll(followers);
-    }
-
-    public void addFollowing(List<User> following) {
-        this.following.addAll(following);
-    }
-
-    public void addFeedStatuses(List<Status> newStatuses) {
-        feed.addAll(newStatuses);
-    }
-
-    public void addStoryStatuses(List<Status> newStatuses) {
-        story.addAll(newStatuses);
-    }
-
-    public List<Status> getFeed() {
-        return feed;
-    }
-
-    public List<Status> getStory() {
-        return story;
-    }
-
-    public List<User> getFollowers() {
-        return followers;
-    }
-
-    public List<User> getFollowing() {
-        return following;
     }
 
     @Override

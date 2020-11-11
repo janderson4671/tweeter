@@ -121,19 +121,16 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
             @Override
             public void dataRetrieved(GetStoryResponse response) {
 
+                //TODO: Take a look at this
                 //Add all mentioned users to viewData for later use
                 data.addMentionedUsers(response.getMentionedUsers());
 
-                user.addStoryStatuses(response.getStatuses());
-                
-                List<Status> story = user.getStory();
-
-                lastItem = (story.size() > 0) ? story.get(story.size() - 1) : null;
+                lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(story);
+                addItems(response.getStatuses());
             }
 
             @Override

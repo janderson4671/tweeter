@@ -137,16 +137,12 @@ public class FollowingFragment extends Fragment implements GetFollowingPresenter
             @Override
             public void dataRetrieved(GetFollowingResponse response) {
 
-                user.addFollowing(response.getUsers());
-
-                List<User> following = user.getFollowing();
-
-                lastItem = (following.size() > 0) ? following.get(following.size() - 1) : null;
+                lastItem = (itemList.size() > 0) ? response.getUsers().get(response.getUsers().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
 
                 isLoading = false;
                 removeLoadingFooter();
-                addItems(following);
+                addItems(response.getUsers());
             }
 
             @Override
