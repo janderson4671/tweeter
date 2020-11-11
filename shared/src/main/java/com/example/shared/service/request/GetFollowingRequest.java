@@ -8,11 +8,10 @@ import com.example.shared.domain.AuthToken;
  */
 public class GetFollowingRequest {
 
-    public String loggedInUser;
-
-    public AuthToken authToken;
-    public int limit;
-    public String lastFollowing;
+    private String loggedInUser;
+    private AuthToken authToken;
+    private int limit;
+    private String lastFollowing;
 
     public GetFollowingRequest(String loggedInUser, AuthToken authToken, int limit, String lastFollowing) {
         this.loggedInUser = loggedInUser;
@@ -26,6 +25,22 @@ public class GetFollowingRequest {
 
     public String getLoggedInUser() {
         return loggedInUser;
+    }
+
+    public void setLoggedInUser(String loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setLastFollowing(String lastFollowing) {
+        this.lastFollowing = lastFollowing;
     }
 
     public AuthToken getAuthToken() {
