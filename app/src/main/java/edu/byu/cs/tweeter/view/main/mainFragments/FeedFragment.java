@@ -94,7 +94,7 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status("@DummyUser", "Hello", "Merp", new ArrayList<>(),null, null));
+                addItem(new Status(new User("Dummy", "User", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"), "Hello", "Merp", new ArrayList<>()));
             }
 
             @NonNull
@@ -125,7 +125,7 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
                 //TODO: Take a look at this later
                 //Add to list of mentioned users
-                data.addMentionedUsers(response.getMentionedUsers());
+//                data.addMentionedUsers(response.getMentionedUsers());
 
                 lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();

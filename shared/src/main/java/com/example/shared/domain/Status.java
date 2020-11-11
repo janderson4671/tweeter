@@ -6,12 +6,12 @@ import java.util.Objects;
 
 public class Status implements Serializable {
 
-    public void setUserAlias(String userAlias) {
-        this.userAlias = userAlias;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setMentionAliases(List<String> mentionAliases) {
-        this.mentionAliases = mentionAliases;
+    public void setMentions(List<User> mentions) {
+        this.mentions = mentions;
     }
 
     public void setMessage(String message) {
@@ -22,49 +22,34 @@ public class Status implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-    public String getUserImageURL() {
-        return userImageURL;
+    @Override
+    public String toString() {
+        return "Status{" +
+                "user=" + user +
+                ", mentions=" + mentions +
+                ", message='" + message + '\'' +
+                ", timeStamp='" + timeStamp + '\'' +
+                '}';
     }
 
-    public void setUserImageURL(String userImageURL) {
-        this.userImageURL = userImageURL;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    private String userAlias;
-    private String userImageURL;
-    private String userName;
-    private List<String> mentionAliases;
+    private User user;
+    private List<User> mentions;
     private String message;
     private String timeStamp;
 
     public Status() {}
 
     //Constructor
-    public Status(String userAlias, String message, String timeStamp, List<String> mentionAliases, String userName, String userImageURL) {
-        this.userAlias = userAlias;
+    public Status(User user, String message, String timeStamp, List<User> mentions) {
+        this.user = user;
         this.message = message;
         this.timeStamp = timeStamp;
-        this.mentionAliases = mentionAliases;
-
-        if (userName == null) {
-            userName = "Jason Anderson";
-        }
-        if (userImageURL == null) {
-            userImageURL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
-        }
+        this.mentions = mentions;
     }
 
     //Getters
-    public String getUserAlias() {
-        return userAlias;
+    public User getUser() {
+        return user;
     }
 
     public String getMessage() {
@@ -75,12 +60,12 @@ public class Status implements Serializable {
         return timeStamp;
     }
 
-    public List<String> getMentionAliases() {
-        return mentionAliases;
+    public List<User> getMentions() {
+        return mentions;
     }
 
     public void addMention(User mention) {
-        mentionAliases.add(mention.getAlias());
+        mentions.add(mention);
     }
 
     public void setUserImage(byte [] imageBytes) {
@@ -92,13 +77,13 @@ public class Status implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Status status = (Status) o;
-        return userAlias.equals(status.userAlias) &&
+        return user.equals(status.user) &&
                 message.equals(status.message); /*&&
                 timeStamp.equals(status.timeStamp);*/
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userAlias, message, timeStamp);
+        return Objects.hash(user, message, timeStamp);
     }
 }

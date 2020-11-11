@@ -9,8 +9,6 @@ import java.util.Objects;
 public class GetStoryResponse extends PagedResponse {
     private List<Status> statuses;
 
-    private List<User> mentionedUsers;
-
     public GetStoryResponse(String message) {
         super(false, message, false);
     }
@@ -24,14 +22,8 @@ public class GetStoryResponse extends PagedResponse {
         return statuses;
     }
 
-    public List<User> getMentionedUsers() { return mentionedUsers; }
-
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
-    }
-
-    public void setMentionedUsers(List<User> mentionedUsers) {
-        this.mentionedUsers = mentionedUsers;
     }
 
     @Override

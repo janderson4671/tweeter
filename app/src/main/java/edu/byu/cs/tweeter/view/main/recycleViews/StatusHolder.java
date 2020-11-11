@@ -56,8 +56,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         this.status = status;
 
         //userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
-        userAlias.setText(status.getUserAlias());
-        userName.setText(status.getUserName());
+        userAlias.setText(status.getUser().getAlias());
+        userName.setText(status.getUser().getFirstName());
         userMessage.setMovementMethod(LinkMovementMethod.getInstance());
         userMessage.setText(formatMessage(status.getMessage()));
         userTimeStamp.setText(status.getTimeStamp().toString());

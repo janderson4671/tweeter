@@ -23,6 +23,22 @@ public class User implements Comparable<User>, Serializable {
     }
 
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     private String firstName;
     private String lastName;
     private String alias;
@@ -115,8 +131,6 @@ public class User implements Comparable<User>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        System.out.println(this.getAlias());
-        System.out.println(user.getAlias());
         return this.getAlias().equals(user.getAlias());
     }
 

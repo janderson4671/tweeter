@@ -34,7 +34,6 @@ public class FollowingFragment extends Fragment implements GetFollowingPresenter
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
     private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
-    private static final int FRAGMENT_CODE = 2;
 
     private static final int LOADING_DATA_VIEW = 0;
 

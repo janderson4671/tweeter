@@ -1,7 +1,5 @@
 package com.example.server.dao;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import com.example.shared.service.request.GetFeedRequest;
@@ -9,7 +7,6 @@ import com.example.shared.service.response.GetFeedResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class GetFeedDAO {
@@ -39,26 +36,28 @@ public class GetFeedDAO {
     private final User user20 = new User("Jill", "Johnson", FEMALE_IMAGE_URL);
 
     //Dummy Statuses
-    private final Status stat1 = new Status(user1.getAlias(), "Hello! Follow this link :) https://www.google.com", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat2 = new Status(user2.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat3 = new Status(user3.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat4 = new Status(user4.getAlias(), "test @AmyAmes @FrankFrandson", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat5 = new Status(user5.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat6 = new Status(user6.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat7 = new Status(user7.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat8 = new Status(user8.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat9 = new Status(user9.getAlias(), "test @NathanCraddock @ElliottEnderson", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat10 = new Status(user10.getAlias(), "test @Joseph Chou", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat11 = new Status(user11.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat12 = new Status(user12.getAlias(), "test hi", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat13 = new Status(user13.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat14 = new Status(user14.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat15 = new Status(user15.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat16 = new Status(user16.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat17 = new Status(user17.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat18 = new Status(user18.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat19 = new Status(user19.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
-    private final Status stat20 = new Status(user20.getAlias(), "test", "Fake Date", new ArrayList<>(), null, null);
+    private final Status stat1 = new Status(user1, "Hello! Follow this link :) https://www.google.com", "Fake Date", new ArrayList<>());
+    private final Status stat2 = new Status(user2, "test", "Fake Date", new ArrayList<>());
+    private final Status stat3 = new Status(user3, "test", "Fake Date", new ArrayList<>());
+    private final Status stat4 = new Status(user4, "test @AmyAmes @FrankFrandson", "Fake Date", new ArrayList<>());
+    private final Status stat5 = new Status(user5, "test", "Fake Date", new ArrayList<>());
+    private final Status stat6 = new Status(user6, "test", "Fake Date", new ArrayList<>());
+    private final Status stat7 = new Status(user7, "test", "Fake Date", new ArrayList<>());
+    private final Status stat8 = new Status(user8, "test", "Fake Date", new ArrayList<>());
+    private final Status stat9 = new Status(user9, "test @NathanCraddock @ElliottEnderson", "Fake Date", new ArrayList<>());
+    private final Status stat10 = new Status(user10, "test @Joseph Chou", "Fake Date", new ArrayList<>());
+    private final Status stat11 = new Status(user11, "test", "Fake Date", new ArrayList<>());
+    private final Status stat12 = new Status(user12, "test hi", "Fake Date", new ArrayList<>());
+    private final Status stat13 = new Status(user13, "test", "Fake Date", new ArrayList<>());
+    private final Status stat14 = new Status(user14, "test", "Fake Date", new ArrayList<>());
+    private final Status stat15 = new Status(user15, "test", "Fake Date", new ArrayList<>());
+    private final Status stat16 = new Status(user16, "test", "Fake Date", new ArrayList<>());
+    private final Status stat17 = new Status(user17, "test", "Fake Date", new ArrayList<>());
+    private final Status stat18 = new Status(user18, "test", "Fake Date", new ArrayList<>());
+    private final Status stat19 = new Status(user19, "test", "Fake Date", new ArrayList<>());
+    private final Status stat20 = new Status(user20, "test", "Fake Date", new ArrayList<>());
+
+    List<User> allUsers = getDummyUsers();
 
     public GetFeedResponse getStatuses(GetFeedRequest request) {
         //For now we use dummy data
@@ -71,16 +70,22 @@ public class GetFeedDAO {
         if (request.getLimit() > 0) {
             int followingIndex = getStatusesStartingIndex(request.getLastStatus(), allStatuses);
 
+            System.out.println(followingIndex);
+
             for (int limitCounter = 0; followingIndex < allStatuses.size() && limitCounter < request.getLimit(); followingIndex++, limitCounter++) {
                 responseStatuses.add(allStatuses.get(followingIndex));
             }
             hasMorePages = followingIndex < allStatuses.size();
         }
 
+        System.out.println(request.toString());
+
+
+
         return new GetFeedResponse(responseStatuses, hasMorePages);
     }
 
-    List<User> getDummyFollowees() {
+    List<User> getDummyUsers() {
         return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
                 user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,
                 user19, user20);
@@ -91,6 +96,9 @@ public class GetFeedDAO {
         int statusIndex = 0;
 
         if(lastStatus != null) {
+
+            System.out.println(lastStatus.toString());
+
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allStatuses.size(); i++) {
@@ -113,7 +121,6 @@ public class GetFeedDAO {
     }
 
     public List<Status> findAssociatedUsers(List<Status> statuses) {
-        List<User> users = new ArrayList<>();
 
         for (Status currStat : statuses) {
             String message = currStat.getMessage();
@@ -130,7 +137,6 @@ public class GetFeedDAO {
     }
 
     private void addValidUser(String alias, Status currStat) {
-        List<User> allUsers = getDummyFollowees();
 
         for (User currUser : allUsers) {
             if (alias.equals(currUser.getAlias())) {

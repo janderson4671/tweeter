@@ -31,7 +31,6 @@ import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
     private static final String LOG_TAG = "StoryFragment";
-    private static final int FRAGMENT_CODE = 1;
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int PAGE_SIZE = 12;
@@ -93,7 +92,7 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status("@DummyUser", "Hello", "Merp", new ArrayList<>(),null, null));
+                addItem(new Status(new User("Dummy", "User", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"), "Hello", "Merp", new ArrayList<>()));
             }
 
             @NonNull
@@ -123,7 +122,7 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
                 //TODO: Take a look at this
                 //Add all mentioned users to viewData for later use
-                data.addMentionedUsers(response.getMentionedUsers());
+//                data.addMentionedUsers(response.getStatuses());
 
                 lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();

@@ -10,8 +10,6 @@ public class GetFeedResponse extends PagedResponse {
 
     private List<Status> statuses;
 
-    List<User> mentionedUsers;
-
     public GetFeedResponse(String message) {
         super(false, message, false);
     }
@@ -25,14 +23,8 @@ public class GetFeedResponse extends PagedResponse {
         return statuses;
     }
 
-    public List<User> getMentionedUsers() { return mentionedUsers; }
-
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
-    }
-
-    public void setMentionedUsers(List<User> mentionedUsers) {
-        this.mentionedUsers = mentionedUsers;
     }
 
     @Override
