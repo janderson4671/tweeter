@@ -7,7 +7,13 @@ public class FollowDAO {
 
     public FollowResponse follow(FollowRequest request) {
 
-        //Using dummy data for now
-        return new FollowResponse(true, "Following Another User");
+        if (request.isFollow()) {
+            //We need to unfollow them
+            return new FollowResponse(true, "Unfollowing" + request.getUserToFollow(), false);
+        } else {
+            //We need to follow them
+            return new FollowResponse(true, "Following" + request.getUserToFollow(), true);
+        }
+
     }
 }

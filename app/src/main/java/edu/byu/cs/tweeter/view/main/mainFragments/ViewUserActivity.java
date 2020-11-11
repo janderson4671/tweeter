@@ -21,7 +21,6 @@ import edu.byu.cs.tweeter.presenter.FollowPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.main.adapters.ViewUserPagerAdapter;
-import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class ViewUserActivity extends AppCompatActivity implements FollowPresenter.View, AddFollowerTask.Observer {
 
@@ -30,7 +29,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
     TextView userName;
     TextView userAlias;
     ImageView userImageView;
-    TextView followeeCount;
+    TextView followingCount;
     TextView followerCount;
 
     private Button followButton;
@@ -42,6 +41,8 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
     User viewedUser;
     User loggedInUser;
     AuthToken authToken;
+
+    boolean following;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
         authToken = data.getAuthToken();
 
         viewedUser = (User) getIntent().getSerializableExtra(VIEWED_USER_KEY);
+        following = false;
 
         ViewUserPagerAdapter viewUserPagerAdapter = new ViewUserPagerAdapter(this, getSupportFragmentManager(),
                 viewedUser, null, authToken);
@@ -78,8 +80,8 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
         userImageView = findViewById(R.id.userImage_view_user);
         //userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(viewedUser.getImageBytes()));
 
-        followeeCount = findViewById(R.id.followeeCount_view_user);
-        followeeCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
+        followingCount = findViewById(R.id.followeeCount_view_user);
+        followingCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
 
         followerCount = findViewById(R.id.followerCount_view_user);
         followerCount.setText("Following: " + String.valueOf(viewedUser.getFollowerCount()));
@@ -88,7 +90,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
     }
 
     public void updateView() {
-        followeeCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
+        followingCount.setText("Followers: " + String.valueOf(viewedUser.getFolloweeCount()));
         followerCount.setText("Following: " + String.valueOf(viewedUser.getFollowerCount()));
     }
 
@@ -96,11 +98,11 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (followButton.getText().equals("Follow")) {
-                    addFollower(true);
+                if (following) {
+                    addFollower(false);
                 }
                 else {
-                    addFollower(false);
+                    addFollower(true);
                 }
             }
         });
@@ -114,20 +116,23 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
             followButton.setText("Follow");
         }
 
-        FollowRequest request = new FollowRequest(data.getLoggedInUser().getAlias(), authToken, viewedUser.getAlias(), follow);
+        FollowRequest request = new FollowRequest(data.getLoggedInUser().getAlias(), authToken, viewedUser.getAlias(), following);
         AddFollowerTask task = new AddFollowerTask(presenter, this);
         task.execute(request);
     }
 
     @Override
     public void addFollowerComplete(FollowResponse response) {
-        if (followButton.getText().equals("Unfollow")) {
+
+        following = response.isFollowing();
+
+        if (following) {
             viewedUser.addFollower(null);
-            followeeCount.setText("Followers: " + viewedUser.getFollowerCount());
+            followingCount.setText("Followers: " + viewedUser.getFollowerCount());
         }
         else {
             viewedUser.removeFollower(null);
-            followeeCount.setText("Followers: " + viewedUser.getFollowerCount());
+            followingCount.setText("Followers: " + viewedUser.getFollowerCount());
         }
     }
 

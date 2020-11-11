@@ -2,8 +2,24 @@ package com.example.shared.service.response;
 
 public class FollowResponse extends Response {
 
-    public FollowResponse(boolean isSuccess, String message) {
+    private boolean following;
+
+    public FollowResponse() {
+        super(true, "Dummy Message");
+    }
+
+    public FollowResponse(boolean isSuccess, String message, boolean following) {
         super(isSuccess, message);
+
+        this.following = following;
+    }
+
+    public void setFollowing(boolean following) {
+        this.following = following;
+    }
+
+    public boolean isFollowing() {
+        return following;
     }
 
 }
