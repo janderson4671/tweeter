@@ -39,6 +39,9 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
     private AuthToken authToken;
     private GetFeedPresenter presenter;
 
+    //TODO: Refactor for Milestone 4
+    private List<User> mentions;
+
     private ViewData data;
 
     public static FeedFragment newInstance(User user, AuthToken authToken) {
@@ -124,7 +127,7 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
                 //TODO: Take a look at this later
                 //Add to list of mentioned users
-//                data.addMentionedUsers(response.getMentionedUsers());
+                addMentions(response);
 
                 lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
                 hasMorePages = response.getHasMorePages();
@@ -132,6 +135,20 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
                 isLoading = false;
                 removeLoadingFooter();
                 addItems(response.getStatuses());
+            }
+
+            private void addMentions(GetFeedResponse response) {
+                List<Status> statList = response.getStatuses();
+
+                for (Status currStat : statList) {
+                    List<User> userList = currStat.getMentions();
+
+                    for (User currUser : userList) {
+                        if (!data.getAllMentionedUsers().contains(currUser)) {
+                            data.getAllMentionedUsers().add(currUser);
+                        }
+                    }
+                }
             }
 
             @Override

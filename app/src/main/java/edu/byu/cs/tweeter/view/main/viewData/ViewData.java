@@ -2,6 +2,7 @@ package edu.byu.cs.tweeter.view.main.viewData;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.shared.domain.AuthToken;
@@ -51,6 +52,7 @@ public class ViewData {
         loggedInUser = null;
         authToken = null;
         profile = null;
+        allMentionedUsers = new ArrayList<>();
     }
 
     public void addMentionedUsers(List<User> users) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.example.shared.domain.Status;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 
+import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
@@ -32,6 +33,15 @@ public class GetFeedServiceProxy implements GetFeedService {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
             status.setUserImage(bytes);
         }
+
+        //TODO::Refactor for Milestone 4
+        for (Status status : response.getStatuses()) {
+            for (User currUser : status.getMentions()) {
+                byte [] bytes = ByteArrayUtils.bytesFromUrl(currUser.getImageUrl());
+                currUser.setImageBytes(bytes);
+            }
+        }
+
     }
 
     public ServerFacade getServerFacade() {

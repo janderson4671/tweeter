@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.service;
 
 import com.example.shared.domain.Status;
+import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.GetStoryService;
 import com.example.shared.service.request.GetStoryRequest;
@@ -19,6 +20,14 @@ public class GetStoryServiceProxy implements GetStoryService {
         for (Status status : response.getStatuses()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
             status.setUserImage(bytes);
+        }
+
+        //TODO::Refactor for Milestone 4
+        for (Status status : response.getStatuses()) {
+            for (User currUser : status.getMentions()) {
+                byte [] bytes = ByteArrayUtils.bytesFromUrl(currUser.getImageUrl());
+                currUser.setImageBytes(bytes);
+            }
         }
     }
 
