@@ -29,6 +29,7 @@ class ClientCommunicator {
         void sendRequest(HttpURLConnection connection) throws IOException;
     }
 
+    //Performs a POST Request
     <T> T doPost(String urlPath, final Object requestInfo, Map<String, String> headers, Class<T> returnType)
             throws IOException, TweeterRemoteException {
 
@@ -53,6 +54,7 @@ class ClientCommunicator {
         return doRequest(urlPath, headers, returnType, requestStrategy);
     }
 
+    //Performs a GET Request
     <T> T doGet(String urlPath, Map<String, String> headers, Class<T> returnType)
             throws IOException, TweeterRemoteException {
 
@@ -71,6 +73,7 @@ class ClientCommunicator {
         return doRequest(urlPath, headers, returnType, requestStrategy);
     }
 
+    //Performs the Request with the request strategy
     private <T> T doRequest(String urlPath, Map<String, String> headers, Class<T> returnType, RequestStrategy requestStrategy)
             throws IOException, TweeterRemoteException {
 

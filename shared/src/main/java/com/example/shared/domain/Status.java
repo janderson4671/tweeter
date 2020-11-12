@@ -6,40 +6,14 @@ import java.util.Objects;
 
 public class Status implements Serializable {
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setMentions(List<User> mentions) {
-        this.mentions = mentions;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Status{" +
-                "user=" + user +
-                ", mentions=" + mentions +
-                ", message='" + message + '\'' +
-                ", timeStamp='" + timeStamp + '\'' +
-                '}';
-    }
-
     private User user;
     private List<User> mentions;
     private String message;
     private String timeStamp;
 
+    //Constructors
     public Status() {}
 
-    //Constructor
     public Status(User user, String message, String timeStamp, List<User> mentions) {
         this.user = user;
         this.message = message;
@@ -64,14 +38,28 @@ public class Status implements Serializable {
         return mentions;
     }
 
-    public void addMention(User mention) {
-        mentions.add(mention);
-    }
-
+    //Setters
     public void setUserImage(byte [] imageBytes) {
-        //user.setImageBytes(imageBytes);
+        user.setImageBytes(imageBytes);
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setMentions(List<User> mentions) {
+        this.mentions = mentions;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    //Overriden Functions
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,5 +73,20 @@ public class Status implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(user, message, timeStamp);
+    }
+
+    @Override
+    public String toString() {
+        return "Status{" +
+                "user=" + user +
+                ", mentions=" + mentions +
+                ", message='" + message + '\'' +
+                ", timeStamp='" + timeStamp + '\'' +
+                '}';
+    }
+
+    //Utility
+    public void addMention(User mention) {
+        mentions.add(mention);
     }
 }

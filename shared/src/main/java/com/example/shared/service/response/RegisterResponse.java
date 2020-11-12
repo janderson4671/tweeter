@@ -5,26 +5,27 @@ import com.example.shared.domain.User;
 
 public class RegisterResponse extends Response {
     private User user;
-
     private AuthToken authToken;
-    //Constructors
 
+    //Constructors
     public RegisterResponse(String message) {
         super(false, message);
     }
+
     public RegisterResponse(User user, AuthToken authToken) {
         super(true, null);
         this.user = user;
         this.authToken = authToken;
     }
 
-    //Getter
-
+    //Getters
     public User getUser() {
         return user;
     }
+
     public AuthToken getAuthToken() { return authToken; }
 
+    //Setters
     public void setUser(User user) {
         this.user = user;
     }

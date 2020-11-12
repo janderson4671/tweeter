@@ -18,7 +18,7 @@ public class GetFollowingDAOTest {
     @BeforeEach
     public void setup() {
 
-        currentUser = new User("Jason", "Anderson", null);
+        currentUser = new User("Jason", "Anderson", null, 2000, 3458);
 
         limit = 12;
         validRequest = new GetFollowingRequest(currentUser.getAlias(), new AuthToken(), limit, null);

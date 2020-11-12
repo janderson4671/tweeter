@@ -30,11 +30,10 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
     //widgets
     Button cancelButton;
     Button postButton;
-
     EditText statusMessageText;
 
+    //Specific data for this instance
     String message = null;
-
     ViewData data;
     PostStatusPresenter presenter;
 

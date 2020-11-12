@@ -8,7 +8,8 @@ public class Response {
     private boolean success;
     private String message;
 
-    Response(boolean success) {
+    //Constructors
+    public Response(boolean success) {
         this(success, null);
     }
 
@@ -17,6 +18,7 @@ public class Response {
         this.message = message;
     }
 
+    //Getters
     public boolean isSuccess() {
         return success;
     }
@@ -25,6 +27,7 @@ public class Response {
         return message;
     }
 
+    //Setters
     public void setSuccess(boolean success) {
         this.success = success;
     }

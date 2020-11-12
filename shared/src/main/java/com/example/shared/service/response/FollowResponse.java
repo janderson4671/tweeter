@@ -4,6 +4,7 @@ public class FollowResponse extends Response {
 
     private boolean following;
 
+    //Constructors
     public FollowResponse() {
         super(true, "Dummy Message");
     }
@@ -14,12 +15,14 @@ public class FollowResponse extends Response {
         this.following = following;
     }
 
-    public void setFollowing(boolean following) {
-        this.following = following;
-    }
-
+    //Getter
     public boolean isFollowing() {
         return following;
+    }
+
+    //Setter
+    public void setFollowing(boolean following) {
+        this.following = following;
     }
 
 }

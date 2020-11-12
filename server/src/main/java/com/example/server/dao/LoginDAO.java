@@ -11,7 +11,7 @@ public class LoginDAO {
         //Using dummy data for now
 
         User user = new User("Test", "User",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 55, 89);
 
         return new LoginResponse(user, new AuthToken());
     }

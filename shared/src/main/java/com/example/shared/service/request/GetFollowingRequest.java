@@ -13,6 +13,9 @@ public class GetFollowingRequest {
     private int limit;
     private String lastFollowing;
 
+    //Constructors
+    public GetFollowingRequest() {}
+
     public GetFollowingRequest(String loggedInUser, AuthToken authToken, int limit, String lastFollowing) {
         this.loggedInUser = loggedInUser;
         this.authToken = authToken;
@@ -20,13 +23,24 @@ public class GetFollowingRequest {
         this.lastFollowing = lastFollowing;
     }
 
-    public GetFollowingRequest() {
-    }
-
+    //Getters
     public String getLoggedInUser() {
         return loggedInUser;
     }
 
+    public AuthToken getAuthToken() {
+        return authToken;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public String getLastFollowing() {
+        return lastFollowing;
+    }
+
+    //Setters
     public void setLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
@@ -41,17 +55,5 @@ public class GetFollowingRequest {
 
     public void setLastFollowing(String lastFollowing) {
         this.lastFollowing = lastFollowing;
-    }
-
-    public AuthToken getAuthToken() {
-        return authToken;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public String getLastFollowing() {
-        return lastFollowing;
     }
 }

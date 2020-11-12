@@ -21,6 +21,7 @@ import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.view.main.mainFragments.ViewUserActivity;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
+import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class StatusHolder extends RecyclerView.ViewHolder {
 
@@ -55,7 +56,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
 
         this.status = status;
 
-        //userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
+        userImage.setImageDrawable(ImageUtils.drawableFromByteArray(status.getUser().getImageBytes()));
         userAlias.setText(status.getUser().getAlias());
         userName.setText(status.getUser().getFirstName());
         userMessage.setMovementMethod(LinkMovementMethod.getInstance());

@@ -7,21 +7,23 @@ public class PagedResponse extends Response {
 
     private boolean hasMorePages;
 
+    //Constructors
     PagedResponse(boolean success, boolean hasMorePages) {
         super(success);
         this.hasMorePages = hasMorePages;
     }
-
     PagedResponse(boolean success, String message, boolean hasMorePages) {
         super(success, message);
         this.hasMorePages = hasMorePages;
     }
 
-    public void setHasMorePages(boolean hasMorePages) {
-        this.hasMorePages = hasMorePages;
-    }
-
+    //Getter
     public boolean getHasMorePages() {
         return hasMorePages;
+    }
+
+    //Setter
+    public void setHasMorePages(boolean hasMorePages) {
+        this.hasMorePages = hasMorePages;
     }
 }

@@ -7,8 +7,10 @@ public class PostStatusRequest {
 
     private Status status;
     private String user;
-
     private AuthToken authToken;
+
+    //Constructors
+    public PostStatusRequest() {}
 
     public PostStatusRequest(Status status, String user, AuthToken authToken) {
         this.status = status;
@@ -16,9 +18,7 @@ public class PostStatusRequest {
         this.authToken = authToken;
     }
 
-    public PostStatusRequest() {
-    }
-
+    //Getters
     public Status getStatus() {
         return status;
     }
@@ -27,6 +27,7 @@ public class PostStatusRequest {
         return user;
     }
 
+    //Setters
     public void setStatus(Status status) {
         this.status = status;
     }

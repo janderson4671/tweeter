@@ -35,11 +35,13 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
  */
 public class MainActivity extends AppCompatActivity implements LogoutPresenter.View, LogoutTask.Observer {
 
-    public static final String CURRENT_USER_KEY = "CurrentUser";
-    public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
+    LogoutPresenter presenter;
+    User loggedInUser;
+    AuthToken authToken;
+    ViewData data;
+    Context mContext;
 
-    private NewStatusFragment newStatusFragment;
-
+    //Widgets
     TextView userName;
     TextView userAlias;
     ImageView userImageView;
@@ -48,14 +50,6 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
     Button logoutButton;
     FloatingActionButton fab;
 
-    LogoutPresenter presenter;
-
-    User loggedInUser;
-    AuthToken authToken;
-
-    ViewData data;
-
-    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,14 +94,14 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
         if (data.getProfile() != null) {
             userImageView.setImageBitmap(data.getProfile());
         } else {
-            //userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(loggedInUser.getImageBytes()));
+            userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(loggedInUser.getImageBytes()));
         }
 
         followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getFolloweeCount()));
+        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getNumFollowers()));
 
         followerCount = findViewById(R.id.followerCount);
-        followerCount.setText("Following: " + String.valueOf(loggedInUser.getFollowerCount()));
+        followerCount.setText("Following: " + String.valueOf(loggedInUser.getNumFollowing()));
 
         logoutButton = findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
     }
 
     private void updateView() {
-        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getFolloweeCount()));
-        followerCount.setText("Following: " + String.valueOf(loggedInUser.getFollowerCount()));
+        followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getNumFollowers()));
+        followerCount.setText("Following: " + String.valueOf(loggedInUser.getNumFollowing()));
     }
 
     private void logoutUser() {

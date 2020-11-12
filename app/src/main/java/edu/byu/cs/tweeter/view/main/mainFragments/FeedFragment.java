@@ -31,11 +31,10 @@ import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
     private static final String LOG_TAG = "FeedFragment";
-    private static final int FRAGMENT_CODE = 0;
-
     private static final int LOADING_DATA_VIEW = 0;
     private static final int PAGE_SIZE = 12;
 
+    //Specific data for this instance
     private User user;
     private AuthToken authToken;
     private GetFeedPresenter presenter;
@@ -94,7 +93,7 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new Status(new User("Dummy", "User", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"), "Hello", "Merp", new ArrayList<>()));
+                addItem(new Status(new User("Dummy", "User", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 0, 0), "Hello", "Merp", new ArrayList<>()));
             }
 
             @NonNull

@@ -35,11 +35,10 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
     private static final String LOG_TAG = "FollowingFragment";
     private static final String USER_KEY = "UserKey";
     private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
-
     private static final int LOADING_DATA_VIEW = 0;
-
     private static final int PAGE_SIZE = 12;
 
+    //Specific data for this instance
     private User user;
     private AuthToken authToken;
     private GetFollowersPresenter presenter;
@@ -106,7 +105,7 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
 
             @Override
             protected void addLoadingFooter() {
-                addItem(new User("Dummy", "User", ""));
+                addItem(new User("Dummy", "User", "", 0, 0));
             }
 
             @NonNull

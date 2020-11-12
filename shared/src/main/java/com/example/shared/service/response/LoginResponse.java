@@ -9,9 +9,9 @@ import com.example.shared.domain.User;
 public class LoginResponse extends Response {
 
     private User user;
-
     private AuthToken authToken;
 
+    //Constructors
     public LoginResponse(String message) {
         super(false, message);
     }
@@ -22,6 +22,7 @@ public class LoginResponse extends Response {
         this.authToken = authToken;
     }
 
+    //Getters
     public User getUser() {
         return user;
     }
@@ -30,6 +31,7 @@ public class LoginResponse extends Response {
         return authToken;
     }
 
+    //Setters
     public void setUser(User user) {
         this.user = user;
     }

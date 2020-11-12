@@ -10,6 +10,7 @@ public class GetFeedResponse extends PagedResponse {
 
     private List<Status> statuses;
 
+    //Constructors
     public GetFeedResponse(String message) {
         super(false, message, false);
     }
@@ -19,14 +20,17 @@ public class GetFeedResponse extends PagedResponse {
         this.statuses = statuses;
     }
 
+    //Getter
     public List<Status> getStatuses() {
         return statuses;
     }
 
+    //Setter
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
     }
 
+    //Overridden Functions
     @Override
     public boolean equals(Object param) {
         if (this == param) {

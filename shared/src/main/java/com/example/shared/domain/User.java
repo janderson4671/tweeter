@@ -10,53 +10,21 @@ import java.util.Objects;
  */
 public class User implements Comparable<User>, Serializable {
 
-    public void setNumFollowers(int numFollowers) {
-        this.numFollowers = numFollowers;
-    }
-
-    public void setNumFollowing(int numFollowing) {
-        this.numFollowing = numFollowing;
-    }
-
-    public void setPosts(List<Status> posts) {
-        this.posts = posts;
-    }
-
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     private String firstName;
     private String lastName;
     private String alias;
     private String imageUrl;
-
-    //TODO: Impliment These!!
+    private List<Status> posts;
     private int numFollowers;
     private int numFollowing;
-
-    private List<Status> posts;
+    private byte[] imageBytes;
 
     //Constructors
-
     public User() {}
-
-    public User(String firstName, String lastName, String imageURL) {
-        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, 0, 0);
+    public User(String firstName, String lastName, String imageURL, int numFollowers, int numFollowing) {
+        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, numFollowers, numFollowing);
     }
+
     public User(String firstName, String lastName, String alias, String imageURL, int numFollowers, int numFollowing) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,14 +36,7 @@ public class User implements Comparable<User>, Serializable {
         posts = new ArrayList<>();
     }
 
-    public int getFollowerCount() {
-        return 0;
-    }
-
-    public int getFolloweeCount() {
-        return 0;
-    }
-
+    //Getters
     public String getFirstName() {
         return firstName;
     }
@@ -105,27 +66,52 @@ public class User implements Comparable<User>, Serializable {
         return posts;
     }
 
-    public void addPost(Status status) {
-        posts.add(status);
+    public byte[] getImageBytes() {
+        return imageBytes;
     }
 
-    //TODO: Get rid of these later
-    public void addFollower(User user) {
-        //followers.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+    public int getNumFollowers() {
+        return numFollowers;
     }
 
-    public void removeFollower(User user) {
-        //followers.remove(followers.size() - 1);
+    public int getNumFollowing() {
+        return numFollowing;
     }
 
-    public void addFollowee(User user) {
-        //followees.add(new User("dummy", "follower", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png"));
+    //Setters
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
     }
 
-    public void removeFollowee(User user) {
-        //followees.remove(followees.size() - 1);
+    public void setNumFollowers(int numFollowers) {
+        this.numFollowers = numFollowers;
     }
 
+    public void setNumFollowing(int numFollowing) {
+        this.numFollowing = numFollowing;
+    }
+
+    public void setPosts(List<Status> posts) {
+        this.posts = posts;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    //Overriden Functions
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -152,5 +138,10 @@ public class User implements Comparable<User>, Serializable {
     @Override
     public int compareTo(User user) {
         return this.getAlias().compareTo(user.getAlias());
+    }
+
+    //Utility
+    public void addPost(Status status) {
+        posts.add(status);
     }
 }

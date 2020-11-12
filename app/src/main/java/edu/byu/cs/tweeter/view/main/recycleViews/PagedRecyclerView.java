@@ -15,8 +15,6 @@ abstract public class PagedRecyclerView<HolderType extends RecyclerView.ViewHold
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
 
-    private static final int PAGE_SIZE = 10;
-
     protected final List<DataType> itemList = new ArrayList<>();
     protected DataType lastItem;
 

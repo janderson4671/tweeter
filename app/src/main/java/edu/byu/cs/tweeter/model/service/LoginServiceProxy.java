@@ -32,7 +32,7 @@ public class LoginServiceProxy implements LoginService {
 
         try {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            //user.setImageBytes(bytes);
+            user.setImageBytes(bytes);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

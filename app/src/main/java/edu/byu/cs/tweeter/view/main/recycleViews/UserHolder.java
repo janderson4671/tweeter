@@ -43,7 +43,7 @@ public class UserHolder extends RecyclerView.ViewHolder {
 
     public void bindUser(User user) {
         this.user = user;
-        //userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
+        userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
         userAlias.setText(user.getAlias());
         userName.setText(user.getName());
     }

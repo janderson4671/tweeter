@@ -5,11 +5,12 @@ import com.example.shared.domain.AuthToken;
 public class GetFollowersRequest {
 
     private String loggedInUser;
-
     private AuthToken authToken;
-
     private int limit;
     private String lastFollower;
+
+    //Constructors
+    public GetFollowersRequest() {}
 
     public GetFollowersRequest(String loggedInUser, AuthToken authToken, int limit, String lastFollower) {
         this.loggedInUser = loggedInUser;
@@ -18,9 +19,7 @@ public class GetFollowersRequest {
         this.lastFollower = lastFollower;
     }
 
-    public GetFollowersRequest() {
-    }
-
+    //Getters
     public String getLoggedInUser() {
         return loggedInUser;
     }
@@ -37,6 +36,7 @@ public class GetFollowersRequest {
         return lastFollower;
     }
 
+    //Setters
     public void setLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }

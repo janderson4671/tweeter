@@ -16,7 +16,7 @@ public class GetFeedDAOTest {
 
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
 
-    private final User user = new User("Bob", "Bobson", MALE_IMAGE_URL);
+    private final User user = new User("Bob", "Bobson", MALE_IMAGE_URL, 0, 0);
     private final Status stat = new Status(user, "test", "Fake Date", new ArrayList<>());
     private final int limit = 12;
 

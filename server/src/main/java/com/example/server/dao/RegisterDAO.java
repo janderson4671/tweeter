@@ -13,7 +13,7 @@ public class RegisterDAO {
 
 
         User user = new User(request.getFirstName(), request.getLastName(),
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 0, 0);
 
         return new RegisterResponse(user, new AuthToken());
     }

@@ -6,19 +6,18 @@ public class FollowRequest {
 
     private String currUser;
     private AuthToken authToken;
-
     private String userToFollow;
     private boolean follow;
 
-    //Constructor
+    //Constructors
+    public FollowRequest() {}
+
     public FollowRequest(String currUser, AuthToken authToken, String userToFollow, boolean follow) {
         this.currUser = currUser;
         this.authToken = authToken;
         this.userToFollow = userToFollow;
         this.follow = follow;
     }
-
-    public FollowRequest() {}
 
     //Getters
     public String getCurrUser() {
@@ -37,6 +36,7 @@ public class FollowRequest {
         return follow;
     }
 
+    //Setters
     public void setCurrUser(String currUser) {
         this.currUser = currUser;
     }

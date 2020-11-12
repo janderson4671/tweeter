@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class GetStoryResponse extends PagedResponse {
+
     private List<Status> statuses;
 
+    //Constructors
     public GetStoryResponse(String message) {
         super(false, message, false);
     }
@@ -18,14 +20,17 @@ public class GetStoryResponse extends PagedResponse {
         this.statuses = statuses;
     }
 
+    //Getter
     public List<Status> getStatuses() {
         return statuses;
     }
 
+    //Setter
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
     }
 
+    //Overridden Functions
     @Override
     public boolean equals(Object param) {
         if (this == param) {

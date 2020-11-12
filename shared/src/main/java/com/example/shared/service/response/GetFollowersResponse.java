@@ -9,6 +9,7 @@ public class GetFollowersResponse extends PagedResponse {
 
     private List<User> users;
 
+    //Constructors
     public GetFollowersResponse(String message) {
         super(false, message, false);
     }
@@ -18,14 +19,17 @@ public class GetFollowersResponse extends PagedResponse {
         this.users = users;
     }
 
+    //Getter
     public List<User> getUsers() {
         return users;
     }
 
+    //Setter
     public void setUsers(List<User> users) {
         this.users = users;
     }
 
+    //Overridden Functions
     @Override
     public boolean equals(Object param) {
         if (this == param) {

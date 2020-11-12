@@ -29,13 +29,12 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
     private static final String LOG_TAG = "LoginActivity";
 
     //data members
-    String mUsername;
-    String mPassword;
-
+    private String mUsername;
+    private String mPassword;
     private LoginPresenter presenter;
-    private Toast loginInToast;
 
     //Widgets
+    private Toast loginInToast;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Button loginButton;

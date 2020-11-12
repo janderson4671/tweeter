@@ -3,12 +3,13 @@ package com.example.shared.service.request;
 public class RegisterRequest {
 
     private String firstName;
-
     private String lastName;
     private String username;
     private String password;
     private byte [] profile;
-    //Constructor
+
+    //Constructors
+    public RegisterRequest() {}
 
     public RegisterRequest(String firstName, String lastName, String username, String password, byte [] profile) {
         this.firstName = firstName;
@@ -17,14 +18,12 @@ public class RegisterRequest {
         this.password = password;
         this.profile = profile;
     }
-    public RegisterRequest() {
-    }
 
     //Getters
-
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
@@ -39,6 +38,7 @@ public class RegisterRequest {
 
     public byte [] getProfile() { return profile; }
 
+    //Setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

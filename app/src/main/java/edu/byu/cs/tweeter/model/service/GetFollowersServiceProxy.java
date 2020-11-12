@@ -18,7 +18,7 @@ public class GetFollowersServiceProxy implements GetFollowersService {
     private void loadImages(GetFollowersResponse response) throws IOException {
         for(User user : response.getUsers()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            //user.setImageBytes(bytes);
+            user.setImageBytes(bytes);
         }
     }
 
