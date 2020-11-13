@@ -12,7 +12,7 @@ import java.util.Date;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.GetFeedService;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
@@ -26,10 +26,10 @@ public class GetFeedPresenterTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
-        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()).toString(), null);
 
-        request = new GetFeedRequest(currentUser, new AuthToken(), 10, null, 2);
+        request = new GetFeedRequest(currentUser.getAlias(), new AuthToken(), 10, null);
         response = new GetFeedResponse(new ArrayList<Status>(), false);
 
         mMockGetFeedService = Mockito.mock(GetFeedService.class);

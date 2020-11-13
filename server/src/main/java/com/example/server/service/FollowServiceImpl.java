@@ -14,7 +14,7 @@ public class FollowServiceImpl implements FollowService {
         return getFollowDAO().follow(request);
     }
 
-    FollowDAO getFollowDAO() {
+    public FollowDAO getFollowDAO() {
         return new FollowDAO();
     }
 }

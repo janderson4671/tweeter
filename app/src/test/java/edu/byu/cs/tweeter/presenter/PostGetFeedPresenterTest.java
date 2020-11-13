@@ -8,9 +8,10 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Date;
 
+import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.PostStatusService;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.PostStatusResponse;
@@ -24,10 +25,10 @@ public class PostGetFeedPresenterTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
-        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()).toString(), null);
 
-        request = new PostStatusRequest(status, currentUser);
+        request = new PostStatusRequest(status, currentUser.getAlias(), new AuthToken());
         response = new PostStatusResponse(true, "Success!");
 
         mockPostStatusService = Mockito.mock(PostStatusService.class);

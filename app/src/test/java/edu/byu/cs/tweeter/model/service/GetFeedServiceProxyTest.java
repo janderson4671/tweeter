@@ -13,11 +13,12 @@ import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
 
-public class GetFeedServiceTest {
+public class GetFeedServiceProxyTest {
 
     private GetFeedRequest validRequest;
     private GetFeedRequest invalidRequest;
@@ -31,13 +32,13 @@ public class GetFeedServiceTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
-        User invalidUser = new User("Nathan", "Craddock", null);
-        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()), null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+        User invalidUser = new User("Nathan", "Craddock", null, 0, 0);
+        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()).toString(), null);
 
         // Setup request objects to use in the tests
-        validRequest = new GetFeedRequest(currentUser, new AuthToken(), 10, stuatus, 3);
-        invalidRequest = new GetFeedRequest(currentUser, new AuthToken(), 10, stuatus, 3);
+        validRequest = new GetFeedRequest(currentUser.getAlias(), new AuthToken(), 10, stuatus);
+        invalidRequest = new GetFeedRequest(currentUser.getAlias(), new AuthToken(), 10, stuatus);
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new GetFeedResponse(new ArrayList<>(), false);
@@ -54,7 +55,7 @@ public class GetFeedServiceTest {
 
     @Test
     public void testStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getServerFacade().getStatuses(validRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -62,14 +63,14 @@ public class GetFeedServiceTest {
 
     @Test
     public void testStatus_validRequest_returnsStatuses() throws IOException, TweeterRemoteException {
-        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(validRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getServerFacade().getStatuses(validRequest, dummyURL);
 
         Assertions.assertNotNull(response.getStatuses());
     }
 
     @Test
     public void testStatus_invalidRequest_returnsNoStatus() throws IOException, TweeterRemoteException {
-        GetFeedResponse response = mGetStatusServiceSpy.getStatuses(invalidRequest);
+        GetFeedResponse response = mGetStatusServiceSpy.getServerFacade().getStatuses(invalidRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

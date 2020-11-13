@@ -12,7 +12,7 @@ public class GetFollowingServiceImpl implements GetFollowingService {
         return getFollowingDAO().getFollowing(request);
     }
 
-    GetFollowingDAO getFollowingDAO() {
+    public GetFollowingDAO getFollowingDAO() {
         return new GetFollowingDAO();
     }
 }

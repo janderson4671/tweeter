@@ -11,7 +11,7 @@ public class GetFollowersServiceImpl implements GetFollowersService {
         return getFollowersDAO().getFollowers(request);
     }
 
-    GetFollowersDAO getFollowersDAO() {
+    public GetFollowersDAO getFollowersDAO() {
         return new GetFollowersDAO();
     }
 }

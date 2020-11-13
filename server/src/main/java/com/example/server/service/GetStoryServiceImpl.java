@@ -11,7 +11,7 @@ public class GetStoryServiceImpl implements GetStoryService {
         return getStoryDAO().getStatuses(request);
     }
 
-    GetStoryDAO getStoryDAO() {
+    public GetStoryDAO getStoryDAO() {
         return new GetStoryDAO();
     }
 }

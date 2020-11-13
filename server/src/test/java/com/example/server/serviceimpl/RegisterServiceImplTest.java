@@ -1,4 +1,12 @@
-package edu.byu.cs.tweeter.model.service;
+package com.example.server.serviceimpl;
+
+import com.example.server.dao.RegisterDAO;
+import com.example.server.service.RegisterServiceImpl;
+import com.example.shared.domain.AuthToken;
+import com.example.shared.domain.User;
+import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.RegisterResponse;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,14 +15,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import com.example.shared.service.request.RegisterRequest;
-import com.example.shared.service.response.RegisterResponse;
-
-public class RegisterServiceTest {
+public class RegisterServiceImplTest {
 
     private RegisterRequest validRequest;
     private RegisterRequest invalidRequest;
@@ -22,13 +23,13 @@ public class RegisterServiceTest {
     private RegisterResponse successResponse;
     private RegisterResponse failureResponse;
 
-    private RegisterServiceProxy registerServiceSpy;
+    private RegisterServiceImpl registerServiceSpy;
 
     private String dummyURL = "/helloworld";
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
 
         // Setup request objects to use in the tests
         validRequest = new RegisterRequest("Jason", "Anderson", "@jasonAnderson", "12345678", null);
@@ -36,20 +37,20 @@ public class RegisterServiceTest {
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new RegisterResponse(currentUser, new AuthToken());
-        ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
-        Mockito.when(mockServerFacade.register(validRequest, dummyURL)).thenReturn(successResponse);
+        RegisterDAO mockDAO = Mockito.mock(RegisterDAO.class);
+        Mockito.when(mockDAO.register(validRequest)).thenReturn(successResponse);
 
         failureResponse = new RegisterResponse("An exception occured");
-        Mockito.when(mockServerFacade.register(invalidRequest, dummyURL)).thenReturn(failureResponse);
+        Mockito.when(mockDAO.register(invalidRequest)).thenReturn(failureResponse);
 
         // Create a RegisteringService instance and wrap it with a spy that will use the mock service
-        registerServiceSpy = Mockito.spy(new RegisterServiceProxy());
-        Mockito.when(registerServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        registerServiceSpy = Mockito.spy(new RegisterServiceImpl());
+        Mockito.when(registerServiceSpy.getRegisterDAO()).thenReturn(mockDAO);
     }
 
     @Test
     public void testRegister_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        RegisterResponse response = registerServiceSpy.register(validRequest);
+        RegisterResponse response = registerServiceSpy.getRegisterDAO().register(validRequest);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -57,7 +58,7 @@ public class RegisterServiceTest {
 
     @Test
     public void testRegister_validRequest_correctAlias() throws IOException, TweeterRemoteException {
-        RegisterResponse response = registerServiceSpy.register(validRequest);
+        RegisterResponse response = registerServiceSpy.getRegisterDAO().register(validRequest);
 
         Assertions.assertNotNull(response.getUser().getAlias());
         Assertions.assertEquals("@FirstNameLastName", response.getUser().getAlias());
@@ -65,7 +66,7 @@ public class RegisterServiceTest {
 
     @Test
     public void testGetRegisterees_invalidRequest_returnsNoRegisterees() throws IOException, TweeterRemoteException {
-        RegisterResponse response = registerServiceSpy.register(invalidRequest);
+        RegisterResponse response = registerServiceSpy.getRegisterDAO().register(invalidRequest);
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);
     }

@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.GetFollowingService;
 import com.example.shared.service.request.GetFollowingRequest;
 import com.example.shared.service.response.GetFollowingResponse;
@@ -24,16 +24,16 @@ public class GetFollowingPresenterTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
 
         User resultUser1 = new User("FirstName1", "LastName1",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 0, 0);
         User resultUser2 = new User("FirstName2", "LastName2",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png", 0, 0);
         User resultUser3 = new User("FirstName3", "LastName3",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png", 0, 0);
 
-        request = new GetFollowingRequest(currentUser, new AuthToken(), 10, null, 2);
+        request = new GetFollowingRequest(currentUser.getAlias(), new AuthToken(), 10, null);
         response = new GetFollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
         // Create a mock FollowingService

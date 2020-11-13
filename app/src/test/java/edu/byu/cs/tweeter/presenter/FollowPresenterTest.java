@@ -11,7 +11,7 @@ import java.util.Date;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.FollowService;
 import com.example.shared.service.request.FollowRequest;
 import com.example.shared.service.response.FollowResponse;
@@ -25,12 +25,12 @@ public class FollowPresenterTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
-        User followUser = new User("Jason", "Anderson", null);
-        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()), null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+        User followUser = new User("Jason", "Anderson", null, 0, 0);
+        Status status = new Status(currentUser, "Hello", new Date(System.currentTimeMillis()).toString(), null);
 
-        request = new FollowRequest(currentUser, new AuthToken(), followUser, true);
-        response = new FollowResponse(true, "Success!");
+        request = new FollowRequest(currentUser.getAlias(), new AuthToken(), followUser.getAlias(), true);
+        response = new FollowResponse(true, "Success!", true);
 
         mMockFollowService = Mockito.mock(FollowService.class);
         Mockito.when(mMockFollowService.follow(request)).thenReturn(response);

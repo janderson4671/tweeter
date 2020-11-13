@@ -10,11 +10,12 @@ import java.io.IOException;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.response.LoginResponse;
 
-public class LoginServiceTest {
+public class LoginServiceProxyTest {
 
     private LoginRequest validRequest;
     private LoginRequest invalidRequest;
@@ -28,7 +29,7 @@ public class LoginServiceTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
 
         // Setup request objects to use in the tests
         validRequest = new LoginRequest("Test", "12345678");
@@ -49,7 +50,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLogin_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.login(validRequest);
+        LoginResponse response = loginServiceSpy.getServerFacade().login(validRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -57,7 +58,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLogin_validRequest_hasAlias() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.login(validRequest);
+        LoginResponse response = loginServiceSpy.getServerFacade().login(validRequest, dummyURL);
 
         Assertions.assertNotNull(response.getUser().getAlias());
         Assertions.assertEquals("@FirstNameLastName", response.getUser().getAlias());
@@ -65,7 +66,7 @@ public class LoginServiceTest {
 
     @Test
     public void GetLogin_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.login(invalidRequest);
+        LoginResponse response = loginServiceSpy.getServerFacade().login(invalidRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.RegisterService;
 import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.RegisterResponse;
@@ -23,7 +23,7 @@ public class RegisterPresenterTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
 
         request = new RegisterRequest("Jason", "Anderson", "@jasonanderson",
                 "12345678", null);

@@ -11,7 +11,7 @@ public class LoginServiceImpl implements LoginService {
         return getLoginDAO().login(request);
     }
 
-    LoginDAO getLoginDAO() {
+    public LoginDAO getLoginDAO() {
         return new LoginDAO();
     }
 }

@@ -8,14 +8,16 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Date;
 
+import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+
+import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.PostStatusResponse;
 
-public class PostGetFeedServiceTest {
+public class PostStatusServiceProxyTest {
 
     private PostStatusRequest validRequest;
     private PostStatusRequest invalidRequest;
@@ -29,12 +31,12 @@ public class PostGetFeedServiceTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null);
-        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()), null);
+        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()).toString(), null);
 
         // Setup request objects to use in the tests
-        validRequest = new PostStatusRequest(stuatus, currentUser);
-        invalidRequest = new PostStatusRequest(stuatus, currentUser);
+        validRequest = new PostStatusRequest(stuatus, currentUser.getAlias(), new AuthToken());
+        invalidRequest = new PostStatusRequest(stuatus, currentUser.getAlias(), new AuthToken());
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new PostStatusResponse(true, "Success!");
@@ -51,7 +53,7 @@ public class PostGetFeedServiceTest {
 
     @Test
     public void testPostStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.postStatus(validRequest);
+        PostStatusResponse response = postStatusServiceSpy.getServerFacade().postStatus(validRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(successResponse, response);
@@ -59,14 +61,14 @@ public class PostGetFeedServiceTest {
 
     @Test
     public void testPostStatus_validRequest_correctMessage() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.postStatus(validRequest);
+        PostStatusResponse response = postStatusServiceSpy.getServerFacade().postStatus(validRequest, dummyURL);
 
         Assertions.assertEquals("Success!", response.getMessage());
     }
 
     @Test
     public void testPostStatus_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.postStatus(invalidRequest);
+        PostStatusResponse response = postStatusServiceSpy.getServerFacade().postStatus(invalidRequest, dummyURL);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(failureResponse, response);

@@ -14,7 +14,7 @@ public class GetFeedServiceImpl implements GetFeedService {
         return getFeedDAO().getStatuses(request);
     }
 
-    GetFeedDAO getFeedDAO() {
+    public GetFeedDAO getFeedDAO() {
         return new GetFeedDAO();
     }
 }
