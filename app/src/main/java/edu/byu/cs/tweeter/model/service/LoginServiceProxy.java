@@ -38,7 +38,7 @@ public class LoginServiceProxy implements LoginService {
         }
     }
 
-    ServerFacade getServerFacade() {
+    public ServerFacade getServerFacade() {
         return new ServerFacade();
     }
 

@@ -38,7 +38,7 @@ public class RegisterServiceProxy implements RegisterService {
         }
     }
 
-    ServerFacade getServerFacade() {
+    public ServerFacade getServerFacade() {
         return new ServerFacade();
     }
 }

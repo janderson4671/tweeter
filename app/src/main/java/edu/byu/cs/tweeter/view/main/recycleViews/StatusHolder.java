@@ -8,6 +8,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,15 +18,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.byu.cs.tweeter.R;
+
+import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
+import com.example.shared.service.request.GetFeedRequest;
+import com.example.shared.service.request.GetNumFollowRequest;
+import com.example.shared.service.response.GetNumFollowResponse;
+
+import edu.byu.cs.tweeter.presenter.GetNumFollowPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetNumFollowTask;
 import edu.byu.cs.tweeter.view.main.mainFragments.ViewUserActivity;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-public class StatusHolder extends RecyclerView.ViewHolder {
+public class StatusHolder extends RecyclerView.ViewHolder implements GetNumFollowPresenter.View, GetNumFollowTask.Observer {
 
     private Status status;
+
+    GetNumFollowPresenter presenter;
+
+    View statusView;
+    User selectedUser;
 
     private final ImageView userImage;
     private final TextView userAlias;
@@ -43,6 +57,8 @@ public class StatusHolder extends RecyclerView.ViewHolder {
         userName = itemView.findViewById(R.id.userName);
         userMessage = itemView.findViewById(R.id.statusMessage);
         userTimeStamp = itemView.findViewById(R.id.timeStamp);
+
+        presenter = new GetNumFollowPresenter(this);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +95,7 @@ public class StatusHolder extends RecyclerView.ViewHolder {
             ClickableSpan span = new ClickableSpan() {
                 @Override
                 public void onClick(@NonNull View widget) {
+                    statusView = widget;
                     startViewUserActivity(widget, message.substring(start, end));
                 }
             };
@@ -111,7 +128,6 @@ public class StatusHolder extends RecyclerView.ViewHolder {
 
     public void startViewUserActivity(View v, String alias) {
         List<User> mentions = data.getAllMentionedUsers();
-        User selectedUser = null;
 
         for (User currUser : mentions) {
             if(currUser.getAlias().equals(alias)) {
@@ -119,13 +135,33 @@ public class StatusHolder extends RecyclerView.ViewHolder {
             }
         }
 
-        if (selectedUser != null) {
-            Intent intent = new Intent(v.getContext(), ViewUserActivity.class);
-            intent.putExtra(ViewUserActivity.VIEWED_USER_KEY, selectedUser);
-
-            v.getContext().startActivity(intent);
-        }
+        fetchCurrentData(selectedUser);
 
     }
 
+    private void startActivity(View view) {
+        Intent intent = new Intent(view.getContext(), ViewUserActivity.class);
+        intent.putExtra(ViewUserActivity.VIEWED_USER_KEY, selectedUser);
+
+        statusView.getContext().startActivity(intent);
+    }
+
+    public void fetchCurrentData(User user) {
+        GetNumFollowTask task = new GetNumFollowTask(presenter, this);
+        GetNumFollowRequest request = new GetNumFollowRequest(user.getAlias(), new AuthToken());
+        task.execute(request);
+    }
+
+    @Override
+    public void numFollowRetrieved(GetNumFollowResponse response) {
+
+        selectedUser.setNumFollowers(response.getNumFollowers());
+        selectedUser.setNumFollowing(response.getNumFollowing());
+        startActivity(statusView);
+    }
+
+    @Override
+    public void handleException(Exception exception) {
+        Toast.makeText(statusView.getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+    }
 }

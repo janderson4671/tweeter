@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.model.service;
+package edu.byu.cs.tweeter.model.service.unit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,7 @@ import java.io.IOException;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.service.FollowServiceProxy;
 
 import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.request.FollowRequest;
