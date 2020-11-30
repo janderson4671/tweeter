@@ -3,8 +3,8 @@ package edu.byu.cs.tweeter.model.service.integration;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.service.request.GetFeedRequest;
-import com.example.shared.service.response.GetFeedResponse;
+import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.response.GetStoryResponse;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,24 +12,24 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import edu.byu.cs.tweeter.model.service.GetFeedServiceProxy;
+import edu.byu.cs.tweeter.model.service.GetStoryServiceProxy;
 
-public class GetFeedIntegrationTest {
+public class GetStoryIntegrationTest {
 
-    GetFeedRequest validRequest;
-    GetFeedResponse response;
+    GetStoryRequest validRequest;
+    GetStoryResponse response;
     User loggedInUser;
 
-    GetFeedServiceProxy service;
+    GetStoryServiceProxy service;
 
     @BeforeEach
     public void setup() {
         loggedInUser = new User("Test", "User", "@TestUser",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 0, 0);
 
-        validRequest = new GetFeedRequest(loggedInUser.getAlias(), new AuthToken(), 12, null);
+        validRequest = new GetStoryRequest(loggedInUser.getAlias(), new AuthToken(), 12, null);
 
-        service = new GetFeedServiceProxy();
+        service = new GetStoryServiceProxy();
     }
 
     @Test
@@ -43,17 +43,17 @@ public class GetFeedIntegrationTest {
 
         Assertions.assertNotNull(response);
 
-        List<Status> feed = response.getStatuses();
+        List<Status> story = response.getStatuses();
 
-        Assertions.assertNotNull(feed.size());
+        Assertions.assertNotNull(story.size());
 
-        if (feed.size() > 0) {
-            for (Status stat : feed) {
+        if (story.size() > 0) {
+            for (Status stat : story) {
                 Assertions.assertNotNull(stat.getUser().getAlias());
             }
         }
 
-        validRequest = new GetFeedRequest(loggedInUser.getAlias(), new AuthToken(), 12, feed.get(feed.size() - 1));
+        validRequest = new GetStoryRequest(loggedInUser.getAlias(), new AuthToken(), 12, story.get(story.size() - 1));
 
         try {
             response = service.getStatuses(validRequest);
@@ -62,12 +62,12 @@ public class GetFeedIntegrationTest {
             Assertions.fail();
         }
 
-        feed = response.getStatuses();
+        story = response.getStatuses();
 
-        Assertions.assertNotNull(feed.size());
+        Assertions.assertNotNull(story.size());
 
-        if (feed.size() > 0) {
-            for (Status stat : feed) {
+        if (story.size() > 0) {
+            for (Status stat : story) {
                 Assertions.assertNotNull(stat.getUser().getAlias());
             }
         }
