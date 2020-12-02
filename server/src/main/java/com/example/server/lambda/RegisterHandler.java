@@ -1,22 +1,32 @@
 package com.example.server.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.example.server.service.RegisterServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
+import com.example.shared.service.RegisterService;
 import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.RegisterResponse;
+
+import java.util.logging.Logger;
 
 public class RegisterHandler implements RequestHandler<RegisterRequest, RegisterResponse> {
 
     public RegisterResponse handleRequest(RegisterRequest request, Context context) {
 
-        //Using dummy data for now
+        RegisterServiceImpl service = new RegisterServiceImpl();
 
-        User user = new User(request.getFirstName(), request.getLastName(),
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png", 0, 0);
+        RegisterResponse response = service.register(request);
 
-        return new RegisterResponse(user, new AuthToken());
+        System.err.println("Checking Response");
+        System.err.println(response.getUser().getAlias());
+        System.err.println(response.getUser().getImageUrl());
+
+        return response;
     }
+
+
 
 }

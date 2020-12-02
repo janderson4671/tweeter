@@ -219,7 +219,7 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
         Intent intent = new Intent(getActivity(), MainActivity.class);
 
         ViewData.getData();
-        ViewData.setLoggedInUser(registerResponse.getUser(), registerResponse.getAuthToken(), profile);
+        ViewData.setLoggedInUser(registerResponse.getUser(), registerResponse.getAuthToken());
 
         registerToast.cancel();
         startActivity(intent);

@@ -131,7 +131,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
         Intent intent = new Intent(getActivity(), MainActivity.class);
 
         ViewData.getData();
-        ViewData.setLoggedInUser(loginResponse.getUser(), loginResponse.getAuthToken(), null);
+        ViewData.setLoggedInUser(loginResponse.getUser(), loginResponse.getAuthToken());
 
         loginInToast.cancel();
         startActivity(intent);

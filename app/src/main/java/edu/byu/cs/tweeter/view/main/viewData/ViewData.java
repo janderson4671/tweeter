@@ -17,8 +17,6 @@ public class ViewData {
 
     private static List<User> allMentionedUsers;
 
-    private static Bitmap profile;
-
     public static ViewData getData() {
         if (data == null) {
             data = new ViewData();
@@ -36,22 +34,18 @@ public class ViewData {
         return authToken;
     }
 
-    public Bitmap getProfile() { return profile; }
-
     public List<User> getAllMentionedUsers() { return allMentionedUsers; }
 
     //Setters
-    public static void setLoggedInUser(User user, AuthToken authTokenIn, Bitmap profileIn) {
+    public static void setLoggedInUser(User user, AuthToken authTokenIn) {
         loggedInUser = user;
         authToken = authTokenIn;
-        profile = profileIn;
     }
 
     //Private Constructor
     private ViewData() {
         loggedInUser = null;
         authToken = null;
-        profile = null;
         allMentionedUsers = new ArrayList<>();
     }
 

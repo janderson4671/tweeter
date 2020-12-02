@@ -90,12 +90,7 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
         userAlias.setText(loggedInUser.getAlias());
 
         userImageView = findViewById(R.id.userImage);
-
-        if (data.getProfile() != null) {
-            userImageView.setImageBitmap(data.getProfile());
-        } else {
-            userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(loggedInUser.getImageBytes()));
-        }
+        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(loggedInUser.getImageBytes()));
 
         followeeCount = findViewById(R.id.followeeCount);
         followeeCount.setText("Followers: " + String.valueOf(loggedInUser.getNumFollowers()));
