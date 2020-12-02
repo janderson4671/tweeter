@@ -12,7 +12,6 @@ import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.example.shared.domain.AuthToken;
 
 import java.time.LocalDateTime;
-
 public class AuthTokenDAO {
 
     private static int SESSION_TIMEOUT_MINS = 5;
@@ -79,6 +78,11 @@ public class AuthTokenDAO {
             updateSession(userAlias, authToken);
             return true;
         }
+    }
+
+    public static void destroySession(String userAlias) {
+        Table table = dynamoDB.getTable(TableName);
+        table.deleteItem(AliasAttr, userAlias);
     }
 
 }
