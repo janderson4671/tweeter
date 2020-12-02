@@ -24,13 +24,13 @@ public class RegisterServiceImpl implements RegisterService {
         String profileURL = S3DAO.uploadProfileImage(request.getProfile(), request.getUsername());
 
         //Then we need to add this user to the database for valid users
-        User user = new User(request.getFirstName(), request.getLastName(), profileURL, 0, 0);
+        User user = new User(request.getFirstName(), request.getLastName(), request.getUsername(), profileURL, 0, 0);
 
         //Then we need to hash their password
         String password = hashPassword(request.getPassword());
 
         try {
-            UserDAO.addUser(user);
+            UserDAO.addUser(user, password);
 
             //Create a session for this user (Using the authToken table)
             AuthToken authToken = new AuthToken();

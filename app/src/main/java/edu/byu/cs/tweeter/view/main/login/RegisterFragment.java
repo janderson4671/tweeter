@@ -197,7 +197,17 @@ public class RegisterFragment extends Fragment implements RegisterPresenter.View
 
     public void verifyFields() {
         if (firstName != null && lastName != null && username != null && password != null && profile != null) {
-            registerButton.setEnabled(true);
+            if ((username.length() > 0)) {
+                if (username.charAt(0) == '@') {
+                    registerButton.setEnabled(true);
+                }
+                else {
+                    registerButton.setEnabled(false);
+                }
+            }
+            else {
+                registerButton.setEnabled(false);
+            }
         } else {
             registerButton.setEnabled(false);
         }

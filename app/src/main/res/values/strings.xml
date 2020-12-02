@@ -13,7 +13,7 @@
     <string name="followersTabTitle">Followers</string>
     <string name="loginTabTitle">Login</string>
     <string name="registerTabTitle">Register</string>
-    <string name="loginUsernameHint">username</string>
+    <string name="loginUsernameHint">\@username</string>
     <string name="loginPasswordHint">password</string>
     <string name="registerFirstNameHint">first name</string>
     <string name="registerLastNameHint">last name</string>

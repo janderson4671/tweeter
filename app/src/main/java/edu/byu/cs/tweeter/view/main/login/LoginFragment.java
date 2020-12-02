@@ -120,7 +120,16 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Logi
 
     private void verifyFields() {
         if (mUsername != null && mPassword != null) {
-            loginButton.setEnabled(true);
+            if (mUsername.length() == 0) {
+                loginButton.setEnabled(false);
+                return;
+            }
+            if (mUsername.charAt(0) == '@') {
+                loginButton.setEnabled(true);
+            }
+            else {
+                loginButton.setEnabled(false);
+            }
         } else {
             loginButton.setEnabled(false);
         }

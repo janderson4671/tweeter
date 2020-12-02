@@ -31,6 +31,7 @@ public class UserDAO {
     private static final String ImageAttr = "profile-image";
     private static final String NumFollowers = "num-followers";
     private static final String NumFollowing = "num-following";
+    private static final String PasswordAttr = "password";
 
     //AWS Client
     private static AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder
@@ -82,7 +83,7 @@ public class UserDAO {
     }
 
     //CRUD Methods
-    public static void addUser(User user) {
+    public static void addUser(User user, String password) {
         Table table = dynamoDB.getTable(TableName);
 
         //See if user already exists
@@ -99,6 +100,7 @@ public class UserDAO {
                 .withString(FirstNameAttr, user.getFirstName())
                 .withString(LastNameAttr, user.getLastName())
                 .withString(ImageAttr, user.getImageUrl())
+                .withString(PasswordAttr, password)
                 .withNumber(NumFollowers, 0)
                 .withNumber(NumFollowing, 0);
 
@@ -125,6 +127,23 @@ public class UserDAO {
                 item.getString(ImageAttr), item.getInt(NumFollowers), item.getInt(NumFollowing));
 
         return resultUser;
+    }
+
+    public static String getUserPassword(String userAlias) {
+        Table table = dynamoDB.getTable(TableName);
+        Item item = table.getItem(AliasAttr, userAlias);
+
+        if (item == null) {
+            return null;
+        }
+
+        return item.getString(PasswordAttr);
+    }
+
+    public static boolean correctPassword(String userAlias, String password) {
+        String userPassword = getUserPassword(userAlias);
+
+        return (userPassword.equals(password));
     }
 
 }
