@@ -75,6 +75,42 @@ public class FollowDAO {
         return following;
     }
 
+    public static List<String> getUsersThatFollow(String user, String lastUserToFollow, int limit) {
+        Map<String, String> attrNames = new HashMap<>();
+        attrNames.put("#follows", FollowsAttr);
+
+        Map<String, AttributeValue> attrValues = new HashMap<>();
+        attrValues.put(":follows", new AttributeValue().withS(user));
+
+        QueryRequest request = new QueryRequest()
+                .withTableName(TableName)
+                .withIndexName(IndexName)
+                .withKeyConditionExpression("#follows = :follows")
+                .withExpressionAttributeNames(attrNames)
+                .withExpressionAttributeValues(attrValues)
+                .withLimit(limit);
+
+        if (isNonEmptyString(lastUserToFollow)) {
+            Map<String, AttributeValue> lastKey = new HashMap<>();
+            lastKey.put(UserAttr, new AttributeValue().withS(user));
+            lastKey.put(FollowsAttr, new AttributeValue().withS(lastUserToFollow));
+
+            request = request.withExclusiveStartKey(lastKey);
+        }
+
+        QueryResult result = amazonDynamoDB.query(request);
+        List<Map<String, AttributeValue>> items = result.getItems();
+        List<String> following = new ArrayList<>();
+
+        if (items != null) {
+            for (Map<String, AttributeValue> item : items) {
+                following.add(item.get(UserAttr).getS());
+            }
+        }
+
+        return following;
+    }
+
     private static boolean isNonEmptyString(String value) {
         return (value != null && value.length() > 0);
     }

@@ -12,7 +12,7 @@ public class LogoutServiceImpl implements LogoutService {
     public LogoutResponse logout(LogoutRequest request) {
 
         //Remove the session from the authToken Table
-        AuthTokenDAO.destroySession(request.getUser());
+        AuthTokenDAO.destroySession(request.getAuthToken());
 
         return new LogoutResponse(true, "Successfully Logged Out!");
     }

@@ -17,22 +17,20 @@ public class GetFollowersServiceImpl implements GetFollowersService {
     public GetFollowersResponse getFollowers(GetFollowersRequest request) {
 
         //Authenticate User
-//        if (!AuthTokenDAO.validateUser(request.getLoggedInUser())) {
-//            return new GetFollowersResponse("User Session Timed Out");
-//        }
+        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+            return new GetFollowersResponse("User Session Timed Out");
+        }
 
         //Return all the aliases for
-//        List<String> followersAliases = FollowDAO.getFollowers(request.getLoggedInUser(), request.getLastFollower(),request.getLimit());
-//
-//        List<User> users = new ArrayList<>();
-//
-//        for (String currFollower : followersAliases) {
-//            users.add(UserDAO.getUser(currFollower));
-//        }
-//
-//        return new GetFollowersResponse(users, true); //TODO: Get Has more pages
+        List<String> followersAliases = FollowDAO.getUsersThatFollow(request.getLoggedInUser(), request.getLastFollower(),request.getLimit());
 
-        return getFollowersDAO().getFollowers(request);
+        List<User> users = new ArrayList<>();
+
+        for (String currFollower : followersAliases) {
+            users.add(UserDAO.getUser(currFollower));
+        }
+
+        return new GetFollowersResponse(users, true); //TODO: Get Has more pages
     }
 
     public GetFollowersDAO getFollowersDAO() {

@@ -17,7 +17,7 @@ public class GetFollowingServiceImpl implements GetFollowingService {
     @Override
     public GetFollowingResponse getFollowing(GetFollowingRequest request) {
 
-        if (!AuthTokenDAO.validateUser(request.getLoggedInUser())) {
+        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
             return new GetFollowingResponse("User Session Timed Out");
         }
 

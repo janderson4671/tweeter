@@ -59,7 +59,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
         following = false;
 
         ViewUserPagerAdapter viewUserPagerAdapter = new ViewUserPagerAdapter(this, getSupportFragmentManager(),
-                viewedUser, null, authToken);
+                loggedInUser, viewedUser, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager_view_user);
         viewPager.setAdapter(viewUserPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs_view_user);

@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 
         //Start the session
         AuthToken authToken = new AuthToken();
-        AuthTokenDAO.createSession(request.getUsername(), authToken);
+        AuthTokenDAO.createSession(authToken);
 
         //Grab the user
         User user = UserDAO.getUser(request.getUsername());

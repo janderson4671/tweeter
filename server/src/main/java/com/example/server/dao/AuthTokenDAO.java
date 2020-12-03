@@ -19,7 +19,6 @@ public class AuthTokenDAO {
     private static final String TableName = "auth-token";
 
     //Attribute Names
-    private static final String AliasAttr = "alias";
     private static final String UUIDAttr = "uuid";
     private static final String ExpirationDateAttr = "expiration-date";
 
@@ -32,21 +31,20 @@ public class AuthTokenDAO {
     //Table Creation
 
     //CRUD Methods
-    public static void createSession(String userAlias, AuthToken authToken) {
+    public static void createSession(AuthToken authToken) {
         Table table = dynamoDB.getTable(TableName);
 
         Item item = new Item()
-                .withPrimaryKey(AliasAttr, userAlias)
-                .withString(UUIDAttr, authToken.getToken())
+                .withPrimaryKey(UUIDAttr, authToken.getToken())
                 .withString(ExpirationDateAttr, authToken.getExpirationDate());
 
         table.putItem(item);
     }
 
-    public static void updateSession(String userAlias, AuthToken authToken) {
+    public static void updateSession(AuthToken authToken) {
         Table table = dynamoDB.getTable(TableName);
 
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(AliasAttr, userAlias)
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(UUIDAttr, authToken.getToken())
                 .withUpdateExpression("set expiration-date = :d")
                 .withValueMap(new ValueMap().withString(ExpirationDateAttr, authToken.getExpirationDate()))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -59,10 +57,10 @@ public class AuthTokenDAO {
         }
     }
 
-    public static boolean validateUser(String userAlias) {
+    public static boolean validateUser(AuthToken token) {
         Table table = dynamoDB.getTable(TableName);
 
-        Item item = table.getItem(AliasAttr, userAlias);
+        Item item = table.getItem(UUIDAttr, token.getToken());
 
         AuthToken authToken = new AuthToken(item.getString(UUIDAttr), item.getString(ExpirationDateAttr));
 
@@ -75,14 +73,14 @@ public class AuthTokenDAO {
         }
         else {
             authToken.setExpirationDate(currTime.plusMinutes(SESSION_TIMEOUT_MINS).toString());
-            updateSession(userAlias, authToken);
+            updateSession(authToken);
             return true;
         }
     }
 
-    public static void destroySession(String userAlias) {
+    public static void destroySession(AuthToken token) {
         Table table = dynamoDB.getTable(TableName);
-        table.deleteItem(AliasAttr, userAlias);
+        table.deleteItem(UUIDAttr, token.getToken());
     }
 
 }

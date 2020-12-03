@@ -62,8 +62,8 @@ public class FollowingFragment extends Fragment implements GetFollowingPresenter
 
         data = ViewData.getData();
 
-        user = data.getLoggedInUser();
-        authToken = data.getAuthToken();
+        user = (User) getArguments().getSerializable(USER_KEY);
+        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new GetFollowingPresenter(this);
 

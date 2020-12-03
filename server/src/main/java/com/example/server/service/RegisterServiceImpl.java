@@ -34,7 +34,7 @@ public class RegisterServiceImpl implements RegisterService {
 
             //Create a session for this user (Using the authToken table)
             AuthToken authToken = new AuthToken();
-            AuthTokenDAO.createSession(user.getAlias(), authToken);
+            AuthTokenDAO.createSession(authToken);
 
             return new RegisterResponse(user, authToken);
         } catch (Exception ex) {

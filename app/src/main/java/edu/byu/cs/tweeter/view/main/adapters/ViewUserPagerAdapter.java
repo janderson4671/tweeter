@@ -40,11 +40,11 @@ public class ViewUserPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == STORY_FRAGMENT_POSOTION) {
-            return StoryFragment.newInstance(user, authToken);
+            return StoryFragment.newInstance(userBeingViewed, authToken);
         } else if (position == FOLLOWING_FRAGMENT_POSITION) {
-            return FollowingFragment.newInstance(user, authToken);
+            return FollowingFragment.newInstance(userBeingViewed, authToken);
         } else if (position == FOLLOWER_FRAGMENT_POSITION) {
-            return FollowerFragment.newInstance(user, authToken);
+            return FollowerFragment.newInstance(userBeingViewed, authToken);
         } else {
             return PlaceholderFragment.newInstance(position + 1);
         }
