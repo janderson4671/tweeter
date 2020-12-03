@@ -98,7 +98,6 @@ public class UserDAO {
                 .withNumber(NumFollowers, 0)
                 .withNumber(NumFollowing, 0);
 
-        //TODO: add hashed password here
         table.putItem(item);
     }
 

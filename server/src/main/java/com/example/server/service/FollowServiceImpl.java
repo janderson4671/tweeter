@@ -27,7 +27,7 @@ public class FollowServiceImpl implements FollowService {
 //        }
 
 
-        return getFollowDAO().follow(request);
+        return null; //TODO:FIXME!!!!!Please
     }
 
     public FollowDAO getFollowDAO() {

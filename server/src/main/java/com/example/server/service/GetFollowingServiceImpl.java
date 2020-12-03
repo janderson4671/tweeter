@@ -1,5 +1,6 @@
 package com.example.server.service;
 
+import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.FollowDAO;
 import com.example.server.dao.GetFollowingDAO;
 import com.example.server.dao.UserDAO;
@@ -16,22 +17,20 @@ public class GetFollowingServiceImpl implements GetFollowingService {
     @Override
     public GetFollowingResponse getFollowing(GetFollowingRequest request) {
 
-//        if (!AuthTokenDAO.validateUser(request.getCurrUser())) {
-//            return //BAD RESPONSE
-//        }
+        if (!AuthTokenDAO.validateUser(request.getLoggedInUser())) {
+            return new GetFollowingResponse("User Session Timed Out");
+        }
 
         //Get Aliases of following
-//        List<String> followingAliases = FollowDAO.getFollowing(request.getLoggedInUser(), request.getLastFollowing());
-//
-//        List<User> users = new ArrayList<>();
-//
-//        for (String currFollowing : followingAliases) {
-//            users.add(UserDAO.getUser(currFollowing));
-//        }
-//
-//        return new GetFollowingResponse(users, true); //Change for the future
+        List<String> followingAliases = FollowDAO.getFollowing(request.getLoggedInUser(), request.getLastFollowing(), request.getLimit());
 
-        return getFollowingDAO().getFollowing(request);
+        List<User> users = new ArrayList<>();
+
+        for (String currFollowing : followingAliases) {
+            users.add(UserDAO.getUser(currFollowing));
+        }
+
+        return new GetFollowingResponse(users, true); //Change for the future
     }
 
     public GetFollowingDAO getFollowingDAO() {
