@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.shared.service.request.GetNumFollowRequest;
+import com.example.shared.service.response.GetNumFollowResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,7 +25,10 @@ import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.response.LogoutResponse;
+
+import edu.byu.cs.tweeter.presenter.GetNumFollowPresenter;
 import edu.byu.cs.tweeter.presenter.LogoutPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetNumFollowTask;
 import edu.byu.cs.tweeter.view.asyncTasks.LogoutTask;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.main.adapters.SectionsPagerAdapter;
@@ -33,9 +38,11 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 /**
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
-public class MainActivity extends AppCompatActivity implements LogoutPresenter.View, LogoutTask.Observer {
+public class MainActivity extends AppCompatActivity implements LogoutPresenter.View, LogoutTask.Observer
+                ,GetNumFollowPresenter.View, GetNumFollowTask.Observer {
 
-    LogoutPresenter presenter;
+    LogoutPresenter logoutPresenter;
+    GetNumFollowPresenter getNumPresenter;
     User loggedInUser;
     AuthToken authToken;
     ViewData data;
@@ -64,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
         FragmentManager fm = getSupportFragmentManager();
 
         mContext = this;
-        presenter = new LogoutPresenter(this);
+        logoutPresenter = new LogoutPresenter(this);
+        getNumPresenter = new GetNumFollowPresenter(this);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), loggedInUser, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager_main);
@@ -114,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
     }
 
     private void logoutUser() {
-        LogoutTask task = new LogoutTask(presenter, this);
+        LogoutTask task = new LogoutTask(logoutPresenter, this);
         LogoutRequest request = new LogoutRequest(data.getLoggedInUser().getAlias(), data.getAuthToken());
         task.execute(request);
     }
@@ -123,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
     protected void onResume() {
         super.onResume();
 
-        updateView();
+        GetNumFollowRequest request = new GetNumFollowRequest(loggedInUser.getAlias(), authToken);
+        GetNumFollowTask task = new GetNumFollowTask(getNumPresenter, this);
+        task.execute(request);
     }
 
     private void startNewStatusFrag(FragmentManager fm) {
@@ -145,5 +155,18 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
     @Override
     public void handleException(Exception exception) {
         Toast.makeText(this, "Error: Can't Log out!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void numFollowRetrieved(GetNumFollowResponse response) {
+        loggedInUser.setNumFollowers(response.getNumFollowers());
+        loggedInUser.setNumFollowing(response.getNumFollowing());
+
+        updateView();
+    }
+
+    @Override
+    public void NumFollowHandleException(Exception exception) {
+        Toast.makeText(this, "Cannot update counts", Toast.LENGTH_LONG).show();
     }
 }

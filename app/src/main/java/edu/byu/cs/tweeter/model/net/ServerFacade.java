@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.request.DoesFollowRequest;
 import com.example.shared.service.request.FollowRequest;
 import com.example.shared.service.request.GetFollowersRequest;
 import com.example.shared.service.request.GetFollowingRequest;
@@ -15,6 +16,7 @@ import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.request.RegisterRequest;
+import com.example.shared.service.response.DoesFollowResponse;
 import com.example.shared.service.response.FollowResponse;
 import com.example.shared.service.response.GetFollowersResponse;
 import com.example.shared.service.response.GetFollowingResponse;
@@ -133,6 +135,16 @@ public class ServerFacade {
 
     public PostStatusResponse postStatus(PostStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
         PostStatusResponse response = clientCommunicator.doPost(urlPath, request, null, PostStatusResponse.class);
+
+        if (response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public DoesFollowResponse doesFollow(DoesFollowRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        DoesFollowResponse response = clientCommunicator.doPost(urlPath, request, null, DoesFollowResponse.class);
 
         if (response.isSuccess()) {
             return response;

@@ -14,7 +14,7 @@ public class AddFollowerTask extends AsyncTask<FollowRequest, Void, FollowRespon
 
     public interface Observer {
         void addFollowerComplete(FollowResponse response);
-        void handleException(Exception exception);
+        void FollowHandleException(Exception exception);
     }
 
     public AddFollowerTask(FollowPresenter presenter, Observer observer) {
@@ -42,7 +42,7 @@ public class AddFollowerTask extends AsyncTask<FollowRequest, Void, FollowRespon
     @Override
     protected void onPostExecute(FollowResponse response) {
         if (exception != null) {
-            observer.handleException(exception);
+            observer.FollowHandleException(exception);
         } else {
             observer.addFollowerComplete(response);
         }

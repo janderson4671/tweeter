@@ -2,13 +2,18 @@ package com.example.server.dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.AttributeUpdate;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
 
@@ -99,6 +104,42 @@ public class UserDAO {
                 .withNumber(NumFollowing, 0);
 
         table.putItem(item);
+    }
+
+    public static void updateFollowing(String userAlias, boolean add) {
+        Table table = dynamoDB.getTable(TableName);
+
+        int numFollowing = add ? 1 : -1;
+
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(AliasAttr, userAlias)
+                .withUpdateExpression("add num-following = :d")
+                .withValueMap(new ValueMap().withNumber(NumFollowing, numFollowing))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+
+        try {
+            UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
+        } catch (Exception ex) {
+            System.out.println("Unable to update Num-Following");
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void updateFollower(String userAlias, boolean add) {
+        Table table = dynamoDB.getTable(TableName);
+
+        int numFollowers = add ? 1 : -1;
+
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(AliasAttr, userAlias)
+                .withUpdateExpression("add num-following = :d")
+                .withValueMap(new ValueMap().withNumber(NumFollowers, numFollowers))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+
+        try {
+            UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
+        } catch (Exception ex) {
+            System.out.println("Unable to update Num-Followers");
+            System.out.println(ex.getMessage());
+        }
     }
 
     //Get Methods

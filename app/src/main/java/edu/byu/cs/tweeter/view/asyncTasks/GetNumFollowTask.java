@@ -15,7 +15,7 @@ public class GetNumFollowTask extends AsyncTask<GetNumFollowRequest, Void, GetNu
 
     public interface Observer {
         void numFollowRetrieved(GetNumFollowResponse response);
-        void handleException(Exception exception);
+        void NumFollowHandleException(Exception exception);
     }
 
     public GetNumFollowTask(GetNumFollowPresenter presenter, Observer observer) {
@@ -43,7 +43,7 @@ public class GetNumFollowTask extends AsyncTask<GetNumFollowRequest, Void, GetNu
     @Override
     protected void onPostExecute(GetNumFollowResponse response) {
         if (exception != null) {
-            observer.handleException(exception);
+            observer.NumFollowHandleException(exception);
         } else {
             observer.numFollowRetrieved(response);
         }

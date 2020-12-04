@@ -17,10 +17,10 @@ import java.util.Map;
 public class FollowDAO {
 
     private static final String TableName = "follow";
-    private static final String IndexName = "follows-index";
+    private static final String IndexName = "follows-user-index";
 
-    private static final String UserAttr = "user";
-    private static final String FollowsAttr = "follows";
+    private static final String UserAttr = "user";           //Primary Key
+    private static final String FollowsAttr = "follows";     //Sort Key
 
     // DynamoDB client
     private static AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder
@@ -30,15 +30,6 @@ public class FollowDAO {
     private static DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 
     //CRUD Methods
-    public static void addFollow(String user, String userToFollow) {
-        Table table = dynamoDB.getTable(TableName);
-
-        Item item = new Item()
-                .withPrimaryKey(UserAttr, user)
-                .withString(FollowsAttr, userToFollow);
-
-        table.putItem(item);
-    }
 
     public static List<String> getFollowing(String user, String lastFollower, int limit) {
         Map<String, String> attrNames = new HashMap<>();
@@ -109,6 +100,69 @@ public class FollowDAO {
         }
 
         return following;
+    }
+
+    public static boolean follow(String loggedInUser, String userToFollow) {
+        Table table = dynamoDB.getTable(TableName);
+
+        Item item = new Item()
+                .withPrimaryKey(UserAttr, loggedInUser)
+                .withString(FollowsAttr, userToFollow);
+
+        try {
+            table.putItem(item);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+        return true;
+    }
+
+    public static boolean unFollow(String loggedInUser, String userToUnfollow) {
+        Table table = dynamoDB.getTable(TableName);
+
+        try {
+            table.deleteItem(UserAttr, loggedInUser, FollowsAttr, userToUnfollow);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public static boolean doesFollow(String loggedInUser, String userToCheck) {
+
+        //see if the logged in user follows the user to check
+        Map<String, String> attrNames = new HashMap<>();
+        attrNames.put("#user", UserAttr);
+
+        Map<String, AttributeValue> attrValues = new HashMap<>();
+        attrValues.put(":user", new AttributeValue().withS(loggedInUser));
+
+        QueryRequest request = new QueryRequest()
+                .withTableName(TableName)
+                .withKeyConditionExpression("#user = :user")
+                .withExpressionAttributeNames(attrNames)
+                .withExpressionAttributeValues(attrValues);
+
+        QueryResult result = amazonDynamoDB.query(request);
+        List<Map<String, AttributeValue>> items = result.getItems();
+        List<String> following = new ArrayList<>();
+
+        if (items != null) {
+            for (Map<String, AttributeValue> item : items) {
+                following.add(item.get(FollowsAttr).getS());
+            }
+        }
+
+        for (String currUser : following) {
+            if (currUser.equals(userToCheck)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static boolean isNonEmptyString(String value) {

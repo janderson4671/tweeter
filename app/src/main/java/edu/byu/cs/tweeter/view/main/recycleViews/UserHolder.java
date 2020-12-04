@@ -79,7 +79,7 @@ public class UserHolder extends RecyclerView.ViewHolder implements GetNumFollowP
     }
 
     @Override
-    public void handleException(Exception exception) {
+    public void NumFollowHandleException(Exception exception) {
         Toast.makeText(userView.getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

@@ -2,6 +2,7 @@ package com.example.server.service;
 
 import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.FollowDAO;
+import com.example.server.dao.UserDAO;
 import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.FollowService;
 import com.example.shared.service.request.FollowRequest;
@@ -15,19 +16,32 @@ public class FollowServiceImpl implements FollowService {
     public FollowResponse follow(FollowRequest request) {
 
         //Authenticate the user with authtoken
-//        if (!AuthTokenDAO.validateUser(request.getCurrUser())) {
-//            return //BAD RESPONSE
-//        }
+        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+            return new FollowResponse(false, "User Session Timed Out", request.isFollow());
+        }
+
+        boolean success;
+        boolean isFollowing;
 
         //Check whether this user wants to follow or unfollow the other user
-//        if (request.isFollow()) {
-//            FollowDAO.followUser(request.getCurrUser(), request.getUserToFollow());
-//        } else {
-//            FollowDAO.unFollowUser(request.getCurrUser(), request.getUserToFollow());
-//        }
+        if (request.isFollow()) {
+            success = FollowDAO.follow(request.getCurrUser(), request.getUserToFollow());
+            isFollowing = true;
 
+            //update the counts
+            UserDAO.updateFollowing(request.getCurrUser(), true);
+            UserDAO.updateFollower(request.getUserToFollow(), true);
 
-        return null; //TODO:FIXME!!!!!Please
+        } else {
+            success = FollowDAO.unFollow(request.getCurrUser(), request.getUserToFollow());
+            isFollowing = false;
+
+            //update the counts
+            UserDAO.updateFollowing(request.getCurrUser(), false);
+            UserDAO.updateFollower(request.getUserToFollow(), false);
+        }
+
+        return new FollowResponse(success, "Finished", isFollowing);
     }
 
     public FollowDAO getFollowDAO() {
