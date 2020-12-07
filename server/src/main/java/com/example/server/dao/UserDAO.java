@@ -8,12 +8,10 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
-import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
-import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
 
@@ -112,9 +110,7 @@ public class UserDAO {
         int numFollowing = add ? 1 : -1;
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(AliasAttr, userAlias)
-                .withUpdateExpression("add num-following = :d")
-                .withValueMap(new ValueMap().withNumber(NumFollowing, numFollowing))
-                .withReturnValues(ReturnValue.UPDATED_NEW);
+                .withAttributeUpdate(new AttributeUpdate(NumFollowing).addNumeric(numFollowing));
 
         try {
             UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
@@ -130,9 +126,7 @@ public class UserDAO {
         int numFollowers = add ? 1 : -1;
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(AliasAttr, userAlias)
-                .withUpdateExpression("add num-following = :d")
-                .withValueMap(new ValueMap().withNumber(NumFollowers, numFollowers))
-                .withReturnValues(ReturnValue.UPDATED_NEW);
+                .withAttributeUpdate(new AttributeUpdate(NumFollowers).addNumeric(numFollowers));
 
         try {
             UpdateItemOutcome outcome = table.updateItem(updateItemSpec);

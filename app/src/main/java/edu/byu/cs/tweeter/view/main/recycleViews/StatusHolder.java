@@ -111,7 +111,7 @@ public class StatusHolder extends RecyclerView.ViewHolder implements GetNumFollo
     }
 
     private boolean checkValidUser(String alias) {
-        List<User> mentions = data.getAllMentionedUsers();
+        List<User> mentions = status.getMentions();
 
         if (mentions == null) {
             return false;
@@ -127,7 +127,7 @@ public class StatusHolder extends RecyclerView.ViewHolder implements GetNumFollo
     }
 
     public void startViewUserActivity(View v, String alias) {
-        List<User> mentions = data.getAllMentionedUsers();
+        List<User> mentions = status.getMentions();
 
         for (User currUser : mentions) {
             if(currUser.getAlias().equals(alias)) {

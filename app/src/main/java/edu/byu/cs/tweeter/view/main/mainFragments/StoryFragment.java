@@ -34,6 +34,8 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
     private static final int LOADING_DATA_VIEW = 0;
     private static final int PAGE_SIZE = 12;
 
+    private static final String USER_KEY = "UserKey";
+
     //Specific data for this instance
     private User user;
     private AuthToken authToken;
@@ -45,6 +47,7 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
         StoryFragment fragment = new StoryFragment();
 
         Bundle args = new Bundle(2);
+        args.putSerializable(USER_KEY, user);
 
         fragment.setArguments(args);
         return fragment;
@@ -56,7 +59,7 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
 
         data = ViewData.getData();
 
-        user = data.getLoggedInUser();
+        user = (User) getArguments().getSerializable(USER_KEY);
         authToken = data.getAuthToken();
 
         presenter = new GetStoryPresenter(this);
@@ -120,12 +123,10 @@ public class StoryFragment extends Fragment implements GetStoryPresenter.View {
             @Override
             public void dataRetrieved(GetStoryResponse response) {
 
-                //TODO: Take a look at this
-                //Add all mentioned users to viewData for later use
-//                data.addMentionedUsers(response.getStatuses());
-
-                lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
-                hasMorePages = response.getHasMorePages();
+                if (response.getStatuses().size() > 0) {
+                    lastItem = (itemList.size() > 0) ? response.getStatuses().get(response.getStatuses().size() - 1) : null;
+                    hasMorePages = response.getHasMorePages();
+                }
 
                 isLoading = false;
                 removeLoadingFooter();

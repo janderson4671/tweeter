@@ -16,7 +16,7 @@ public class GetStoryServiceProxy implements GetStoryService {
 
     private static final String URL_PATH_STORY = "/getstory";
 
-    private void loadImgaes(GetStoryResponse response) throws IOException {
+    private void loadImages(GetStoryResponse response) throws IOException {
         for (Status status : response.getStatuses()) {
             byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
             status.setUserImage(bytes);
@@ -41,7 +41,7 @@ public class GetStoryServiceProxy implements GetStoryService {
         GetStoryResponse response = getServerFacade().getStory(request, URL_PATH_STORY);
 
         if (response.isSuccess()) {
-            loadImgaes(response);
+            loadImages(response);
         }
 
         return response;

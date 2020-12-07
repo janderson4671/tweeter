@@ -5,7 +5,7 @@ import com.example.shared.domain.Status;
 
 public class GetStoryRequest {
 
-    private String loggedInUser;
+    public String currUser;
     private AuthToken authToken;
     private int limit;
     private Status lastStatus;
@@ -13,16 +13,16 @@ public class GetStoryRequest {
     //Constructors
     public GetStoryRequest() {}
 
-    public GetStoryRequest(String loggedInUser, AuthToken authToken, int limit, Status lastStatus) {
-        this.loggedInUser = loggedInUser;
+    public GetStoryRequest(String currUser, AuthToken authToken, int limit, Status lastStatus) {
+        this.currUser = currUser;
         this.authToken = authToken;
         this.limit = limit;
         this.lastStatus = lastStatus;
     }
 
     //Getters
-    public String getLoggedInUser() {
-        return loggedInUser;
+    public String getUser() {
+        return currUser;
     }
 
     public AuthToken getAuthToken() {
@@ -38,8 +38,8 @@ public class GetStoryRequest {
     }
 
     //Setters
-    public void setLoggedInUser(String loggedInUser) {
-        this.loggedInUser = loggedInUser;
+    public void setUser(String currUser) {
+        this.currUser = currUser;
     }
 
     public void setAuthToken(AuthToken authToken) {

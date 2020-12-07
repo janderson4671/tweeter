@@ -204,7 +204,7 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
     @Override
     public void numFollowRetrieved(GetNumFollowResponse response) {
         viewedUser.setNumFollowing(response.getNumFollowing());
-        viewedUser.setNumFollowers(response.getNumFollowing());
+        viewedUser.setNumFollowers(response.getNumFollowers());
 
         updateCounts();
     }

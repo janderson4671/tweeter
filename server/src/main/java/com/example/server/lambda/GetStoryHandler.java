@@ -9,6 +9,11 @@ import com.example.shared.service.response.GetStoryResponse;
 public class GetStoryHandler implements RequestHandler<GetStoryRequest, GetStoryResponse> {
     @Override
     public GetStoryResponse handleRequest(GetStoryRequest request, Context context) {
+
+        if (request.getUser() == null) {
+            throw new RuntimeException("Not correct model");
+        }
+
         GetStoryServiceImpl service = new GetStoryServiceImpl();
         return service.getStatuses(request);
     }
