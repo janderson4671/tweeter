@@ -6,6 +6,14 @@ public class DBStatus {
         this.userAlias = userAlias;
         this.timeStamp = timeStamp;
         this.message = message;
+        this.author = "";
+    }
+
+    public DBStatus(String userAlias, String timeStamp, String message, String author) {
+        this.userAlias = userAlias;
+        this.timeStamp = timeStamp;
+        this.message = message;
+        this.author = author;
     }
 
     public String getUserAlias() {
@@ -20,8 +28,13 @@ public class DBStatus {
         return message;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
     String userAlias;
     String timeStamp;
     String message;
+    String author;
 
 }
