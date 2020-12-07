@@ -27,6 +27,10 @@ public class PostStatusRequest {
         return user;
     }
 
+    public AuthToken getAuthToken() {
+        return authToken;
+    }
+
     //Setters
     public void setStatus(Status status) {
         this.status = status;

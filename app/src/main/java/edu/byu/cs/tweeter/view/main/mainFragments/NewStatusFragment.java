@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -103,7 +104,7 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
 
     private void postStatus() {
         PostStatusTask task = new PostStatusTask(presenter, this);
-        PostStatusRequest request = new PostStatusRequest(new Status(data.getLoggedInUser(), message, "January 1st", new ArrayList<>()),
+        PostStatusRequest request = new PostStatusRequest(new Status(data.getLoggedInUser(), message, LocalDateTime.now().toString(), new ArrayList<>()),
                 data.getLoggedInUser().getAlias(), data.getAuthToken());
         task.execute(request);
     }

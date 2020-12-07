@@ -3,10 +3,13 @@ package com.example.server.dao;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.QueryRequest;
 import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.example.server.model.DBStatus;
+import com.example.shared.domain.Status;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +68,17 @@ public class StoryDAO {
         }
 
         return statuses;
+    }
+
+    public static void addPost(String userAlias, Status post) {
+        Table table = dynamoDB.getTable(TableName);
+
+        Item item = new Item()
+                .withPrimaryKey(UserAttr, userAlias)
+                .withString(TimeAttr, post.getTimeStamp())
+                .withString(MessageAttr, post.getMessage());
+
+        table.putItem(item);
     }
 
     private static boolean isNonEmptyString(String value) {
