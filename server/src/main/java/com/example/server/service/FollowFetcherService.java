@@ -1,5 +1,9 @@
 package com.example.server.service;
 
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.example.server.dao.FollowDAO;
 import com.example.server.model.DBStatus;
 import com.example.shared.domain.Status;
@@ -11,6 +15,7 @@ import java.util.List;
 public class FollowFetcherService {
 
     private final int PAGE_SIZE = 25;
+    private final String SQS_URL = "https://sqs.us-east-2.amazonaws.com/737937290528/FeedPosterQueue";
 
     public String fetchAndPost(String statusStr) {
 
@@ -42,7 +47,16 @@ public class FollowFetcherService {
     }
 
     private void pushToSQS(List<DBStatus> statuses) {
-        //TODO:PushToQueue
+        String messageBody = JsonSerializer.serialize(statuses);
+
+        SendMessageRequest request = new SendMessageRequest()
+                .withQueueUrl(SQS_URL)
+                .withMessageBody(messageBody);
+
+        AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+
+        SendMessageResult result = sqs.sendMessage(request);
+
     }
 
 }

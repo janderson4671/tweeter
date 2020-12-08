@@ -1,15 +1,23 @@
 package com.example.server.service;
 
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.PostStatusDAO;
 import com.example.server.dao.StoryDAO;
 import com.example.shared.domain.Status;
+import com.example.shared.net.JsonSerializer;
 import com.example.shared.service.PostStatusService;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.response.PostStatusResponse;
 
 public class PostStatusServiceImpl implements PostStatusService {
+
+    private final String SQS_URL = "https://sqs.us-east-2.amazonaws.com/737937290528/FollowFetcherQueue";
+
     @Override
     public PostStatusResponse postStatus(PostStatusRequest request) {
 
@@ -35,7 +43,14 @@ public class PostStatusServiceImpl implements PostStatusService {
     }
 
     public void pushToSQS(Status status) {
-        //TODO::Implement
+        String messageBody = JsonSerializer.serialize(status);
 
+        SendMessageRequest request = new SendMessageRequest()
+                .withQueueUrl(SQS_URL)
+                .withMessageBody(messageBody);
+
+        AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+
+        SendMessageResult result = sqs.sendMessage(request);
     }
 }

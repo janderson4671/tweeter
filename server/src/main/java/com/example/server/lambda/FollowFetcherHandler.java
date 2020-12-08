@@ -2,20 +2,24 @@ package com.example.server.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.example.server.service.FollowFetcherService;
 
-public class FollowFetcherHandler implements RequestHandler<String, String> {
+public class FollowFetcherHandler implements RequestHandler<SQSEvent, String> {
     @Override
-    public String handleRequest(String statusStr, Context context) {
+    public String handleRequest(SQSEvent event, Context context) {
 
         FollowFetcherService service = new FollowFetcherService();
 
-        try {
-            service.fetchAndPost(statusStr);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
-        }
+        for (SQSEvent.SQSMessage msg : event.getRecords()) {
 
+            try {
+                service.fetchAndPost(msg.getBody());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage());
+            }
+
+        }
         return "Success";
     }
 }

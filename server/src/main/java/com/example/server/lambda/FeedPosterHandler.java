@@ -2,25 +2,21 @@ package com.example.server.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.server.model.DBStatus;
+import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.example.server.service.FeedPosterService;
-import com.example.shared.net.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-public class FeedPosterHandler implements RequestHandler<String, String> {
+public class FeedPosterHandler implements RequestHandler<SQSEvent, String> {
     @Override
-    public String handleRequest(String listStatusStr, Context context) {
+    public String handleRequest(SQSEvent event, Context context) {
 
         FeedPosterService service = new FeedPosterService();
 
-        try {
-            service.postToFeeds(listStatusStr);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
+        for (SQSEvent.SQSMessage msg : event.getRecords()) {
+            try {
+                service.postToFeeds(msg.getBody());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage());
+            }
         }
 
         return "Success";
