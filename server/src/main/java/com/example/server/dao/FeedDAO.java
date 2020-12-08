@@ -2,10 +2,14 @@ package com.example.server.dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.BatchWriteItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.TableWriteItems;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.QueryRequest;
 import com.amazonaws.services.dynamodbv2.model.QueryResult;
+import com.amazonaws.services.dynamodbv2.model.WriteRequest;
 import com.example.server.model.DBStatus;
 
 import java.util.ArrayList;
@@ -66,6 +70,41 @@ public class FeedDAO {
         }
 
         return statuses;
+    }
+
+    public static void batchPost(List<DBStatus> statuses) {
+
+        TableWriteItems items = new TableWriteItems(TableName);
+
+        for (DBStatus status : statuses) {
+            Item item = new Item()
+                    .withPrimaryKey(UserAttr, status.getUserAlias())
+                    .withString(TimeAttr, status.getTimeStamp())
+                    .withString(MessageAttr, status.getMessage())
+                    .withString(AuthorAttr, status.getAuthor());
+
+            items.addItemToPut(item);
+
+            if (items.getItemsToPut() != null && items.getItemsToPut().size() == 25) {
+                loopBatchWrite(items);
+                items = new TableWriteItems(TableName);
+            }
+        }
+
+        // Write any leftover items
+        if (items.getItemsToPut() != null && items.getItemsToPut().size() > 0) {
+            loopBatchWrite(items);
+        }
+
+    }
+
+    private static void loopBatchWrite(TableWriteItems items) {
+        BatchWriteItemOutcome outcome = dynamoDB.batchWriteItem(items);
+
+        while (outcome.getUnprocessedItems().size() > 0) {
+            Map<String, List<WriteRequest>> unprocessedItems = outcome.getUnprocessedItems();
+            outcome = dynamoDB.batchWriteItemUnprocessed(unprocessedItems);
+        }
     }
 
     private static boolean isNonEmptyString(String value) {

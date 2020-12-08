@@ -3,6 +3,7 @@ package com.example.server.service;
 import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.PostStatusDAO;
 import com.example.server.dao.StoryDAO;
+import com.example.shared.domain.Status;
 import com.example.shared.service.PostStatusService;
 import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.GetFeedResponse;
@@ -23,10 +24,18 @@ public class PostStatusServiceImpl implements PostStatusService {
             return new PostStatusResponse(false, ex.getMessage());
         }
 
+        //Push the status to a SQS
+        pushToSQS(request.getStatus());
+
         return new PostStatusResponse(true, "Added Post");
     }
 
     public PostStatusDAO getPostStatusDAO() {
         return new PostStatusDAO();
+    }
+
+    public void pushToSQS(Status status) {
+        //TODO::Implement
+
     }
 }

@@ -102,6 +102,33 @@ public class FollowDAO {
         return following;
     }
 
+    public static List<String> getAllUsersThatFollow(String user) {
+        Map<String, String> attrNames = new HashMap<>();
+        attrNames.put("#follows", FollowsAttr);
+
+        Map<String, AttributeValue> attrValues = new HashMap<>();
+        attrValues.put(":follows", new AttributeValue().withS(user));
+
+        QueryRequest request = new QueryRequest()
+                .withTableName(TableName)
+                .withIndexName(IndexName)
+                .withKeyConditionExpression("#follows = :follows")
+                .withExpressionAttributeNames(attrNames)
+                .withExpressionAttributeValues(attrValues);
+
+        QueryResult result = amazonDynamoDB.query(request);
+        List<Map<String, AttributeValue>> items = result.getItems();
+        List<String> following = new ArrayList<>();
+
+        if (items != null) {
+            for (Map<String, AttributeValue> item : items) {
+                following.add(item.get(UserAttr).getS());
+            }
+        }
+
+        return following;
+    }
+
     public static boolean follow(String loggedInUser, String userToFollow) {
         Table table = dynamoDB.getTable(TableName);
 

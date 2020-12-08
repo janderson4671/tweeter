@@ -1,6 +1,10 @@
 package com.example.server.model;
 
-public class DBStatus {
+import java.io.Serializable;
+
+public class DBStatus implements Serializable {
+
+    public DBStatus() {}
 
     public DBStatus(String userAlias, String timeStamp, String message) {
         this.userAlias = userAlias;
@@ -30,6 +34,22 @@ public class DBStatus {
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setUserAlias(String userAlias) {
+        this.userAlias = userAlias;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     String userAlias;
