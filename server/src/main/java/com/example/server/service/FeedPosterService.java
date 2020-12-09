@@ -11,10 +11,14 @@ import java.util.List;
 
 public class FeedPosterService {
 
+    public FeedDAO getFeedDAO() {
+        return new FeedDAO();
+    }
+
     public String postToFeeds(String statuses) {
         List<DBStatus> statusList = getList(statuses);
 
-        FeedDAO.batchPost(statusList);
+        getFeedDAO().batchPost(statusList);
 
         return "Success";
     }

@@ -2,30 +2,38 @@ package com.example.server.service;
 
 import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.FeedDAO;
-import com.example.server.dao.GetFeedDAO;
-import com.example.server.dao.StoryDAO;
 import com.example.server.dao.UserDAO;
 import com.example.server.model.DBStatus;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.GetFeedService;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
-import com.example.shared.service.response.GetStoryResponse;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GetFeedServiceImpl implements GetFeedService {
+
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
+    }
+
+    public FeedDAO getFeedDAO() {
+        return new FeedDAO();
+    }
+
     @Override
     public GetFeedResponse getStatuses(GetFeedRequest request) {
 
         //Authenticate user
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+        if (!getAuthTokenDAO().validateUser(request.getAuthToken())) {
             throw new RuntimeException("User Session Timed Out");
         }
 
@@ -39,7 +47,7 @@ public class GetFeedServiceImpl implements GetFeedService {
         }
 
         //Grab DBStatuses from table
-        List<DBStatus> statuses = FeedDAO.getFeed(request.getLoggedInUser(), lastStatusStamp, request.getLimit());
+        List<DBStatus> statuses = getFeedDAO().getFeed(request.getLoggedInUser(), lastStatusStamp, request.getLimit());
 
         //Need to construct the actual statuses
         List<Status> returnStatuses = new ArrayList<>();
@@ -47,7 +55,7 @@ public class GetFeedServiceImpl implements GetFeedService {
         for (DBStatus currStat : statuses) {
 
             //Get the corresponding user
-            User currUser = UserDAO.getUser(currStat.getAuthor());
+            User currUser = getUserDAO().getUser(currStat.getAuthor());
 
             //Parse the message for the mentions
             List<String> mentions = parseMessage(currStat.getMessage());
@@ -71,7 +79,7 @@ public class GetFeedServiceImpl implements GetFeedService {
 
         for (String currMention : mentions) {
 
-            User currUser = UserDAO.getUser(currMention);
+            User currUser = getUserDAO().getUser(currMention);
 
             if (currUser != null) {
                 users.add(currUser);
@@ -100,7 +108,4 @@ public class GetFeedServiceImpl implements GetFeedService {
         return mentions;
     }
 
-    public GetFeedDAO getFeedDAO() {
-        return new GetFeedDAO();
-    }
 }

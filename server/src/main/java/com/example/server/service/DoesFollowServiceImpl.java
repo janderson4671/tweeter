@@ -7,15 +7,24 @@ import com.example.shared.service.request.DoesFollowRequest;
 import com.example.shared.service.response.DoesFollowResponse;
 
 public class DoesFollowServiceImpl implements DoesFollowService {
+
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public FollowDAO getFollowDAO() {
+        return new FollowDAO();
+    }
+
     @Override
     public DoesFollowResponse doesFollow(DoesFollowRequest request) {
 
         //Authenticate the user
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+        if (!getAuthTokenDAO().validateUser(request.getAuthToken())) {
             throw new RuntimeException("User Session Timed Out");
         }
 
-        boolean doesFollow = FollowDAO.doesFollow(request.getLoggedInUser(), request.getUserToCheck());
+        boolean doesFollow = getFollowDAO().doesFollow(request.getLoggedInUser(), request.getUserToCheck());
 
         return new DoesFollowResponse(doesFollow);
     }

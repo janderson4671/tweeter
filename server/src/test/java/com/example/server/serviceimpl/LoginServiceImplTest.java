@@ -1,14 +1,24 @@
 package com.example.server.serviceimpl;
 
 import com.example.server.dao.LoginDAO;
+import com.example.server.service.GetFollowersServiceImpl;
 import com.example.server.service.LoginServiceImpl;
+import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.GetFollowersService;
+import com.example.shared.service.LoginService;
+import com.example.shared.service.LogoutService;
+import com.example.shared.service.request.GetFollowersRequest;
 import com.example.shared.service.request.LoginRequest;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.GetFollowersResponse;
 import com.example.shared.service.response.LoginResponse;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,59 +27,40 @@ import java.io.IOException;
 
 public class LoginServiceImplTest {
 
-    private LoginRequest validRequest;
-    private LoginRequest invalidRequest;
+    static User loggedInUser;
+    static AuthToken authToken;
 
-    private LoginResponse successResponse;
-    private LoginResponse failureResponse;
+    @AfterAll
+    static void cleanUp() {
+        LogoutRequest request = new LogoutRequest(loggedInUser.getAlias(), authToken);
+        LogoutService service = new LogoutServiceImpl();
 
-    private LoginServiceImpl loginServiceSpy;
-
-    private String dummyURL = "/helloworld";
-
-    @BeforeEach
-    public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null, 0, 0);
-
-        // Setup request objects to use in the tests
-        validRequest = new LoginRequest("Test", "12345678");
-        invalidRequest = new LoginRequest("Fail", "asdfjkl");
-
-        // Setup a mock ServerFacade that will return known responses
-        successResponse = new LoginResponse(currentUser, new AuthToken());
-        LoginDAO mockDAO = Mockito.mock(LoginDAO.class);
-        Mockito.when(mockDAO.login(validRequest)).thenReturn(successResponse);
-
-        failureResponse = new LoginResponse("An exception occured");
-        Mockito.when(mockDAO.login(invalidRequest)).thenReturn(failureResponse);
-
-        // Create a LoginingService instance and wrap it with a spy that will use the mock service
-        loginServiceSpy = Mockito.spy(new LoginServiceImpl());
-        Mockito.when(loginServiceSpy.getLoginDAO()).thenReturn(mockDAO);
+        try {
+            service.logout(request);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
-    public void testLogin_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.getLoginDAO().login(validRequest);
+    public void logInUser() {
+        LoginRequest request = new LoginRequest("@person198", "password");
+        LoginService service = new LoginServiceImpl();
+        LoginResponse response;
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(successResponse, response);
+        try {
+            response = service.login(request);
+
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getUser());
+            Assertions.assertNotNull(response.getAuthToken());
+
+            loggedInUser = response.getUser();
+            authToken = response.getAuthToken();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Assertions.fail();
+        }
     }
-
-    @Test
-    public void testLogin_validRequest_hasAlias() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.getLoginDAO().login(validRequest);
-
-        Assertions.assertNotNull(response.getUser().getAlias());
-        Assertions.assertEquals("@FirstNameLastName", response.getUser().getAlias());
-    }
-
-    @Test
-    public void GetLogin_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.getLoginDAO().login(invalidRequest);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(failureResponse, response);
-    }
-
 }

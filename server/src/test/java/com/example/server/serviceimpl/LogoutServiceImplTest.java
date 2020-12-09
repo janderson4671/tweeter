@@ -1,14 +1,25 @@
 package com.example.server.serviceimpl;
 
 import com.example.server.dao.LogoutDAO;
+import com.example.server.service.GetFollowingServiceImpl;
+import com.example.server.service.LoginServiceImpl;
 import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.GetFollowingService;
+import com.example.shared.service.LoginService;
+import com.example.shared.service.LogoutService;
+import com.example.shared.service.request.GetFollowingRequest;
+import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.GetFollowingResponse;
+import com.example.shared.service.response.LoginResponse;
 import com.example.shared.service.response.LogoutResponse;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,57 +29,63 @@ import java.io.IOException;
 public class LogoutServiceImplTest {
 
     private LogoutRequest validRequest;
-    private LogoutRequest invalidRequest;
+    private LogoutService service;
 
-    private LogoutResponse successResponse;
-    private LogoutResponse failureResponse;
+    static User loggedInUser;
+    static AuthToken authToken;
 
-    private LogoutServiceImpl logoutServiceSpy;
+    @BeforeAll
+    static void logInUser() {
+        LoginRequest request = new LoginRequest("@person198", "password");
+        LoginService service = new LoginServiceImpl();
+        LoginResponse response;
 
-    private String dummyURL = "/helloworld";
+        try {
+            response = service.login(request);
+            loggedInUser = response.getUser();
+            authToken = response.getAuthToken();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        LogoutRequest request = new LogoutRequest(loggedInUser.getAlias(), authToken);
+        LogoutService service = new LogoutServiceImpl();
+
+        try {
+            service.logout(request);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     @BeforeEach
-    public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null, 0, 0);
+    public void setup() {
 
-        // Setup request objects to use in the tests
-        validRequest = new LogoutRequest(currentUser.getAlias(), new AuthToken());
-        invalidRequest = new LogoutRequest(currentUser.getAlias(), new AuthToken());
+        validRequest = new LogoutRequest(loggedInUser.getAlias(), authToken);
 
-        // Setup a mock ServerFacade that will return known responses
-        successResponse = new LogoutResponse(true, "Success!");
-        LogoutDAO mockServerFacade = Mockito.mock(LogoutDAO.class);
-        Mockito.when(mockServerFacade.logout(validRequest)).thenReturn(successResponse);
-
-        failureResponse = new LogoutResponse(false, "An exception occured");
-        Mockito.when(mockServerFacade.logout(invalidRequest)).thenReturn(failureResponse);
-
-        // Create a LogoutingService instance and wrap it with a spy that will use the mock service
-        logoutServiceSpy = Mockito.spy(new LogoutServiceImpl());
-        Mockito.when(logoutServiceSpy.getLogoutDAO()).thenReturn(mockServerFacade);
+        service = new LogoutServiceImpl();
     }
 
     @Test
-    public void testLogout_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        LogoutResponse response = logoutServiceSpy.getLogoutDAO().logout(validRequest);
+    public void testAddFollower_validRequest_correctResponse() {
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(successResponse, response);
-    }
+        LogoutResponse response;
 
-    @Test
-    public void testLogout_validRequest_correctMessage() throws IOException, TweeterRemoteException {
-        LogoutResponse response = logoutServiceSpy.getLogoutDAO().logout(validRequest);
+        try {
+            response = service.logout(validRequest);
 
-        Assertions.assertEquals("Success!", response.getMessage());
-    }
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getMessage());
 
-    @Test
-    public void testLogout_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
-        LogoutResponse response = logoutServiceSpy.getLogoutDAO().logout(invalidRequest);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Assertions.fail();
+        }
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(failureResponse, response);
+
     }
 
 }

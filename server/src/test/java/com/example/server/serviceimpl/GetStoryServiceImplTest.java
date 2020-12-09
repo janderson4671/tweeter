@@ -1,15 +1,29 @@
 package com.example.server.serviceimpl;
 
 import com.example.server.dao.GetStoryDAO;
+import com.example.server.service.GetFeedServiceImpl;
 import com.example.server.service.GetStoryServiceImpl;
+import com.example.server.service.LoginServiceImpl;
+import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.GetFeedService;
+import com.example.shared.service.GetStoryService;
+import com.example.shared.service.LoginService;
+import com.example.shared.service.LogoutService;
+import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.request.LoginRequest;
+import com.example.shared.service.request.LogoutRequest;
+import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.response.GetStoryResponse;
+import com.example.shared.service.response.LoginResponse;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,59 +35,65 @@ import java.util.Date;
 public class GetStoryServiceImplTest {
 
     private GetStoryRequest validRequest;
-    private GetStoryRequest invalidRequest;
+    private GetStoryService service;
 
-    private GetStoryResponse successResponse;
-    private GetStoryResponse failureResponse;
+    static User loggedInUser;
+    static AuthToken authToken;
 
-    private GetStoryServiceImpl mGetStatusServiceSpy;
+    @BeforeAll
+    static void logInUser() {
+        LoginRequest request = new LoginRequest("@person198", "password");
+        LoginService service = new LoginServiceImpl();
+        LoginResponse response;
 
-    private String dummyURL = "/helloworld";
+        try {
+            response = service.login(request);
+            loggedInUser = response.getUser();
+            authToken = response.getAuthToken();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        LogoutRequest request = new LogoutRequest(loggedInUser.getAlias(), authToken);
+        LogoutService service = new LogoutServiceImpl();
+
+        try {
+            service.logout(request);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     @BeforeEach
-    public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null, 0, 0);
-        User invalidUser = new User("Nathan", "Craddock", null, 0, 0);
-        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()).toString(), null);
+    public void setup() {
 
-        // Setup request objects to use in the tests
-        validRequest = new GetStoryRequest(currentUser.getAlias(), new AuthToken(), 10, stuatus);
-        invalidRequest = new GetStoryRequest(currentUser.getAlias(), new AuthToken(), 10, stuatus);
+        validRequest = new GetStoryRequest(loggedInUser.getAlias(), authToken, 10, null);
 
-        // Setup a mock ServerFacade that will return known responses
-        successResponse = new GetStoryResponse(new ArrayList<>(), false);
-        GetStoryDAO mockDAO = Mockito.mock(GetStoryDAO.class);
-        Mockito.when(mockDAO.getStatuses(validRequest)).thenReturn(successResponse);
-
-        failureResponse = new GetStoryResponse("Failed!");
-        Mockito.when(mockDAO.getStatuses(invalidRequest)).thenReturn(failureResponse);
-
-        // Create a StatusingService instance and wrap it with a spy that will use the mock service
-        mGetStatusServiceSpy = Mockito.spy(new GetStoryServiceImpl());
-        Mockito.when(mGetStatusServiceSpy.getStoryDAO()).thenReturn(mockDAO);
+        service = new GetStoryServiceImpl();
     }
 
     @Test
-    public void testStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        GetStoryResponse response = mGetStatusServiceSpy.getStoryDAO().getStatuses(validRequest);
+    public void testAddFollower_validRequest_correctResponse() {
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(successResponse, response);
+        GetStoryResponse response;
+
+        try {
+            response = service.getStatuses(validRequest);
+
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getHasMorePages());
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Assertions.fail();
+        }
+
+
     }
 
-    @Test
-    public void testStatus_validRequest_returnsStatuses() throws IOException, TweeterRemoteException {
-        GetStoryResponse response = mGetStatusServiceSpy.getStoryDAO().getStatuses(validRequest);
 
-        Assertions.assertNotNull(response.getStatuses());
-    }
-
-    @Test
-    public void testStatus_invalidRequest_returnsNoStatus() throws IOException, TweeterRemoteException {
-        GetStoryResponse response = mGetStatusServiceSpy.getStoryDAO().getStatuses(invalidRequest);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(failureResponse, response);
-    }
 
 }

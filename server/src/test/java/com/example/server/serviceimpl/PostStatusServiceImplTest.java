@@ -1,77 +1,99 @@
 package com.example.server.serviceimpl;
 
 import com.example.server.dao.PostStatusDAO;
+import com.example.server.service.GetFollowingServiceImpl;
+import com.example.server.service.LoginServiceImpl;
+import com.example.server.service.LogoutServiceImpl;
 import com.example.server.service.PostStatusServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
 import com.example.shared.net.TweeterRemoteException;
+import com.example.shared.service.GetFollowingService;
+import com.example.shared.service.LoginService;
+import com.example.shared.service.LogoutService;
+import com.example.shared.service.PostStatusService;
+import com.example.shared.service.request.GetFollowingRequest;
+import com.example.shared.service.request.LoginRequest;
+import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.request.PostStatusRequest;
+import com.example.shared.service.response.GetFollowingResponse;
+import com.example.shared.service.response.LoginResponse;
 import com.example.shared.service.response.PostStatusResponse;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostStatusServiceImplTest {
 
     private PostStatusRequest validRequest;
-    private PostStatusRequest invalidRequest;
+    private PostStatusService service;
 
-    private PostStatusResponse successResponse;
-    private PostStatusResponse failureResponse;
+    static User loggedInUser;
+    static AuthToken authToken;
 
-    private PostStatusServiceImpl postStatusServiceSpy;
+    @BeforeAll
+    static void logInUser() {
+        LoginRequest request = new LoginRequest("@person198", "password");
+        LoginService service = new LoginServiceImpl();
+        LoginResponse response;
 
-    private String dummyURL = "/helloworld";
+        try {
+            response = service.login(request);
+            loggedInUser = response.getUser();
+            authToken = response.getAuthToken();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        LogoutRequest request = new LogoutRequest(loggedInUser.getAlias(), authToken);
+        LogoutService service = new LogoutServiceImpl();
+
+        try {
+            service.logout(request);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     @BeforeEach
-    public void setup() throws IOException, TweeterRemoteException {
-        User currentUser = new User("FirstName", "LastName", null, 0, 0);
-        Status stuatus = new Status(currentUser, "Test", new Date(System.currentTimeMillis()).toString(), null);
+    public void setup() {
 
-        // Setup request objects to use in the tests
-        validRequest = new PostStatusRequest(stuatus, currentUser.getAlias(), new AuthToken());
-        invalidRequest = new PostStatusRequest(stuatus, currentUser.getAlias(), new AuthToken());
+        Status status = new Status(loggedInUser, "Hello There!", LocalDateTime.now().toString(), null);
 
-        // Setup a mock ServerFacade that will return known responses
-        successResponse = new PostStatusResponse(true, "Success!");
-        PostStatusDAO mockDAO = Mockito.mock(PostStatusDAO.class);
-        Mockito.when(mockDAO.postStatus(validRequest)).thenReturn(successResponse);
+        validRequest = new PostStatusRequest(status, loggedInUser.getAlias(), authToken);
 
-        failureResponse = new PostStatusResponse(false, "An exception occured");
-        Mockito.when(mockDAO.postStatus(invalidRequest)).thenReturn(failureResponse);
-
-        // Create a PostStatusingService instance and wrap it with a spy that will use the mock service
-        postStatusServiceSpy = Mockito.spy(new PostStatusServiceImpl());
-        Mockito.when(postStatusServiceSpy.getPostStatusDAO()).thenReturn(mockDAO);
+        service = new PostStatusServiceImpl();
     }
 
     @Test
-    public void testPostStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.getPostStatusDAO().postStatus(validRequest);
+    public void testAddFollower_validRequest_correctResponse() {
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(successResponse, response);
-    }
+        PostStatusResponse response;
 
-    @Test
-    public void testPostStatus_validRequest_correctMessage() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.getPostStatusDAO().postStatus(validRequest);
+        try {
+            response = service.postStatus(validRequest);
 
-        Assertions.assertEquals("Success!", response.getMessage());
-    }
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getMessage());
 
-    @Test
-    public void testPostStatus_invalidRequest_returnsFail() throws IOException, TweeterRemoteException {
-        PostStatusResponse response = postStatusServiceSpy.getPostStatusDAO().postStatus(invalidRequest);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Assertions.fail();
+        }
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(failureResponse, response);
+
     }
 
 }

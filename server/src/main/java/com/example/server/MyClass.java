@@ -16,6 +16,9 @@ public class MyClass {
         List<String> followers = new ArrayList<>();
         List<User> users = new ArrayList<>();
 
+        UserDAO userDAO = new UserDAO();
+        FollowDAO followDAO = new FollowDAO();
+
         for (int i = 1; i <= NUM_USERS; i++) {
             String firstName = "Person " + i;
             String lastName = "Test";
@@ -36,12 +39,12 @@ public class MyClass {
 
         if (users.size() > 0) {
             for (User currUser : users) {
-                UserDAO.addUser(currUser, "9272278267573875888704606116539863834568850279235510529322262607639144781307745483087347330528189813124635315521048674837107446877650066414960134245366918"); //Password
+                userDAO.addUser(currUser, "9272278267573875888704606116539863834568850279235510529322262607639144781307745483087347330528189813124635315521048674837107446877650066414960134245366918"); //Password
             }
         }
         if (followers.size() > 0) {
             for (String follower : followers) {
-                FollowDAO.follow(follower, FOLLOW_TARGET);
+                followDAO.follow(follower, FOLLOW_TARGET);
             }
         }
 

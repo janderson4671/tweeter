@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 
 public class S3DAO {
 
-    public static String uploadProfileImage(byte[] image, String username) {
+    public String uploadProfileImage(byte[] image, String username) {
 
         String bucketName = "profile-images-tweeter";
         ByteArrayInputStream stream = new ByteArrayInputStream(image);

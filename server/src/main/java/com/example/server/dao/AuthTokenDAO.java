@@ -31,7 +31,7 @@ public class AuthTokenDAO {
     //Table Creation
 
     //CRUD Methods
-    public static void createSession(AuthToken authToken) {
+    public void createSession(AuthToken authToken) {
         Table table = dynamoDB.getTable(TableName);
 
         Item item = new Item()
@@ -41,7 +41,7 @@ public class AuthTokenDAO {
         table.putItem(item);
     }
 
-    public static void updateSession(AuthToken authToken) {
+    public void updateSession(AuthToken authToken) {
         Table table = dynamoDB.getTable(TableName);
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(UUIDAttr, authToken.getToken())
@@ -57,7 +57,7 @@ public class AuthTokenDAO {
         }
     }
 
-    public static boolean validateUser(AuthToken token) {
+    public boolean validateUser(AuthToken token) {
         Table table = dynamoDB.getTable(TableName);
 
         Item item = table.getItem(UUIDAttr, token.getToken());
@@ -78,7 +78,7 @@ public class AuthTokenDAO {
         }
     }
 
-    public static void destroySession(AuthToken token) {
+    public void destroySession(AuthToken token) {
         Table table = dynamoDB.getTable(TableName);
         table.deleteItem(UUIDAttr, token.getToken());
     }

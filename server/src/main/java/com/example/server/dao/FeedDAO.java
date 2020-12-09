@@ -36,7 +36,7 @@ public class FeedDAO {
 
     //CRUD Methods
 
-    public static List<DBStatus> getFeed(String userAlias, String lastStatusTime, int limit) {
+    public List<DBStatus> getFeed(String userAlias, String lastStatusTime, int limit) {
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#user", UserAttr);
 
@@ -72,7 +72,7 @@ public class FeedDAO {
         return statuses;
     }
 
-    public static void batchPost(List<DBStatus> statuses) {
+    public void batchPost(List<DBStatus> statuses) {
 
         TableWriteItems items = new TableWriteItems(TableName);
 
@@ -98,7 +98,7 @@ public class FeedDAO {
 
     }
 
-    private static void loopBatchWrite(TableWriteItems items) {
+    private void loopBatchWrite(TableWriteItems items) {
         BatchWriteItemOutcome outcome = dynamoDB.batchWriteItem(items);
 
         while (outcome.getUnprocessedItems().size() > 0) {
@@ -107,7 +107,7 @@ public class FeedDAO {
         }
     }
 
-    private static boolean isNonEmptyString(String value) {
+    private boolean isNonEmptyString(String value) {
         return (value != null && value.length() > 0);
     }
 

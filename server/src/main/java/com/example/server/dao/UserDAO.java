@@ -37,7 +37,7 @@ public class UserDAO {
                                                         .build();
     private static DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 
-    private static boolean isNotEmptyString(String value) {
+    private boolean isNotEmptyString(String value) {
         return (value != null && value.length() > 0);
     }
 
@@ -80,7 +80,7 @@ public class UserDAO {
     }
 
     //CRUD Methods
-    public static void addUser(User user, String password) {
+    public void addUser(User user, String password) {
         Table table = dynamoDB.getTable(TableName);
 
         //See if user already exists
@@ -99,7 +99,7 @@ public class UserDAO {
         table.putItem(item);
     }
 
-    public static void updateFollowing(String userAlias, boolean add) {
+    public void updateFollowing(String userAlias, boolean add) {
         Table table = dynamoDB.getTable(TableName);
 
         int numFollowing = add ? 1 : -1;
@@ -115,7 +115,7 @@ public class UserDAO {
         }
     }
 
-    public static void updateFollower(String userAlias, boolean add) {
+    public void updateFollower(String userAlias, boolean add) {
         Table table = dynamoDB.getTable(TableName);
 
         int numFollowers = add ? 1 : -1;
@@ -132,7 +132,7 @@ public class UserDAO {
     }
 
     //Get Methods
-    public static User getUser(String userAlias) {
+    public User getUser(String userAlias) {
 
         Table table = dynamoDB.getTable(TableName);
 
@@ -148,7 +148,7 @@ public class UserDAO {
         return resultUser;
     }
 
-    public static String getUserPassword(String userAlias) {
+    public String getUserPassword(String userAlias) {
         Table table = dynamoDB.getTable(TableName);
         Item item = table.getItem(AliasAttr, userAlias);
 
@@ -159,7 +159,7 @@ public class UserDAO {
         return item.getString(PasswordAttr);
     }
 
-    public static boolean correctPassword(String userAlias, String password) {
+    public boolean correctPassword(String userAlias, String password) {
         String userPassword = getUserPassword(userAlias);
 
         return (userPassword.equals(password));

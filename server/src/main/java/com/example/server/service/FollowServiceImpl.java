@@ -3,20 +3,31 @@ package com.example.server.service;
 import com.example.server.dao.AuthTokenDAO;
 import com.example.server.dao.FollowDAO;
 import com.example.server.dao.UserDAO;
-import com.example.shared.net.TweeterRemoteException;
 import com.example.shared.service.FollowService;
 import com.example.shared.service.request.FollowRequest;
 import com.example.shared.service.response.FollowResponse;
 
-import java.io.IOException;
-import java.net.Authenticator;
-
 public class FollowServiceImpl implements FollowService {
+
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
+    }
+
+    public FollowDAO getFollowDAO() {
+        return new FollowDAO();
+    }
+
     @Override
     public FollowResponse follow(FollowRequest request) {
 
+        UserDAO userDAO = getUserDAO();
+
         //Authenticate the user with authtoken
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+        if (!getAuthTokenDAO().validateUser(request.getAuthToken())) {
             throw new RuntimeException("User Session Timed Out");
         }
 
@@ -25,26 +36,22 @@ public class FollowServiceImpl implements FollowService {
 
         //Check whether this user wants to follow or unfollow the other user
         if (request.isFollow()) {
-            success = FollowDAO.follow(request.getCurrUser(), request.getUserToFollow());
+            success = getFollowDAO().follow(request.getCurrUser(), request.getUserToFollow());
             isFollowing = true;
 
             //update the counts
-            UserDAO.updateFollowing(request.getCurrUser(), true);
-            UserDAO.updateFollower(request.getUserToFollow(), true);
+            userDAO.updateFollowing(request.getCurrUser(), true);
+            userDAO.updateFollower(request.getUserToFollow(), true);
 
         } else {
-            success = FollowDAO.unFollow(request.getCurrUser(), request.getUserToFollow());
+            success = getFollowDAO().unFollow(request.getCurrUser(), request.getUserToFollow());
             isFollowing = false;
 
             //update the counts
-            UserDAO.updateFollowing(request.getCurrUser(), false);
-            UserDAO.updateFollower(request.getUserToFollow(), false);
+            userDAO.updateFollowing(request.getCurrUser(), false);
+            userDAO.updateFollower(request.getUserToFollow(), false);
         }
 
         return new FollowResponse(success, "Finished", isFollowing);
-    }
-
-    public FollowDAO getFollowDAO() {
-        return new FollowDAO();
     }
 }

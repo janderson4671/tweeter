@@ -11,23 +11,30 @@ import com.example.shared.domain.Status;
 import com.example.shared.net.JsonSerializer;
 import com.example.shared.service.PostStatusService;
 import com.example.shared.service.request.PostStatusRequest;
-import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.response.PostStatusResponse;
 
 public class PostStatusServiceImpl implements PostStatusService {
 
     private final String SQS_URL = "https://sqs.us-east-2.amazonaws.com/737937290528/FollowFetcherQueue";
 
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public StoryDAO getStoryDAO() {
+        return new StoryDAO();
+    }
+
     @Override
     public PostStatusResponse postStatus(PostStatusRequest request) {
 
         //Authenticate the user
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
+        if (!getAuthTokenDAO().validateUser(request.getAuthToken())) {
             throw new RuntimeException("User Session Timed Out");
         }
 
         try {
-            StoryDAO.addPost(request.getUser(), request.getStatus());
+            getStoryDAO().addPost(request.getUser(), request.getStatus());
         } catch (Exception ex) {
             return new PostStatusResponse(false, ex.getMessage());
         }

@@ -15,13 +15,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class RegisterServiceImpl implements RegisterService {
+
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
+    }
+
+    public S3DAO gets3DAO() {
+        return new S3DAO();
+    }
+
     @Override
     public RegisterResponse register(RegisterRequest request) {
 
         //Time to register :)
 
         //First we need to upload the image from the request object to AWS S3
-        String profileURL = S3DAO.uploadProfileImage(request.getProfile(), request.getUsername());
+        String profileURL = gets3DAO().uploadProfileImage(request.getProfile(), request.getUsername());
 
         //Then we need to add this user to the database for valid users
         User user = new User(request.getFirstName(), request.getLastName(), request.getUsername(), profileURL, 0, 0);
@@ -30,11 +43,11 @@ public class RegisterServiceImpl implements RegisterService {
         String password = hashPassword(request.getPassword());
 
         try {
-            UserDAO.addUser(user, password);
+            getUserDAO().addUser(user, password);
 
             //Create a session for this user (Using the authToken table)
             AuthToken authToken = new AuthToken();
-            AuthTokenDAO.createSession(authToken);
+            getAuthTokenDAO().createSession(authToken);
 
             return new RegisterResponse(user, authToken);
         } catch (Exception ex) {

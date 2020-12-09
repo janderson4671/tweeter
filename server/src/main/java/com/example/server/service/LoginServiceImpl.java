@@ -1,7 +1,11 @@
 package com.example.server.service;
 
 import com.example.server.dao.AuthTokenDAO;
+import com.example.server.dao.FeedDAO;
+import com.example.server.dao.FollowDAO;
 import com.example.server.dao.LoginDAO;
+import com.example.server.dao.S3DAO;
+import com.example.server.dao.StoryDAO;
 import com.example.server.dao.UserDAO;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
@@ -14,23 +18,32 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginServiceImpl implements LoginService {
+
+    public AuthTokenDAO getAuthTokenDAO() {
+        return new AuthTokenDAO();
+    }
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
+    }
+
     @Override
     public LoginResponse login(LoginRequest request) {
 
         //Validate their password
         String password = hashPassword(request.getPassword());
 
-        if (!UserDAO.correctPassword(request.getUsername(), password)) {
+        if (!getUserDAO().correctPassword(request.getUsername(), password)) {
             //Incorrect Password
             return new LoginResponse("Incorrect Password");
         }
 
         //Start the session
         AuthToken authToken = new AuthToken();
-        AuthTokenDAO.createSession(authToken);
+        getAuthTokenDAO().createSession(authToken);
 
         //Grab the user
-        User user = UserDAO.getUser(request.getUsername());
+        User user = getUserDAO().getUser(request.getUsername());
 
         return new LoginResponse(user, authToken);
     }

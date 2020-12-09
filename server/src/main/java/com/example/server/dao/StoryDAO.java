@@ -34,7 +34,7 @@ public class StoryDAO {
 
     //CRUD Methods
 
-    public static List<DBStatus> getStory(String userAlias, String lastStatusTime, int limit) {
+    public List<DBStatus> getStory(String userAlias, String lastStatusTime, int limit) {
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#user", UserAttr);
 
@@ -70,7 +70,7 @@ public class StoryDAO {
         return statuses;
     }
 
-    public static void addPost(String userAlias, Status post) {
+    public void addPost(String userAlias, Status post) {
         Table table = dynamoDB.getTable(TableName);
 
         Item item = new Item()
@@ -81,7 +81,7 @@ public class StoryDAO {
         table.putItem(item);
     }
 
-    private static boolean isNonEmptyString(String value) {
+    private boolean isNonEmptyString(String value) {
         return (value != null && value.length() > 0);
     }
 

@@ -31,7 +31,7 @@ public class FollowDAO {
 
     //CRUD Methods
 
-    public static List<String> getFollowing(String user, String lastFollower, int limit) {
+    public List<String> getFollowing(String user, String lastFollower, int limit) {
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#user", UserAttr);
 
@@ -66,7 +66,7 @@ public class FollowDAO {
         return following;
     }
 
-    public static List<String> getUsersThatFollow(String user, String lastUserToFollow, int limit) {
+    public List<String> getUsersThatFollow(String user, String lastUserToFollow, int limit) {
 
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#follows", FollowsAttr);
@@ -103,7 +103,7 @@ public class FollowDAO {
         return following;
     }
 
-    public static List<String> getAllUsersThatFollow(String user) {
+    public List<String> getAllUsersThatFollow(String user) {
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#follows", FollowsAttr);
 
@@ -130,7 +130,7 @@ public class FollowDAO {
         return following;
     }
 
-    public static boolean follow(String loggedInUser, String userToFollow) {
+    public boolean follow(String loggedInUser, String userToFollow) {
         Table table = dynamoDB.getTable(TableName);
 
         Item item = new Item()
@@ -145,7 +145,7 @@ public class FollowDAO {
         return true;
     }
 
-    public static boolean unFollow(String loggedInUser, String userToUnfollow) {
+    public boolean unFollow(String loggedInUser, String userToUnfollow) {
         Table table = dynamoDB.getTable(TableName);
 
         try {
@@ -159,7 +159,7 @@ public class FollowDAO {
 
     }
 
-    public static boolean doesFollow(String loggedInUser, String userToCheck) {
+    public boolean doesFollow(String loggedInUser, String userToCheck) {
 
         //see if the logged in user follows the user to check
         Map<String, String> attrNames = new HashMap<>();
@@ -193,7 +193,7 @@ public class FollowDAO {
         return false;
     }
 
-    private static boolean isNonEmptyString(String value) {
+    private boolean isNonEmptyString(String value) {
         return (value != null && value.length() > 0);
     }
 

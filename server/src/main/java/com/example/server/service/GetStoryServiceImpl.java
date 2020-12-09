@@ -1,7 +1,5 @@
 package com.example.server.service;
 
-import com.example.server.dao.AuthTokenDAO;
-import com.example.server.dao.GetStoryDAO;
 import com.example.server.dao.StoryDAO;
 import com.example.server.dao.UserDAO;
 import com.example.server.model.DBStatus;
@@ -17,10 +15,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GetStoryServiceImpl implements GetStoryService {
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
+    }
+
+    public StoryDAO getStoryDAO() {
+        return new StoryDAO();
+    }
+
     @Override
     public GetStoryResponse getStatuses(GetStoryRequest request) {
 
-        User currUser = UserDAO.getUser(request.getUser());
+        User currUser = getUserDAO().getUser(request.getUser());
 
         //Check if there is a status to start at
         String lastStatusStamp;
@@ -32,7 +39,7 @@ public class GetStoryServiceImpl implements GetStoryService {
         }
 
         //Grab DBStatuses from table
-        List<DBStatus> statuses = StoryDAO.getStory(request.getUser(), lastStatusStamp, request.getLimit());
+        List<DBStatus> statuses = getStoryDAO().getStory(request.getUser(), lastStatusStamp, request.getLimit());
 
         //Need to construct the actual statuses
         List<Status> returnStatuses = new ArrayList<>();
@@ -60,7 +67,7 @@ public class GetStoryServiceImpl implements GetStoryService {
 
         for (String currMention : mentions) {
 
-            User currUser = UserDAO.getUser(currMention);
+            User currUser = getUserDAO().getUser(currMention);
 
             if (currUser != null) {
                 users.add(currUser);
@@ -89,7 +96,4 @@ public class GetStoryServiceImpl implements GetStoryService {
         return mentions;
     }
 
-    public GetStoryDAO getStoryDAO() {
-        return new GetStoryDAO();
-    }
 }

@@ -17,11 +17,15 @@ public class FollowFetcherService {
     private final int PAGE_SIZE = 25;
     private final String SQS_URL = "https://sqs.us-east-2.amazonaws.com/737937290528/FeedPosterQueue";
 
+    public FollowDAO getFollowDAO() {
+        return new FollowDAO();
+    }
+
     public String fetchAndPost(String statusStr) {
 
         Status status = JsonSerializer.deserialize(statusStr, Status.class);
 
-        List<String> followers = FollowDAO.getAllUsersThatFollow(status.getUser().getAlias());
+        List<String> followers = getFollowDAO().getAllUsersThatFollow(status.getUser().getAlias());
 
         List<DBStatus> statusList = new ArrayList<>();
 
