@@ -16,8 +16,8 @@ public class LoginIntegrationTest {
 
     LoginResponse response;
 
-    String username = "Jason";
-    String password = "12345678";
+    String username = "@person198";
+    String password = "password";
 
     @BeforeEach
     public void setup() {

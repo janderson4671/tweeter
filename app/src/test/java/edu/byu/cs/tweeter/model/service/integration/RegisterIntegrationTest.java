@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
+import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 public class RegisterIntegrationTest {
 
@@ -16,15 +17,24 @@ public class RegisterIntegrationTest {
 
     RegisterResponse response;
 
-    String username = "Jason";
-    String password = "12345678";
+    String username = "@test";
+    String password = "password";
     String firstName = "BlahBlah";
     String lastName = "halbhalb";
 
     @BeforeEach
     public void setup() {
 
-        validRequest = new RegisterRequest(firstName, lastName, username, password, null);
+        byte [] profile;
+
+        try {
+            profile = ByteArrayUtils.bytesFromUrl("https://profile-images-tweeter.s3.us-east-2.amazonaws.com/%40blah");
+            validRequest = new RegisterRequest(firstName, lastName, username, password, profile);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
 
         service = new RegisterServiceProxy();
     }
@@ -40,7 +50,7 @@ public class RegisterIntegrationTest {
         }
 
         Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getUser().getAlias(), "@BlahBlahhalbhalb");
+        Assertions.assertEquals(response.getUser().getAlias(), "@test");
         Assertions.assertEquals(response.getUser().getLastName(), "halbhalb");
         Assertions.assertTrue(response.isSuccess());
 
