@@ -2,6 +2,7 @@ package com.example.server.dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.AttributeUpdate;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
@@ -14,7 +15,7 @@ import com.example.shared.domain.AuthToken;
 import java.time.LocalDateTime;
 public class AuthTokenDAO {
 
-    private static int SESSION_TIMEOUT_MINS = 1;
+    private static int SESSION_TIMEOUT_MINS = 30;
 
     private static final String TableName = "auth-token";
 
@@ -44,10 +45,10 @@ public class AuthTokenDAO {
     public void updateSession(AuthToken authToken) {
         Table table = dynamoDB.getTable(TableName);
 
+
+
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(UUIDAttr, authToken.getToken())
-                .withUpdateExpression("set expiration-date = :d")
-                .withValueMap(new ValueMap().withString(ExpirationDateAttr, authToken.getExpirationDate()))
-                .withReturnValues(ReturnValue.UPDATED_NEW);
+                .withAttributeUpdate(new AttributeUpdate(ExpirationDateAttr).put(authToken.getExpirationDate()));
 
         try {
             UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
@@ -58,24 +59,31 @@ public class AuthTokenDAO {
     }
 
     public boolean validateUser(AuthToken token) {
-        Table table = dynamoDB.getTable(TableName);
 
-        Item item = table.getItem(UUIDAttr, token.getToken());
+        try {
+            Table table = dynamoDB.getTable(TableName);
 
-        AuthToken authToken = new AuthToken(item.getString(UUIDAttr), item.getString(ExpirationDateAttr));
+            Item item = table.getItem(UUIDAttr, token.getToken());
 
-        //Test the expiration date of the authToken
-        LocalDateTime currTime = LocalDateTime.now();
-        LocalDateTime expirationTime = LocalDateTime.parse(authToken.getExpirationDate());
+            AuthToken authToken = new AuthToken(item.getString(UUIDAttr), item.getString(ExpirationDateAttr));
 
-        if (currTime.isAfter(expirationTime)) {
+            //Test the expiration date of the authToken
+            LocalDateTime currTime = LocalDateTime.now();
+            LocalDateTime expirationTime = LocalDateTime.parse(authToken.getExpirationDate());
+
+            if (currTime.isAfter(expirationTime)) {
+                return false;
+            }
+            else {
+                authToken.setExpirationDate(currTime.plusMinutes(SESSION_TIMEOUT_MINS).toString());
+                updateSession(authToken);
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
-        else {
-            authToken.setExpirationDate(currTime.plusMinutes(SESSION_TIMEOUT_MINS).toString());
-            updateSession(authToken);
-            return true;
-        }
+
     }
 
     public void destroySession(AuthToken token) {

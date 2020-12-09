@@ -70,7 +70,7 @@ public class LogoutServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void logoutUser() {
 
         LogoutResponse response;
 

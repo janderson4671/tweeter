@@ -37,48 +37,6 @@ public class UserDAO {
                                                         .build();
     private static DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 
-    private boolean isNotEmptyString(String value) {
-        return (value != null && value.length() > 0);
-    }
-
-    //Table Creation
-    public void createTable() throws TweeterRemoteException {
-        try {
-            ArrayList<AttributeDefinition> tableAttributeDefinitions = new ArrayList<>();
-            tableAttributeDefinitions.add(new AttributeDefinition()
-                    .withAttributeName(AliasAttr)
-                    .withAttributeType("S"));
-
-            //Table key schema
-            ArrayList<KeySchemaElement> tableKeySchema = new ArrayList<>();
-            tableKeySchema.add(new KeySchemaElement()
-                .withAttributeName(AliasAttr)
-                .withKeyType(KeyType.HASH)); //Partition key
-
-            CreateTableRequest createTableRequest = new CreateTableRequest()
-                    .withTableName(TableName)
-                    .withAttributeDefinitions(tableAttributeDefinitions)
-                    .withKeySchema(tableKeySchema);
-
-            Table table = dynamoDB.createTable(createTableRequest);
-            table.waitForActive();
-        } catch (Exception ex) {
-            throw new TweeterRemoteException("Error Creating Dynamo Table", "AWS", null);
-        }
-    }
-
-    public void deleteTable() throws TweeterRemoteException {
-        try {
-            Table table = dynamoDB.getTable(TableName);
-            if (table != null) {
-                table.delete();
-                table.waitForDelete();
-            }
-        } catch (Exception e) {
-            throw new TweeterRemoteException("Error Deleting Dynamo Table", "AWS", null);
-        }
-    }
-
     //CRUD Methods
     public void addUser(User user, String password) {
         Table table = dynamoDB.getTable(TableName);

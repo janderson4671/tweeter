@@ -75,7 +75,7 @@ public class GetNumFollowServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void testGetNumFollow() {
 
         GetNumFollowResponse response;
 

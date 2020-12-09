@@ -1,7 +1,6 @@
 package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.example.shared.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
@@ -11,7 +10,7 @@ import com.example.shared.service.request.GetFollowingRequest;
 import com.example.shared.service.response.GetFollowingResponse;
 import com.example.shared.service.GetFollowingService;
 
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class GetFollowingServiceProxy implements GetFollowingService {
 

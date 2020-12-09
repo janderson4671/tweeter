@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class RegisterIntegrationTest {
 
@@ -33,8 +33,6 @@ public class RegisterIntegrationTest {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
-
 
         service = new RegisterServiceProxy();
     }

@@ -10,7 +10,7 @@ import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.response.LoginResponse;
 import com.example.shared.service.LoginService;
 
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class LoginServiceProxy implements LoginService {
 

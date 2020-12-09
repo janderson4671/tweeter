@@ -76,7 +76,7 @@ public class GetStoryServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void testGetStory() {
 
         GetStoryResponse response;
 

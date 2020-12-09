@@ -78,7 +78,7 @@ public class PostStatusServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void testPostStatus() {
 
         PostStatusResponse response;
 

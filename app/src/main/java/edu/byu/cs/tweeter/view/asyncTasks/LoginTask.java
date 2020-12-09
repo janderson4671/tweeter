@@ -9,7 +9,7 @@ import com.example.shared.domain.User;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.response.LoginResponse;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
 

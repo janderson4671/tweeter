@@ -9,7 +9,7 @@ import com.example.shared.domain.User;
 import com.example.shared.service.request.RegisterRequest;
 import com.example.shared.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterResponse> {
 

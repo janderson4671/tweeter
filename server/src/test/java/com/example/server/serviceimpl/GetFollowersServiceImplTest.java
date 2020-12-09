@@ -74,7 +74,7 @@ public class GetFollowersServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void testGetFollowers() {
 
         GetFollowersResponse response;
 

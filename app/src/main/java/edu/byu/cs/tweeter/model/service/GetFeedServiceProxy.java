@@ -11,7 +11,7 @@ import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.GetFeedService;
 
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class GetFeedServiceProxy implements GetFeedService {
 

@@ -10,7 +10,7 @@ import com.example.shared.service.response.GetStoryResponse;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import com.example.shared.util.ByteArrayUtils;
 
 public class GetStoryServiceProxy implements GetStoryService {
 

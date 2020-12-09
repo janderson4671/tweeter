@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.util;
+package com.example.shared.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

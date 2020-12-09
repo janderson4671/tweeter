@@ -5,7 +5,7 @@ edu.byu.cs.tweeter.model.service
 com.example.shared.service.request
 com.example.shared.service.response
 edu.byu.cs.tweeter.presenter
-edu.byu.cs.tweeter.util
+com.example.shared.util
 edu.byu.cs.tweeter.view
 edu.byu.cs.tweeter.view.asyncTasks
 edu.byu.cs.tweeter.view.main

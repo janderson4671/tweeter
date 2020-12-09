@@ -1,23 +1,16 @@
 package com.example.server.serviceimpl;
 
-import com.example.server.dao.GetFeedDAO;
-import com.example.server.service.FollowServiceImpl;
 import com.example.server.service.GetFeedServiceImpl;
 import com.example.server.service.LoginServiceImpl;
 import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
-import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.net.TweeterRemoteException;
-import com.example.shared.service.FollowService;
 import com.example.shared.service.GetFeedService;
 import com.example.shared.service.LoginService;
 import com.example.shared.service.LogoutService;
-import com.example.shared.service.request.FollowRequest;
 import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
-import com.example.shared.service.response.FollowResponse;
 import com.example.shared.service.response.GetFeedResponse;
 import com.example.shared.service.response.LoginResponse;
 
@@ -26,11 +19,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class GetFeedServiceImplTest {
 
@@ -76,7 +64,7 @@ public class GetFeedServiceImplTest {
     }
 
     @Test
-    public void testAddFollower_validRequest_correctResponse() {
+    public void testGetFeed() {
 
         GetFeedResponse response;
 
