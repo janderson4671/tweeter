@@ -20,11 +20,6 @@ public class GetStoryServiceImpl implements GetStoryService {
     @Override
     public GetStoryResponse getStatuses(GetStoryRequest request) {
 
-        //Authenticate user
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new GetStoryResponse("User Session Timed Out");
-        }
-
         User currUser = UserDAO.getUser(request.getUser());
 
         //Check if there is a status to start at

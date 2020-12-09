@@ -1,8 +1,10 @@
 package edu.byu.cs.tweeter.view.main.mainFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import com.example.shared.service.request.PostStatusRequest;
 import com.example.shared.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.PostStatusTask;
+import edu.byu.cs.tweeter.view.main.login.LoginActivity;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 
 public class NewStatusFragment extends DialogFragment implements PostStatusTask.Observer, PostStatusPresenter.View {
@@ -124,6 +127,15 @@ public class NewStatusFragment extends DialogFragment implements PostStatusTask.
 
     @Override
     public void handleException(Exception exception) {
+
+        if (exception.getMessage().equals("User Session Timed Out")) {
+            Intent intent = LoginActivity.newIntent(getActivity());
+
+            Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+        }
+
         Toast.makeText(getContext(), "Can't post status", Toast.LENGTH_LONG).show();
     }
 }

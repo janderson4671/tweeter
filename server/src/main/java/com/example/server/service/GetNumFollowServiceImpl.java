@@ -12,10 +12,6 @@ public class GetNumFollowServiceImpl implements GetNumFollowService {
     @Override
     public GetNumFollowResponse getNumFollow(GetNumFollowRequest request) {
 
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new GetNumFollowResponse(false, "User Session Expired");
-        }
-
         //Get the current user object
         User user = UserDAO.getUser(request.getUser());
 

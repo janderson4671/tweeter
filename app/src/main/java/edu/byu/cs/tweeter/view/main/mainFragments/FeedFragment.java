@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.view.main.mainFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.shared.service.request.GetFeedRequest;
 import com.example.shared.service.response.GetFeedResponse;
 import edu.byu.cs.tweeter.presenter.GetFeedPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
+import edu.byu.cs.tweeter.view.main.login.LoginActivity;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.StatusHolder;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
@@ -135,6 +137,15 @@ public class FeedFragment extends Fragment implements GetFeedPresenter.View{
 
             @Override
             public void handleException(Exception exception) {
+
+                if (exception.getMessage().equals("User Session Timed Out")) {
+                    Intent intent = LoginActivity.newIntent(getActivity());
+
+                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                    startActivity(intent);
+                }
+
                 Log.e(LOG_TAG, exception.getMessage(), exception);
                 removeLoadingFooter();
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();

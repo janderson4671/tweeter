@@ -17,7 +17,7 @@ public class FollowServiceImpl implements FollowService {
 
         //Authenticate the user with authtoken
         if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new FollowResponse(false, "User Session Timed Out", request.isFollow());
+            throw new RuntimeException("User Session Timed Out");
         }
 
         boolean success;

@@ -16,11 +16,6 @@ public class GetFollowersServiceImpl implements GetFollowersService {
     @Override
     public GetFollowersResponse getFollowers(GetFollowersRequest request) {
 
-        //Authenticate User
-        if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new GetFollowersResponse("User Session Timed Out");
-        }
-
         //Return all the aliases for
         List<String> followersAliases = FollowDAO.getUsersThatFollow(request.getLoggedInUser(), request.getLastFollower(),request.getLimit());
 

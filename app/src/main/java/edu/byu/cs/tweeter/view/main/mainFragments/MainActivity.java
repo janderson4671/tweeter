@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,6 +41,8 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
  */
 public class MainActivity extends AppCompatActivity implements LogoutPresenter.View, LogoutTask.Observer
                 ,GetNumFollowPresenter.View, GetNumFollowTask.Observer {
+
+    private static final String LOG_TAG = "MainActivity";
 
     LogoutPresenter logoutPresenter;
     GetNumFollowPresenter getNumPresenter;
@@ -167,6 +170,15 @@ public class MainActivity extends AppCompatActivity implements LogoutPresenter.V
 
     @Override
     public void NumFollowHandleException(Exception exception) {
+
+        if (exception.getMessage().equals("User Session Timed Out")) {
+            Intent intent = LoginActivity.newIntent(mContext);
+
+            Toast.makeText(mContext, exception.getMessage(), Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+        }
+
         Toast.makeText(this, "Cannot update counts", Toast.LENGTH_LONG).show();
     }
 }

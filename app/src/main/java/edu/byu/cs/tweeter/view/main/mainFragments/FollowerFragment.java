@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.view.main.mainFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.shared.service.request.GetFollowersRequest;
 import com.example.shared.service.response.GetFollowersResponse;
 import edu.byu.cs.tweeter.presenter.GetFollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
+import edu.byu.cs.tweeter.view.main.login.LoginActivity;
 import edu.byu.cs.tweeter.view.main.recycleViews.PagedRecyclerView;
 import edu.byu.cs.tweeter.view.main.recycleViews.UserHolder;
 
@@ -146,6 +148,15 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
 
             @Override
             public void handleException(Exception exception) {
+
+                if (exception.getMessage().equals("User Session Timed Out")) {
+                    Intent intent = LoginActivity.newIntent(getActivity());
+
+                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                    startActivity(intent);
+                }
+
                 Log.e(LOG_TAG, exception.getMessage(), exception);
                 removeLoadingFooter();
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();

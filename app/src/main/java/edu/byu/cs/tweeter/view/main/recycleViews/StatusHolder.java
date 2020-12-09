@@ -162,6 +162,7 @@ public class StatusHolder extends RecyclerView.ViewHolder implements GetNumFollo
 
     @Override
     public void NumFollowHandleException(Exception exception) {
+
         Toast.makeText(statusView.getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

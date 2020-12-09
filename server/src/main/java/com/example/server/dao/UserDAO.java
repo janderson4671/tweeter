@@ -86,11 +86,6 @@ public class UserDAO {
         //See if user already exists
         User tempUser = getUser(user.getAlias());
 
-        if (tempUser != null) {
-            //TODO: Throw an error here?
-            return;
-        }
-
         //If they don't exist, then we add them to the Dynamo Table
         Item item = new Item()
                 .withPrimaryKey(AliasAttr, user.getAlias())
@@ -98,8 +93,8 @@ public class UserDAO {
                 .withString(LastNameAttr, user.getLastName())
                 .withString(ImageAttr, user.getImageUrl())
                 .withString(PasswordAttr, password)
-                .withNumber(NumFollowers, 0)
-                .withNumber(NumFollowing, 0);
+                .withNumber(NumFollowers, user.getNumFollowers())
+                .withNumber(NumFollowing, user.getNumFollowing());
 
         table.putItem(item);
     }

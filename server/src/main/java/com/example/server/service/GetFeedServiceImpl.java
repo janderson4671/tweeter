@@ -26,7 +26,7 @@ public class GetFeedServiceImpl implements GetFeedService {
 
         //Authenticate user
         if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new GetFeedResponse("User Session Timed Out");
+            throw new RuntimeException("User Session Timed Out");
         }
 
         //Check if there is a status to start at

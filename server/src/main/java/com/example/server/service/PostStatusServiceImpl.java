@@ -23,7 +23,7 @@ public class PostStatusServiceImpl implements PostStatusService {
 
         //Authenticate the user
         if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new PostStatusResponse(true, "User Session Timed Out");
+            throw new RuntimeException("User Session Timed Out");
         }
 
         try {

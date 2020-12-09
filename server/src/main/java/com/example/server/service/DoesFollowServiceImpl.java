@@ -12,7 +12,7 @@ public class DoesFollowServiceImpl implements DoesFollowService {
 
         //Authenticate the user
         if (!AuthTokenDAO.validateUser(request.getAuthToken())) {
-            return new DoesFollowResponse(false, "User Session Timed Out");
+            throw new RuntimeException("User Session Timed Out");
         }
 
         boolean doesFollow = FollowDAO.doesFollow(request.getLoggedInUser(), request.getUserToCheck());

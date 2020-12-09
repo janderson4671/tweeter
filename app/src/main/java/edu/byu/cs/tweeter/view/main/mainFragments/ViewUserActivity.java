@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.mainFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import edu.byu.cs.tweeter.presenter.GetNumFollowPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.AddFollowerTask;
 import edu.byu.cs.tweeter.view.asyncTasks.DoesFollowTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetNumFollowTask;
+import edu.byu.cs.tweeter.view.main.login.LoginActivity;
 import edu.byu.cs.tweeter.view.main.viewData.ViewData;
 import edu.byu.cs.tweeter.view.main.adapters.ViewUserPagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -181,6 +183,15 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
 
     @Override
     public void DoesFollowHandleException(Exception exception) {
+
+        if (exception.getMessage().equals("User Session Timed Out")) {
+            Intent intent = LoginActivity.newIntent(this);
+
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+        }
+
         Toast.makeText(this, "I Don't know if you follow this person or not!", Toast.LENGTH_LONG).show();
 
         updateView();
@@ -188,6 +199,15 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
 
     @Override
     public void FollowHandleException(Exception exception) {
+
+        if (exception.getMessage().equals("User Session Timed Out")) {
+            Intent intent = LoginActivity.newIntent(this);
+
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+        }
+
         Toast.makeText(this, "Follow Failed!", Toast.LENGTH_LONG).show();
 
         updateView();
@@ -211,6 +231,15 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
 
     @Override
     public void NumFollowHandleException(Exception exception) {
+
+        if (exception.getMessage().equals("User Session Timed Out")) {
+            Intent intent = LoginActivity.newIntent(this);
+
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+        }
+
         Toast.makeText(this, "Could not get current follow stats", Toast.LENGTH_LONG).show();
 
         updateView();

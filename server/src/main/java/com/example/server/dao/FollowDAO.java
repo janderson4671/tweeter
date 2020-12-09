@@ -67,6 +67,7 @@ public class FollowDAO {
     }
 
     public static List<String> getUsersThatFollow(String user, String lastUserToFollow, int limit) {
+
         Map<String, String> attrNames = new HashMap<>();
         attrNames.put("#follows", FollowsAttr);
 
@@ -83,8 +84,8 @@ public class FollowDAO {
 
         if (isNonEmptyString(lastUserToFollow)) {
             Map<String, AttributeValue> lastKey = new HashMap<>();
-            lastKey.put(UserAttr, new AttributeValue().withS(user));
-            lastKey.put(FollowsAttr, new AttributeValue().withS(lastUserToFollow));
+            lastKey.put(UserAttr, new AttributeValue().withS(lastUserToFollow));
+            lastKey.put(FollowsAttr, new AttributeValue().withS(user));
 
             request = request.withExclusiveStartKey(lastKey);
         }
