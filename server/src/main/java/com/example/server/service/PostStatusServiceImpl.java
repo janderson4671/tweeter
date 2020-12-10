@@ -5,7 +5,6 @@ import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.example.server.dao.AuthTokenDAO;
-import com.example.server.dao.PostStatusDAO;
 import com.example.server.dao.StoryDAO;
 import com.example.shared.domain.Status;
 import com.example.shared.net.JsonSerializer;
@@ -30,7 +29,7 @@ public class PostStatusServiceImpl implements PostStatusService {
 
         //Authenticate the user
         if (!getAuthTokenDAO().validateUser(request.getAuthToken())) {
-            throw new RuntimeException("User Session Timed Out");
+            return new PostStatusResponse(false, "User Session Timed Out");
         }
 
         try {
@@ -45,9 +44,6 @@ public class PostStatusServiceImpl implements PostStatusService {
         return new PostStatusResponse(true, "Added Post");
     }
 
-    public PostStatusDAO getPostStatusDAO() {
-        return new PostStatusDAO();
-    }
 
     public void pushToSQS(Status status) {
         String messageBody = JsonSerializer.serialize(status);

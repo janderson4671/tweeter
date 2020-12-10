@@ -15,7 +15,7 @@ import com.example.shared.domain.AuthToken;
 import java.time.LocalDateTime;
 public class AuthTokenDAO {
 
-    private static int SESSION_TIMEOUT_MINS = 30;
+    private static int SESSION_TIMEOUT_MINS = 3;
 
     private static final String TableName = "auth-token";
 

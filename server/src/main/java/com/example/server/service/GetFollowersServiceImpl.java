@@ -1,7 +1,6 @@
 package com.example.server.service;
 
 import com.example.server.dao.FollowDAO;
-import com.example.server.dao.GetFollowersDAO;
 import com.example.server.dao.UserDAO;
 import com.example.shared.domain.User;
 import com.example.shared.service.GetFollowersService;
@@ -36,7 +35,4 @@ public class GetFollowersServiceImpl implements GetFollowersService {
         return new GetFollowersResponse(users, true); //TODO: Get Has more pages
     }
 
-    public GetFollowersDAO getFollowersDAO() {
-        return new GetFollowersDAO();
-    }
 }

@@ -149,14 +149,6 @@ public class FollowerFragment extends Fragment implements GetFollowersPresenter.
             @Override
             public void handleException(Exception exception) {
 
-                if (exception.getMessage().equals("User Session Timed Out")) {
-                    Intent intent = LoginActivity.newIntent(getActivity());
-
-                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-
-                    startActivity(intent);
-                }
-
                 Log.e(LOG_TAG, exception.getMessage(), exception);
                 removeLoadingFooter();
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();

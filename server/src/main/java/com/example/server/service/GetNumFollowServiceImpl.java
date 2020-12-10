@@ -1,11 +1,5 @@
 package com.example.server.service;
 
-import com.example.server.dao.AuthTokenDAO;
-import com.example.server.dao.FeedDAO;
-import com.example.server.dao.FollowDAO;
-import com.example.server.dao.GetNumFollowDAO;
-import com.example.server.dao.S3DAO;
-import com.example.server.dao.StoryDAO;
 import com.example.server.dao.UserDAO;
 import com.example.shared.domain.User;
 import com.example.shared.service.GetNumFollowService;
@@ -31,7 +25,4 @@ public class GetNumFollowServiceImpl implements GetNumFollowService {
         return new GetNumFollowResponse(user.getNumFollowers(), user.getNumFollowing());
     }
 
-    public GetNumFollowDAO getNumFollowDAO() {
-        return new GetNumFollowDAO();
-    }
 }

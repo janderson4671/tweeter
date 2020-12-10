@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public class AuthToken implements Serializable {
 
-    private static int SESSION_TIMEOUT_MINS = 30;
+    private static int SESSION_TIMEOUT_MINS = 3;
 
     private String token;
     private String expirationDate;

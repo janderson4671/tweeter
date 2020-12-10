@@ -1,17 +1,11 @@
-package com.example.server.serviceimpl;
+package edu.byu.cs.tweeter.model.service.integration;
 
-import com.example.server.service.GetStoryServiceImpl;
-import com.example.server.service.LoginServiceImpl;
-import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
-import com.example.shared.service.GetStoryService;
-import com.example.shared.service.LoginService;
-import com.example.shared.service.LogoutService;
-import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.request.DoesFollowRequest;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
-import com.example.shared.service.response.GetStoryResponse;
+import com.example.shared.service.response.DoesFollowResponse;
 import com.example.shared.service.response.LoginResponse;
 
 import org.junit.jupiter.api.AfterAll;
@@ -20,18 +14,23 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GetStoryServiceImplTest {
+import edu.byu.cs.tweeter.model.service.DoesFollowServiceProxy;
+import edu.byu.cs.tweeter.model.service.LoginServiceProxy;
+import edu.byu.cs.tweeter.model.service.LogoutServiceProxy;
 
-    private GetStoryRequest validRequest;
-    private GetStoryService service;
+public class DoesFollowIntegrationTest {
 
+    DoesFollowRequest validRequest;
+    DoesFollowResponse response;
     static User loggedInUser;
     static AuthToken authToken;
+
+    DoesFollowServiceProxy service;
 
     @BeforeAll
     static void logInUser() {
         LoginRequest request = new LoginRequest("@person198", "password");
-        LoginService service = new LoginServiceImpl();
+        LoginServiceProxy service = new LoginServiceProxy();
         LoginResponse response;
 
         try {
@@ -46,7 +45,7 @@ public class GetStoryServiceImplTest {
     @AfterAll
     static void cleanUp() {
         LogoutRequest request = new LogoutRequest(loggedInUser.getAlias(), authToken);
-        LogoutService service = new LogoutServiceImpl();
+        LogoutServiceProxy service = new LogoutServiceProxy();
 
         try {
             service.logout(request);
@@ -58,30 +57,23 @@ public class GetStoryServiceImplTest {
     @BeforeEach
     public void setup() {
 
-        validRequest = new GetStoryRequest(loggedInUser.getAlias(), authToken, 10, null);
+        validRequest = new DoesFollowRequest(authToken, loggedInUser.getAlias(), "@merp");
 
-        service = new GetStoryServiceImpl();
+        service = new DoesFollowServiceProxy();
     }
 
     @Test
-    public void testGetStory() {
-
-        GetStoryResponse response;
-
+    public void test_validRequest() {
         try {
-            response = service.getStatuses(validRequest);
-
-            Assertions.assertNotNull(response);
-            Assertions.assertNotNull(response.getHasMorePages());
-
+            response = service.doesFollow(validRequest);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             Assertions.fail();
         }
 
+        Assertions.assertNotNull(response);
+        Assertions.assertTrue(response.isDoesFollow());
 
     }
-
-
 
 }

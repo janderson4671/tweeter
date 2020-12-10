@@ -1,7 +1,6 @@
 package com.example.server.service;
 
 import com.example.server.dao.AuthTokenDAO;
-import com.example.server.dao.RegisterDAO;
 import com.example.server.dao.S3DAO;
 import com.example.server.dao.UserDAO;
 import com.example.shared.domain.AuthToken;
@@ -78,7 +77,4 @@ public class RegisterServiceImpl implements RegisterService {
         }
     }
 
-    public RegisterDAO getRegisterDAO() {
-        return new RegisterDAO();
-    }
 }

@@ -116,7 +116,9 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
             followButton.setText("Follow");
         }
 
-        followButton.setEnabled(true);
+        if (!data.getLoggedInUser().getAlias().equals(viewedUser.getAlias())) {
+            followButton.setEnabled(true);
+        }
 
         GetNumFollowRequest request = new GetNumFollowRequest(viewedUser.getAlias(), authToken);
         GetNumFollowTask task = new GetNumFollowTask(getNumPresenter, this);
@@ -184,14 +186,6 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
     @Override
     public void DoesFollowHandleException(Exception exception) {
 
-        if (exception.getMessage().equals("User Session Timed Out")) {
-            Intent intent = LoginActivity.newIntent(this);
-
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-
-            startActivity(intent);
-        }
-
         Toast.makeText(this, "I Don't know if you follow this person or not!", Toast.LENGTH_LONG).show();
 
         updateView();
@@ -231,14 +225,6 @@ public class ViewUserActivity extends AppCompatActivity implements FollowPresent
 
     @Override
     public void NumFollowHandleException(Exception exception) {
-
-        if (exception.getMessage().equals("User Session Timed Out")) {
-            Intent intent = LoginActivity.newIntent(this);
-
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-
-            startActivity(intent);
-        }
 
         Toast.makeText(this, "Could not get current follow stats", Toast.LENGTH_LONG).show();
 

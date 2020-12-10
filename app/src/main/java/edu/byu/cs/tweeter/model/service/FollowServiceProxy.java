@@ -17,6 +17,10 @@ public class FollowServiceProxy implements FollowService {
     public FollowResponse follow(FollowRequest request) throws IOException, TweeterRemoteException {
 
         FollowResponse response = getServerFacade().follow(request, URL_PATH_FOLLOW);
+
+        if (!response.isSuccess()) {
+            throw new RuntimeException("UserSessionTimedOut");
+        }
         return response;
     }
 

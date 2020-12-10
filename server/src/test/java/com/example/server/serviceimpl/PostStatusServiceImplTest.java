@@ -1,23 +1,17 @@
 package com.example.server.serviceimpl;
 
-import com.example.server.dao.PostStatusDAO;
-import com.example.server.service.GetFollowingServiceImpl;
 import com.example.server.service.LoginServiceImpl;
 import com.example.server.service.LogoutServiceImpl;
 import com.example.server.service.PostStatusServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.Status;
 import com.example.shared.domain.User;
-import com.example.shared.net.TweeterRemoteException;
-import com.example.shared.service.GetFollowingService;
 import com.example.shared.service.LoginService;
 import com.example.shared.service.LogoutService;
 import com.example.shared.service.PostStatusService;
-import com.example.shared.service.request.GetFollowingRequest;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
 import com.example.shared.service.request.PostStatusRequest;
-import com.example.shared.service.response.GetFollowingResponse;
 import com.example.shared.service.response.LoginResponse;
 import com.example.shared.service.response.PostStatusResponse;
 
@@ -26,11 +20,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class PostStatusServiceImplTest {
 

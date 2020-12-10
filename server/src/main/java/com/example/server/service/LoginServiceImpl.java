@@ -1,11 +1,6 @@
 package com.example.server.service;
 
 import com.example.server.dao.AuthTokenDAO;
-import com.example.server.dao.FeedDAO;
-import com.example.server.dao.FollowDAO;
-import com.example.server.dao.LoginDAO;
-import com.example.server.dao.S3DAO;
-import com.example.server.dao.StoryDAO;
 import com.example.server.dao.UserDAO;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
@@ -69,7 +64,4 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
-    public LoginDAO getLoginDAO() {
-        return new LoginDAO();
-    }
 }

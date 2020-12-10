@@ -1,17 +1,17 @@
 package com.example.server.serviceimpl;
 
-import com.example.server.service.GetStoryServiceImpl;
+import com.example.server.service.DoesFollowServiceImpl;
 import com.example.server.service.LoginServiceImpl;
 import com.example.server.service.LogoutServiceImpl;
 import com.example.shared.domain.AuthToken;
 import com.example.shared.domain.User;
-import com.example.shared.service.GetStoryService;
+import com.example.shared.service.DoesFollowService;
 import com.example.shared.service.LoginService;
 import com.example.shared.service.LogoutService;
-import com.example.shared.service.request.GetStoryRequest;
+import com.example.shared.service.request.DoesFollowRequest;
 import com.example.shared.service.request.LoginRequest;
 import com.example.shared.service.request.LogoutRequest;
-import com.example.shared.service.response.GetStoryResponse;
+import com.example.shared.service.response.DoesFollowResponse;
 import com.example.shared.service.response.LoginResponse;
 
 import org.junit.jupiter.api.AfterAll;
@@ -20,10 +20,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GetStoryServiceImplTest {
+public class DoesFollowServiceImplTest {
 
-    private GetStoryRequest validRequest;
-    private GetStoryService service;
+    private DoesFollowRequest validRequest;
+    private DoesFollowService service;
 
     static User loggedInUser;
     static AuthToken authToken;
@@ -58,21 +58,22 @@ public class GetStoryServiceImplTest {
     @BeforeEach
     public void setup() {
 
-        validRequest = new GetStoryRequest(loggedInUser.getAlias(), authToken, 10, null);
+        validRequest = new DoesFollowRequest(authToken, loggedInUser.getAlias(), "@merp");
 
-        service = new GetStoryServiceImpl();
+        service = new DoesFollowServiceImpl();
     }
 
     @Test
-    public void testGetStory() {
+    public void testDoesFollow() {
 
-        GetStoryResponse response;
+        DoesFollowResponse response;
 
         try {
-            response = service.getStatuses(validRequest);
+            response = service.doesFollow(validRequest);
 
             Assertions.assertNotNull(response);
-            Assertions.assertNotNull(response.getHasMorePages());
+            Assertions.assertNotNull(response.isDoesFollow());
+            Assertions.assertTrue(response.isDoesFollow());
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -82,6 +83,6 @@ public class GetStoryServiceImplTest {
 
     }
 
-
-
 }
+
+
